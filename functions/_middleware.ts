@@ -4,16 +4,27 @@ interface Context { request:Request;env?:{DEPLOY_ENV?:string};next:()=>Promise<R
 const CANONICAL='https://cafecomletras.com.br';
 const units=['Savassi','Liberdade'];
 export async function onRequest(context:Context):Promise<Response>{
- const response=await handle(context);const headers=new Headers(response.headers);
+ const url=new URL(context.request.url);
+ const official=url.hostname==='cafecomletras.com.br'&&url.protocol==='https:';
+ const response=url.pathname==='/robots.txt'&&['GET','HEAD'].includes(context.request.method)
+  ? new Response(official?'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /system/\nDisallow: /ajax/\nDisallow: /novostalentos/\nSitemap: https://cafecomletras.com.br/sitemap-index.xml\n':'User-agent: *\nDisallow: /\n',{headers:{'Content-Type':'text/plain; charset=utf-8'}})
+  : await handle(context);const headers=new Headers(response.headers);
  if(['/','/liberdade/','/index.asp'].includes(new URL(context.request.url).pathname))headers.append('Vary','User-Agent');
  headers.set('Content-Security-Policy',contentSecurityPolicy);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
- if(context.env?.DEPLOY_ENV!=='production')headers.set('X-Robots-Tag','noindex, nofollow');
- return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+ const indexable=official&&response.status===200&&url.pathname!=='/404.html';
+ if(indexable)headers.delete('X-Robots-Tag');else headers.set('X-Robots-Tag','noindex, nofollow');
+ let body:BodyInit|null=response.body;
+ if(headers.get('Content-Type')?.includes('text/html')&&context.request.method!=='HEAD'){
+  body=(await response.text()).replace(/(<meta\s+name="robots"\s+content=")[^"]*(")/i,`$1${indexable?'index, follow, max-image-preview:large':'noindex, nofollow'}$2`)
+   .replace(/data-production="(?:true|false)"/,`data-production="${official?'true':'false'}"`);
+  headers.delete('Content-Length');headers.delete('ETag');
+ }
+ return new Response(context.request.method==='HEAD'?null:body,{status:response.status,statusText:response.statusText,headers});
 }
 async function handle(context:Context):Promise<Response>{
  const {request}=context;const url=new URL(request.url);const p=url.pathname;
  const headers=new Headers({'Cache-Control':'no-store'});
- if(context.env?.DEPLOY_ENV!=='production')headers.set('X-Robots-Tag','noindex, nofollow');
+ if(url.hostname!=='cafecomletras.com.br')headers.set('X-Robots-Tag','noindex, nofollow');
  const response=(text:string,status:number)=>new Response(text,{status,headers:new Headers([...headers,['Content-Type','text/plain; charset=utf-8']])});
  const redirect=(target:string,status=301,unit?:string)=>{const h=new Headers(headers);h.set('Location',target);if(unit)h.append('Set-Cookie',`unity=${unit}; Path=/; Max-Age=604800; SameSite=Lax${url.protocol==='https:'?'; Secure':''}`);return new Response(null,{status,headers:h});};
  if(url.hostname==='www.cafecomletras.com.br')return redirect(CANONICAL+p+url.search);
@@ -27,6 +38,8 @@ async function handle(context:Context):Promise<Response>{
  const requested=url.searchParams.get('unity');if(requested&&!units.includes(requested))return response('Unidade inválida.',400);
  const unit=requested||(p.includes('/liberdade/')?'Liberdade':(p.endsWith('.asp')||url.searchParams.has('section'))?cookie||'Savassi':'Savassi');
  const base=unit==='Liberdade'?'/liberdade/':'/';const mobileBase=unit==='Liberdade'?'/m/liberdade/':'/m/';
+ const aliases:Record<string,string>={'/liberdade/index.asp':'/liberdade/','/m/liberdade/index.asp':'/m/liberdade/','/linktree/index.asp':'/linktree/','/delivery/index.asp':'/delivery/'};
+ if(aliases[p])return redirect(aliases[p]);
  const section=url.searchParams.get('section'),subsection=url.searchParams.get('subsection')||'all';
  if(section&&section!=='menu')return response('Seção inválida.',400);
  if(section==='menu'&&!['all','wine','dessert'].includes(subsection))return response('Cardápio inválido.',400);

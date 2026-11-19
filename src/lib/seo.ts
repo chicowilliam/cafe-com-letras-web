@@ -1,7 +1,7 @@
 import type { PageSnapshot } from './types';
 import {publicData,getUnitId,contentDay} from './data';
 import {origin,pagePath,unitPath} from './routes';
-import {shiftDate,validDate} from './presentation';
+import {shiftDate,validDate,artistImage} from './presentation';
 import {sanitizeRichText} from './sanitize';
 
 export function plain(text:string){return sanitizeRichText(text).replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/\s+/g,' ').trim();}
@@ -28,7 +28,7 @@ export function seoFor(page:PageSnapshot){
    for(const event of publicData.events.filter(e=>e.calendar_unity===unitId&&validDate(e.calendar_date)&&e.calendar_date>=contentDay&&e.calendar_date<=max&&/^([01]\d|2[0-3])[0-5]\d$/.test(e.calendar_time))){
     const artist=publicData.artists.find(a=>a.artist_id===event.calendar_artist);if(!artist)continue;
     const date=event.calendar_date;
-    graph.push({'@type':'Event','@id':canonical+'#evento-'+event.calendar_id,name:plain(artist.artist_name),startDate:`${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}T${event.calendar_time.slice(0,2)}:${event.calendar_time.slice(2,4)}:00-03:00`,url:canonical+'#evento-'+event.calendar_id,description:plain(artist.artist_release),image:origin+'/img/artists/'+artist.artist_id+'.jpg',location:{'@type':'Place','@id':restaurant['@id'],name:restaurant.name,address:restaurant.address}});
+    graph.push({'@type':'Event','@id':canonical+'#evento-'+event.calendar_id,name:plain(artist.artist_name),startDate:`${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}T${event.calendar_time.slice(0,2)}:${event.calendar_time.slice(2,4)}:00-03:00`,url:canonical+'#evento-'+event.calendar_id,description:plain(artist.artist_release),...(artistImage(artist.artist_id)?{image:origin+artistImage(artist.artist_id)}:{}),location:{'@type':'Place','@id':restaurant['@id'],name:restaurant.name,address:restaurant.address}});
    }
   }
  }

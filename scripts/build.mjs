@@ -4,6 +4,12 @@ import {createHash} from 'node:crypto';
 import path from 'node:path';
 import sanitizeHTML from 'sanitize-html';
 
+// This repository targets Pages. Stop a duplicate Workers Builds pipeline before deployment.
+if(process.env.WORKERS_CI==='1'||process.env.WORKERS_CI_BUILD_UUID){
+ console.error('Pages-only project: Workers Builds is intentionally blocked before deployment.');
+ process.exit(1);
+}
+
 const production=!process.argv.includes('--preview')&&(process.argv.includes('--production')||process.env.DEPLOY_ENV==='production');
 const mode=production?'production':'preview';
 const data=JSON.parse(await readFile('src/data/public-source.json','utf8'));
@@ -29,9 +35,9 @@ for(const file of files.filter(f=>f.endsWith('.html'))){const html=await readFil
 const csp=`default-src 'none'; script-src 'self' ${[...jsonHashes].join(' ')}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'self'; base-uri 'none'; form-action ${production?'https://25.idmkt8.com':"'none'"}; frame-ancestors 'none'`;
 await mkdir('shared',{recursive:true});
 await writeFile('shared/security-policy.ts',`// Generated public response policy. No credentials.\nexport const contentSecurityPolicy=${JSON.stringify(csp)};\n`);
-await writeFile('dist/_headers',`/*\n  Content-Security-Policy: ${csp}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n${production?'':'  X-Robots-Tag: noindex, nofollow\n'}\n/404.html\n  X-Robots-Tag: noindex\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
+await writeFile('dist/_headers',`/*\n  Content-Security-Policy: ${csp}\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\nhttps://:project.pages.dev/*\n  X-Robots-Tag: noindex, nofollow\n\nhttps://:version.:project.pages.dev/*\n  X-Robots-Tag: noindex, nofollow\n\n/404.html\n  X-Robots-Tag: noindex\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
 await writeFile('dist/_redirects',`# Query-string and mobile compatibility is handled by functions/_middleware.ts.\nhttps://www.cafecomletras.com.br/* https://cafecomletras.com.br/:splat 301\nhttps://m.cafecomletras.com.br/* https://cafecomletras.com.br/m/:splat 301\nhttps://linktree.cafecomletras.com.br/* https://cafecomletras.com.br/linktree/:splat 301\n/medidas-prevencao /medidas-prevencao/medidas-prevencao.pdf 301\n/medidas-prevencao/ /medidas-prevencao/medidas-prevencao.pdf 301\n/linktree/index.asp /linktree/ 301\n/delivery/index.asp /delivery/ 301\n`);
-await writeFile('dist/_routes.json',JSON.stringify({version:1,include:['/','/index.asp','/index-cardapios.asp','/m','/m/','/m/index.asp','/m/liberdade/','/liberdade/','/ajax/*','/talk-to-us.asp','/cardapiodigital/index.asp','/liberdade/cardapiodigital/index.asp','/admin/*','/system/*','/novostalentos/*','/concurso-*'],exclude:[]},null,2));
+await writeFile('dist/_routes.json',JSON.stringify({version:1,include:['/*'],exclude:['/_astro/*','/css/*','/fonts/*','/img/*','/svg/*','/optimized/*','/brand/*','/data/*','/medidas-prevencao/*']},null,2));
 const tooLarge=[];for(const file of files)if((await stat(file)).size>25*1024*1024)tooLarge.push(file);
 if(tooLarge.length)throw new Error('Asset excede o limite de 25 MiB do Pages.');
 await writeFile('dist/build-info.json',JSON.stringify({mode,builtAt:new Date().toISOString(),sourceExportedAt:data.exportedAt,calendarChunks:chunks,dataSHA256:createHash('sha256').update(await readFile('src/data/public-source.json')).digest('hex')},null,2));

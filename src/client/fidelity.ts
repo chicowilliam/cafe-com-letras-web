@@ -13,6 +13,13 @@ document.cookie=`unity=${unit};Path=/;Max-Age=604800;SameSite=Lax${location.prot
 const $=<T extends Element=HTMLElement>(selector:string,scope:ParentNode=document)=>scope.querySelector<T>(selector);
 const $$=<T extends Element=HTMLElement>(selector:string,scope:ParentNode=document)=>Array.from(scope.querySelectorAll<T>(selector));
 function scrollToNode(node:Element|null,offset=0){if(node)window.scrollTo({top:node.getBoundingClientRect().top+window.scrollY-offset,behavior:reduce?'instant':'smooth'});}
+for(const anchor of $$<HTMLAnchorElement>('a[href]')){
+ if(!production&&new URL(anchor.href,location.href).origin!==location.origin){anchor.setAttribute('aria-disabled','true');anchor.title='Link externo desativado nesta prévia.';}
+}
+for(const anchor of $$<HTMLAnchorElement>('.reservations,.restorando')){
+ if(production&&unit==='Savassi'&&anchor.href==='https://usetag.me/cafecomletras')continue;
+ anchor.setAttribute('aria-disabled','true');anchor.title='Reservas indisponíveis neste canal. Consulte os contatos da unidade.';
+}
 
 // Preserve the original destinations; only previews suppress outbound navigation and form submission.
 document.addEventListener('click',event=>{
@@ -23,7 +30,8 @@ document.addEventListener('click',event=>{
   if(anchor.target==='_blank')anchor.rel='noopener noreferrer';
  }
  const heading=target?.closest('h1');if(heading){location.href=unitPath(unit,mobile);return;}
- if(target?.closest('.reservations,.restorando')){event.preventDefault();alert('Reservas indisponíveis neste canal. Consulte os contatos da unidade.');}
+ const reservation=target?.closest<HTMLAnchorElement>('.reservations,.restorando');
+ if(reservation&&!(production&&unit==='Savassi'&&reservation.href==='https://usetag.me/cafecomletras')){event.preventDefault();alert('Reservas indisponíveis neste canal. Consulte os contatos da unidade.');}
 });
 document.addEventListener('submit',event=>{
  const form=event.target as HTMLFormElement;

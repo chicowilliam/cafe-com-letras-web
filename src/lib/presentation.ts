@@ -1,4 +1,8 @@
 import type { CalendarChunk, PublicData } from './types';
+import unavailableImages from '../data/unavailable-artist-images.json';
+
+export function artistImage(id:number){return unavailableImages.includes(id)?null:`/img/artists/${id}.jpg`;}
+function artistPhoto(id:number,name:string){const src=artistImage(id);return src?`<img src="${src}" alt="${escapeHTML(name)}" title="${escapeHTML(name)}" loading="lazy" />`:'';}
 
 export const escapeHTML = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]!));
 export function businessDay(value = new Date()) { return new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Sao_Paulo' }).format(value).replaceAll('-', ''); }
@@ -16,7 +20,7 @@ export function renderDays(today=businessDay()) {
   let html='';for(let week=-10;week<=10;week++){html+='<li style="width:760px;float:left">';for(let i=0;i<7;i++){const d=shiftDate(today,week*7+i);html+=`<div class="day${d===today?' today active':''}" date="${d}"><span>${weekday(d).slice(0,3)}</span> ${displayDate(d).slice(0,5)}</div> `;}html+='</li>';}return html;
 }
 export function renderMobileMenu(data:Pick<PublicData,'suggestions'|'plates'|'suggestionRelations'>,unit:number,today=businessDay()) {return Array.from({length:8},(_,i)=>{const day=shiftDate(today,i);return `<div class="swiper-slide"><div class="menu-card"><h2>${weekday(day)}, ${displayDate(day)}</h2>${renderMenu(data,unit,day)}</div></div>`;}).join('');}
-export function renderMobileEvents(data:CalendarChunk,unit:number,today=businessDay()) {return data.events.filter(e=>e.calendar_unity===unit&&e.calendar_date>=today).map(e=>{const a=data.artists.find(a=>a.artist_id===e.calendar_artist);if(!a)return '';return `<div class="swiper-slide"><div class="calendar"><div class="venues" id="evento-${e.calendar_id}"><div class="when">${weekday(e.calendar_date)}, ${displayDate(e.calendar_date)} | ${escapeHTML(displayTime(e.calendar_time))}</div><div class="img"><img src="/img/artists/${a.artist_id}.jpg" alt="${escapeHTML(a.artist_name)}" title="${escapeHTML(a.artist_name)}" loading="lazy" /></div><div class="artist">${escapeHTML(a.artist_name)}</div><div class="release">${a.artist_release}</div><div class="price">${escapeHTML(e.calendar_price)}</div></div></div></div>`;}).join('');}
+export function renderMobileEvents(data:CalendarChunk,unit:number,today=businessDay()) {return data.events.filter(e=>e.calendar_unity===unit&&e.calendar_date>=today).map(e=>{const a=data.artists.find(a=>a.artist_id===e.calendar_artist);if(!a)return '';return `<div class="swiper-slide"><div class="calendar"><div class="venues" id="evento-${e.calendar_id}"><div class="when">${weekday(e.calendar_date)}, ${displayDate(e.calendar_date)} | ${escapeHTML(displayTime(e.calendar_time))}</div><div class="img">${artistPhoto(a.artist_id,a.artist_name)}</div><div class="artist">${escapeHTML(a.artist_name)}</div><div class="release">${a.artist_release}</div><div class="price">${escapeHTML(e.calendar_price)}</div></div></div></div>`;}).join('');}
 
 export function renderMenu(data: Pick<PublicData,'suggestions'|'plates'|'suggestionRelations'>, unit: number, date: string) {
   if (!validDate(date)) throw new Error('Data inválida.');
@@ -35,7 +39,7 @@ export function renderVenues(data: CalendarChunk, unit: number, date: string) {
   const end = shiftDate(date,7);
   return `<div class="venues"><h2>Eventos a partir de ${displayDate(date)}</h2><ul>${data.events.filter(e=>e.calendar_unity===unit&&e.calendar_date>=date&&e.calendar_date<=end).map(e=>{
     const artist=data.artists.find(a=>a.artist_id===e.calendar_artist);if(!artist)return '';
-    return `<li id="evento-${e.calendar_id}"><div class="img"><img src="/img/artists/${artist.artist_id}.jpg" alt="${escapeHTML(artist.artist_name)}" title="${escapeHTML(artist.artist_name)}" loading="lazy" /></div><div class="infos"><div class="when"><date>${displayDate(e.calendar_date)}</date><time>${escapeHTML(displayTime(e.calendar_time))}</time></div><div class="artist">${escapeHTML(artist.artist_name)}</div><div class="release">${artist.artist_release}</div><div class="price">${escapeHTML(e.calendar_price)}</div></div></li>`;
+    return `<li id="evento-${e.calendar_id}"><div class="img">${artistPhoto(artist.artist_id,artist.artist_name)}</div><div class="infos"><div class="when"><date>${displayDate(e.calendar_date)}</date><time>${escapeHTML(displayTime(e.calendar_time))}</time></div><div class="artist">${escapeHTML(artist.artist_name)}</div><div class="release">${artist.artist_release}</div><div class="price">${escapeHTML(e.calendar_price)}</div></div></li>`;
   }).join('')}</ul></div>`;
 }
 

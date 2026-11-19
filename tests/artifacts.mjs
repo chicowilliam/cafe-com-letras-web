@@ -8,7 +8,7 @@ const report={mode:info.mode,pages:[],missingResources:[],redirects:[],schemaEve
 async function walk(dir){let out=[];for(const entry of await readdir(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);out.push(...(entry.isDirectory()?await walk(file):[file]));}return out;}
 async function exists(url){let file=path.resolve(root,'.'+decodeURIComponent(url.pathname));if(!file.startsWith(root))return false;try{if((await stat(file)).isDirectory())file=path.join(file,'index.html');await stat(file);return true;}catch{return false;}}
 const files=await walk(root);const headers=await readFile('dist/_headers','utf8');
-assert.equal(headers.includes('X-Robots-Tag: noindex, nofollow'),!production);
+assert.ok(headers.includes('https://:project.pages.dev/*'));assert.ok(headers.includes('https://:version.:project.pages.dev/*'));
 const pages=files.filter(f=>f.endsWith('.html')&&!f.endsWith('404.html'));
 for(const file of pages){
  const html=await readFile(file,'utf8');const route='/'+path.relative(root,file).split(path.sep).join('/').replace(/index\.html$/,'');
