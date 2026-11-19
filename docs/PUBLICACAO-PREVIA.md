@@ -6,6 +6,10 @@ A autorização mais recente permite a prévia demonstrativa com contato, reserv
 
 Novo repositório exclusivo: https://github.com/chicowilliam/cafe-com-letras-web . Criado pela CLI oficial; a API confirmou `private: true` e `visibility: private` antes de qualquer push. O repositório público antigo não foi modificado.
 
+**Código enviado com sucesso:** commit inicial `18f4006`, branch `main`, remoto `origin` exclusivo do novo repositório. O push terminou com `main -> main`; o acompanhamento de `origin/main` foi configurado. Um commit adicional registra este resultado. Não houve force push. Isso confirma envio ao GitHub, não deploy automático no Cloudflare, que continua pendente.
+
+Verificações locais repetidas nesta execução: TypeScript com zero erros/avisos/hints em 16 arquivos; testes dos artefatos aprovados para 14 páginas, 12 URLs de sitemap e 17 casos de middleware, em modo **preview**. O build estático de prévia já validado foi mantido; não se alterou layout ou código funcional nesta rodada. Credenciais, SQL, ASP e evidências locais ficaram fora do commit.
+
 O pacote Astro exclui SQL, ASP, backups, credenciais, documentos privados, administração, dependências instaladas, build e evidências locais. A triagem objetiva não identificou extensões/diretórios proibidos nem padrões de segredo entre os arquivos candidatos. Histórico inicial exclusivamente deste projeto, branch `main`, sem force push.
 
 ## Cloudflare: bloqueio técnico observado
