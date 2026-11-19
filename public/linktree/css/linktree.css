@@ -1,0 +1,90 @@
+@import url("/css/local-fonts.css");
+/* font variables */
+/* color variables */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+html body {
+  position: relative;
+  width: 100vw;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  /*background-image:url( "../img/bg.jpg" );
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;*/
+  background-color: #F4F2E7;
+  font-family: "Roboto Condensed";
+}
+html body .alignment {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+html body h1, html body h2, html body h3, html body h4, html body h5, html body h6, html body p, html body ul, html body li {
+  position: relative;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  list-style-type: none;
+  outline: 0;
+}
+html body .content {
+  position: absolute;
+  width: 70%;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+html body main.linktree {
+  position: relative;
+  float: left;
+  width: 100vw;
+  height: 100vh;
+}
+html body main.linktree h1 {
+  width: 250px;
+  height: 75px;
+  margin: 0 auto 50px auto;
+  outline: 0;
+  background-image: url("/optimized/linktree/img/cafecomletras.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-indent: -10000px;
+  font-size: 0;
+  color: transparent;
+}
+html body main.linktree ul {
+  position: relative;
+  float: left;
+  width: 100%;
+  list-style-type: none;
+}
+html body main.linktree ul li {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+}
+html body main.linktree ul li a {
+  position: relative;
+  float: left;
+  width: 100%;
+  padding: 20px;
+  background-color: #7E3939;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/*# sourceMappingURL=linktree.css.map */

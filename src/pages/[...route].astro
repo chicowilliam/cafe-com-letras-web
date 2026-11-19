@@ -1,0 +1,8 @@
+---
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import {pages} from '../lib/data';
+import {pagePath} from '../lib/routes';
+export function getStaticPaths(){return pages.filter(p=>p.key!=='savassi-desktop').map(page=>({params:{route:pagePath(page.key).replace(/^\/|\/$/g,'')},props:{page}}));}
+const {page}=Astro.props;
+---
+<OriginalLayout page={page} />

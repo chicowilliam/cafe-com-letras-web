@@ -1,0 +1,37 @@
+---
+import type { PageSnapshot } from '../lib/types';
+import {bodyFor,getUnitId,contentDay,production,publicData} from '../lib/data';
+import {seoFor} from '../lib/seo';
+import {unitPath} from '../lib/routes';
+interface Props { page:PageSnapshot }
+const {page}=Astro.props;const seo=seoFor(page);const body=bodyFor(page);const unitId=getUnitId(page.unit);
+const schema=JSON.stringify(seo.schema).replace(/</g,'\\u003c');
+const gallery=publicData.photos.filter(p=>p.photo_unity===unitId).sort((a,b)=>b.photo_id-a.photo_id).map(p=>p.photo_id);
+---
+<!doctype html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{seo.title}</title><meta name="description" content={seo.description} />
+  <meta name="robots" content={production?'index, follow, max-image-preview:large':'noindex, nofollow'} />
+  <link rel="canonical" href={seo.canonical} />
+  {page.kind==='desktop'&&<link rel="alternate" media="only screen and (max-width: 640px)" href={'https://cafecomletras.com.br'+unitPath(page.unit,true)} />}
+  <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content="Café com Letras" />
+  <meta property="og:title" content={seo.title} /><meta property="og:description" content={seo.description} /><meta property="og:url" content={seo.canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/img/common/favicon.ico" />
+  <link rel="preload" href="/css/fonts/96bbdb37b0db8ffc.woff2" as="font" type="font/woff2" crossorigin />
+  {page.css.map(href=><link rel="stylesheet" href={href} />)}
+  <script type="application/ld+json" set:html={schema} />
+ </head>
+ <body data-unit={page.unit} data-unit-id={unitId} data-kind={page.kind} data-content-day={contentDay} data-production={production?'true':'false'} data-gallery={JSON.stringify(gallery)}>
+  {page.kind==='linktree'?<Fragment set:html={body}/>:<main id="conteudo" set:html={body} />}
+  <script>import '../client/fidelity';</script>
+ </body>
+</html>
+<style is:global>
+ :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+ .photos:hover .galleria-image-nav-left,.photos:hover .galleria-image-nav-right{opacity:1!important}
+ [data-pending-service] input:disabled,[data-pending-service] textarea:disabled{cursor:not-allowed}
+ @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{transition-duration:.01ms!important}}
+</style>

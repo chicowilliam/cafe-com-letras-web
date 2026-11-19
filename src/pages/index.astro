@@ -1,0 +1,6 @@
+---
+import OriginalLayout from '../layouts/OriginalLayout.astro';
+import {pages} from '../lib/data';
+const page=pages.find(p=>p.key==='savassi-desktop');if(!page)throw new Error('Exportação pública ausente.');
+---
+<OriginalLayout page={page} />
