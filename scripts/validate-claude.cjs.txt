@@ -30,9 +30,7 @@ async () => {
  report.mobileMenu=await page.locator('.home-mobile #mobile-navigation').isVisible();
  await page.locator('.home-mobile #mobile-navigation').getByRole('link',{name:'Gastronomia',exact:true}).click();
  report.mobileNavigation=page.url().endsWith('/gastronomia/');
- let warning='';page.once('dialog',async dialog=>{warning=dialog.message();await dialog.accept();});
- await page.getByRole('link',{name:'PT',exact:true}).first().dispatchEvent('click');
- report.demoWarning=warning;
+ report.demoControls=await page.locator('[data-demo][aria-disabled="true"]').count();
  await page.goto(live+'/');
  report.whatsapp=await page.locator('.home-mobile a[href^="https://wa.me/"]').first().getAttribute('href');
  report.htmlAliases=[];

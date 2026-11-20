@@ -32,7 +32,7 @@ Os geradores Python do pacote continuam arquivados como referência, mas a fonte
 | Catálogos, Liberdade, linktree, PDFs, página delivery | Rotas e recursos existentes mantidos por compatibilidade; ainda usam o layout legado. Não são as sete páginas desta adaptação. |
 | Mobile legado | `/m/` Savassi recebe 301 para a Home responsiva; Liberdade mantém sua compatibilidade anterior. |
 
-SEO: títulos, descriptions, canonical, Open Graph, Twitter, favicon e entidades institucionais Schema.org presentes. Nenhum Event fictício é criado para o modelo de evento. Schema Event legado continua nas rotas legadas em que há dados reais. `/celular/` usa canonical da Home e é excluído do sitemap; `/evento/` é modelo e também não entra no sitemap. A prévia usa noindex/robots bloqueado, inclusive pelo middleware. CSP permite as fontes Google originais. Redirecionamentos anteriores, dados e arquivos públicos preservados.
+SEO: títulos, descriptions, canonical, Open Graph, Twitter, favicon e entidades institucionais Schema.org presentes. Nenhum Event fictício é criado para o modelo de evento. Schema Event legado continua nas rotas legadas em que há dados reais. `/celular/` usa canonical da Home e é excluído do sitemap; `/evento/` é modelo e também não entra no sitemap. A prévia usa noindex/robots bloqueado, inclusive pelo middleware. CSP permite as fontes Google originais. Redirecionamentos anteriores, dados e arquivos públicos preservados. Os fragmentos legados `#part1`–`#part5` da Home apontam para cardápio, agenda, visita e livraria; fragmentos só podem ser tratados no navegador. Os antigos links locais `#mapa` passam a `/casa/#mapa`, onde o bloco do mapa de marcação existe; ele não simula um mapa interativo.
 
 ## Pendências para lançamento
 

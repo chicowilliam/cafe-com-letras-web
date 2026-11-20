@@ -21,6 +21,8 @@ for file in sorted((source / 'site').glob('*.html')):
     # Links relativos passam a rotas amigáveis. Conteúdo e CSS não são reescritos.
     for name in ['index','gastronomia','programacao','evento','livraria','casa','celular']:
         body = body.replace('href="'+name+'.html', 'href="'+('/' if name == 'index' else '/'+name+'/'))
+    if file.stem != 'casa':
+        body = body.replace('href="#mapa"', 'href="/casa/#mapa"')
     body = body.replace('src="assets/', 'src="/claude/assets/')
     body = body.replace('https://reservation.getin.app/36qBovkN', 'https://usetag.me/cafecomletras')
     body = body.replace('href="#delivery-ifood"', 'href="/delivery/"')

@@ -10,7 +10,7 @@ code=code.replace("const report={base:'http://127.0.0.1:4321'",'const report={ba
 out=Path('output/playwright/claude');out.mkdir(parents=True,exist_ok=True)
 cache=Path.home()/'AppData/Local/npm-cache/_npx'
 cli=next(cache.glob('*/node_modules/@playwright/cli/playwright-cli.js'))
-r=subprocess.run(['node',str(cli),'-s=claude','run-code',code],capture_output=True,text=True,encoding='utf-8')
+r=subprocess.run(['node',str(cli),'-s=claude' if tag=='local' else '-s=claude-preview','run-code',code],capture_output=True,text=True,encoding='utf-8')
 (out/f'{tag}-validation.log').write_text(r.stdout+r.stderr,encoding='utf-8')
 if '### Result\n' in r.stdout:
     result=r.stdout.split('### Result\n',1)[1].split('\n###',1)[0]

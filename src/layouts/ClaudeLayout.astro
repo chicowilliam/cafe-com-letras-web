@@ -32,7 +32,7 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={descriptions[name]} />
-  <meta name="robots" content={production&&name!=='celular'?'index, follow, max-image-preview:large':'noindex, nofollow'} />
+  <meta name="robots" content={production&&!['celular','evento'].includes(name)?'index, follow, max-image-preview:large':'noindex, nofollow'} />
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content="Café com Letras" />
   <meta property="og:title" content={title} /><meta property="og:description" content={descriptions[name]} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
@@ -45,6 +45,9 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
  <body data-design="claude" data-page={name}>
   {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   <script>
+   // Fragmentos legados chegam ao navegador, nunca ao middleware HTTP.
+   const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
+   if(location.pathname==='/'&&legacySections[location.hash])location.replace(legacySections[location.hash]!);
    document.addEventListener('click',event=>{
     const target=event.target instanceof Element?event.target:null;
     const menu=target?.closest('[data-mobile-menu]');

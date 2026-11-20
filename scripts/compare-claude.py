@@ -1,20 +1,21 @@
 """Compara capturas Playwright e gera pranchas para revisão humana."""
 from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw
-import json
+import json,sys
 root=Path('output/playwright/claude')
+tag=sys.argv[1] if len(sys.argv)>1 else 'local'
 report=[]
 for name in ['index','gastronomia','programacao','evento','livraria','casa','celular']:
     for width in [1440,768,390]:
         ref=root/f'reference-{name}-{width}.png'
-        local=root/f'local-{name}-{width}.png'
+        local=root/f'{tag}-{name}-{width}.png'
         if not ref.exists() or not local.exists(): continue
         a,b=Image.open(ref).convert('RGB'),Image.open(local).convert('RGB')
         # Home mobile é comparada ao artboard móvel aprovado.
         if name=='index' and width==390:
             a=Image.open(root/'reference-celular-390.png').convert('RGB')
         same_size=a.size==b.size
-        result={'name':name,'width':width,'referenceSize':a.size,'actualSize':b.size,'sameSize':same_size}
+        result={'source':tag,'name':name,'width':width,'referenceSize':a.size,'actualSize':b.size,'sameSize':same_size}
         if same_size:
             diff=ImageChops.difference(a,b)
             channels=diff.split()

@@ -11,7 +11,7 @@ export async function onRequest(context:Context):Promise<Response>{
   : await handle(context);const headers=new Headers(response.headers);
  if(['/','/liberdade/','/index.asp'].includes(new URL(context.request.url).pathname))headers.append('Vary','User-Agent');
  headers.set('Content-Security-Policy',contentSecurityPolicy);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
- const indexable=official&&response.status===200&&url.pathname!=='/404.html';
+ const indexable=official&&response.status===200&&!['/404.html','/celular/','/evento/'].includes(url.pathname);
  if(indexable)headers.delete('X-Robots-Tag');else headers.set('X-Robots-Tag','noindex, nofollow');
  let body:BodyInit|null=response.body;
  if(headers.get('Content-Type')?.includes('text/html')&&context.request.method!=='HEAD'){
