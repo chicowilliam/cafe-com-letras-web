@@ -47,7 +47,9 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <script>
    // Fragmentos legados chegam ao navegador, nunca ao middleware HTTP.
    const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
-   if(location.pathname==='/'&&legacySections[location.hash])location.replace(legacySections[location.hash]!);
+   function routeLegacySection(){if(location.pathname==='/'&&legacySections[location.hash])location.replace(legacySections[location.hash]!);}
+   routeLegacySection();
+   window.addEventListener('hashchange',routeLegacySection);
    document.addEventListener('click',event=>{
     const target=event.target instanceof Element?event.target:null;
     const menu=target?.closest('[data-mobile-menu]');
