@@ -3,6 +3,7 @@ import rawPages from '../data/page-snapshots.json';
 import imageManifest from '../data/image-manifest.json';
 import type { PublicData,PageSnapshot,UnitName } from './types';
 import {sanitizeBody,sanitizeRichText} from './sanitize';
+import {whatsappUrl} from '../config/whatsapp';
 import {businessDay,renderCalendar,renderMenu,renderDays,renderMobileMenu,renderMobileEvents,renderCatalog} from './presentation';
 
 const original=rawData as unknown as PublicData;
@@ -36,5 +37,6 @@ export function bodyFor(page:PageSnapshot){
   return tag.replace(/\s(?:width|height|loading|decoding|fetchpriority)="[^"]*"/g,'').replace(`src="${src}"`,`src="${meta.src}"`).replace(/\s*\/?>$/,` width="${meta.width}" height="${meta.height}" decoding="async" loading="${eager?'eager':'lazy'}"${priority?' fetchpriority="high"':''} />`);
  });
  body=body.replace(/url\("(\/[^\"]+)"\)/g,(all,src:string)=>images[src]?`url("${images[src].src}")`:all);
+ body=body.replace(/(<a\b[^>]*\bhref=)(["'])https:\/\/wa\.me\/\d+(?:\?[^"'<>]*)?\2/gi,(_match,start:string,quote:string)=>`${start}${quote}${whatsappUrl}${quote}`);
  return sanitizeBody(body);
 }

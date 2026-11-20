@@ -2,11 +2,29 @@ import assert from 'node:assert/strict';
 import {readFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 import {pagePath} from '../src/lib/routes.ts';
+import {whatsapp,whatsappUrl} from '../src/config/whatsapp.ts';
 
-const official='https://wa.me/5531984244285';
+const officialNumber=whatsapp.number;
+const expectedMessage=whatsapp.message;
+assert.match(officialNumber,/^\d{10,15}$/);
+assert.ok(expectedMessage.trim(),'Configured WhatsApp message must not be empty');
+function checkPublishedLink(link,label){
+ link=link.replaceAll('&amp;','&');
+ const url=new URL(link);
+ assert.equal(url.origin,'https://api.whatsapp.com',label);
+ assert.equal(url.pathname,'/send',label);
+ assert.equal(url.searchParams.get('phone'),officialNumber,label);
+ assert.equal(url.searchParams.get('text'),expectedMessage,label);
+ assert.deepEqual([...url.searchParams.keys()],['phone','text'],label);
+ assert.equal(link,whatsappUrl,label+' URL encoding');
+}
 const links=text=>[...text.matchAll(/(?:https?:\/\/)?(?:www\.)?(?:wa\.me|(?:(?:api|web)\.)?whatsapp\.com)\/[^\s"'<>]*/gi)].map(match=>match[0]);
 function checkSource(value,label){
- if(typeof value==='string')for(const link of links(value))assert.equal(link,official,label);
+ if(typeof value==='string')for(const link of links(value)){
+  const url=new URL(link);
+  assert.equal(url.origin,'https://wa.me',label);
+  assert.match(url.pathname,/^\/\d+$/,label);
+ }
  else if(Array.isArray(value))value.forEach((item,index)=>checkSource(item,`${label}[${index}]`));
  else if(value&&typeof value==='object')for(const [key,item] of Object.entries(value))checkSource(item,`${label}.${key}`);
 }
@@ -17,7 +35,7 @@ async function files(dir){const result=[];for(const item of await readdir(dir,{w
 let count=0,pages=0;
 for(const file of (await files('dist')).filter(file=>/\.(html|js|json)$/i.test(file))){
  const text=await readFile(file,'utf8');
- for(const link of links(text))assert.equal(link,official,`${file}: obsolete WhatsApp URL`);
+ for(const link of links(text))checkPublishedLink(link,`${file}: WhatsApp URL`);
  if(!file.endsWith('.html'))continue;
  const route='/'+path.relative('dist',file).split(path.sep).join('/').replace(/index\.html$/,'');
  const snapshot=snapshots.find(snapshot=>pagePath(snapshot.key)===route);
@@ -25,7 +43,9 @@ for(const file of (await files('dist')).filter(file=>/\.(html|js|json)$/i.test(f
  if(snapshot)assert.equal(anchors.length,links(snapshot.body).length,`${route}: existing WhatsApp links preserved`);
  if(anchors.length)pages++;
  for(const tag of anchors){
-  assert.match(tag,/href="https:\/\/wa\.me\/5531984244285"/,`${route}: official WhatsApp destination`);
+  const href=/href="([^"]*)"/i.exec(tag)?.[1];
+  assert.ok(href,`${route}: WhatsApp href`);
+  checkPublishedLink(href,`${route}: official WhatsApp destination and message`);
   if(/target="_blank"/i.test(tag)){
    const rel=/rel="([^"]*)"/i.exec(tag)?.[1].split(/\s+/)||[];
    assert.ok(rel.includes('noopener')&&rel.includes('noreferrer'),`${route}: safe new tab`);
@@ -34,4 +54,4 @@ for(const file of (await files('dist')).filter(file=>/\.(html|js|json)$/i.test(f
  }
 }
 assert.ok(count>0,'Existing WhatsApp controls must remain in the build');
-console.log(JSON.stringify({whatsapp:'passed',pages,existingLinks:count,destination:official}));
+console.log(JSON.stringify({whatsapp:'passed',pages,existingLinks:count,number:officialNumber,message:expectedMessage}));
