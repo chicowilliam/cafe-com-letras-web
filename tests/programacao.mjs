@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {prepareProgramacao} from '../scripts/programacao.mjs';
+
+// Real migrated records are used only in memory; production files are never written by these tests.
+const source=JSON.parse(await readFile('src/data/public-source.json','utf8'));
+const images=JSON.parse(await readFile('src/data/unavailable-artist-images.json','utf8'));
+const before=JSON.stringify(source),event=source.events[0],artist=source.artists.find(a=>a.artist_id===event.calendar_artist);
+const reduced=structuredClone(source);reduced.events=reduced.events.filter(e=>e.calendar_id!==event.calendar_id);
+const restored=prepareProgramacao(reduced,images,{events:[event]});
+assert.deepEqual(restored.data.events.find(e=>e.calendar_id===event.calendar_id),event);
+assert.equal(restored.summary.eventsAdded.length,1);
+const duplicate={...event};delete duplicate.calendar_id;
+assert.equal(prepareProgramacao(source,images,{events:[duplicate]}).summary.unchanged,1);
+const changed={...event,calendar_price:event.calendar_price+' (revisão em teste isolado)'};
+assert.equal(prepareProgramacao(source,images,{events:[changed]}).summary.eventsUpdated.length,1);
+assert.ok(!prepareProgramacao(source,images,{deleteEvents:[event.calendar_id]}).data.events.some(e=>e.calendar_id===event.calendar_id));
+const withoutArtist=structuredClone(source);withoutArtist.artists=withoutArtist.artists.filter(a=>a.artist_id!==artist.artist_id);
+assert.ok(prepareProgramacao(withoutArtist,images,{artists:[artist]}).unavailable.includes(artist.artist_id));
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_date:'20260230'}]}),/data real/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_time:'2460'}]}),/horário/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_artist:-1}]}),/artista/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_unity:999}]}),/unidade/);
+assert.throws(()=>prepareProgramacao(source,images,{deleteEvents:[event.calendar_id],events:[event]}),/cancelamento/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,extra:'rejected'}]}),/desconhecido/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[]}),/vazio/);
+const sanitized=prepareProgramacao(source,images,{artists:[{...artist,artist_release:'<p>Descrição</p><script>alert(1)</script>'}]});
+assert.equal(sanitized.data.artists.find(a=>a.artist_id===artist.artist_id).artist_release,'<p>Descrição</p>');
+assert.equal(JSON.stringify(source),before,'Input records must remain unchanged');
+for(const key of Object.keys(source).filter(k=>!['events','artists'].includes(k)))assert.deepEqual(restored.data[key],source[key]);
+console.log('Programação: inclusão, correção, cancelamento, idempotência, validação, sanitização e preservação aprovados; nenhum dado publicado.');
