@@ -16,6 +16,7 @@ function keys(value,allowed,label){
 function text(value,max,label){requireValue(typeof value==='string'&&value.trim().length>0&&value.length<=max,`${label}: texto obrigatório, máximo ${max} caracteres.`);return value.trim();}
 function validDate(value){
  if(typeof value!=='string'||!/^\d{8}$/.test(value))return false;
+ if(+value.slice(0,4)<1000||+value.slice(0,4)>9998)return false;
  const iso=`${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}`;
  const date=new Date(iso+'T12:00:00Z');return !Number.isNaN(+date)&&date.toISOString().slice(0,10)===iso;
 }
@@ -56,6 +57,7 @@ export function prepareProgramacao(source,unavailable,changes){
   requireValue(!eventIds.has(id),'Evento repetido no lote ou também marcado para cancelamento.');eventIds.add(id);
   const event={calendar_id:id,calendar_unity:item.calendar_unity,calendar_date:item.calendar_date,calendar_time:item.calendar_time,calendar_artist:item.calendar_artist,calendar_price:price};
   const index=data.events.findIndex(e=>e.calendar_id===id);
+  requireValue(item.calendar_id===undefined||index>=0,`Evento ${id} não encontrado para edição; omita calendar_id para cadastrar um novo evento.`);
   const duplicate=data.events.find(e=>e.calendar_id!==id&&eventKey(e)===eventKey(event));
   if(duplicate){
    if(item.calendar_id===undefined&&duplicate.calendar_price===price){summary.unchanged++;continue;}
@@ -72,22 +74,33 @@ async function atomicWrite(file,value){
  const temporary=file+'.programacao-'+process.pid+'.tmp';
  try{await writeFile(temporary,JSON.stringify(value),'utf8');await rename(temporary,file);}finally{await unlink(temporary).catch(()=>{});}
 }
+export async function updateProgramacaoFiles(files,changes,{apply=false,confirmed=false}={}){
+ const sourceText=await readFile(files.dataFile,'utf8'),imageText=await readFile(files.imagesFile,'utf8');
+ const data=JSON.parse(sourceText),images=JSON.parse(imageText);
+ const result=prepareProgramacao(data,images,changes);
+ if(!apply)return result;
+ requireValue(confirmed,'Aplicação bloqueada: confirme os dados com o proprietário e use --confirmed junto de --apply.');
+ requireValue(await readFile(files.dataFile,'utf8')===sourceText&&await readFile(files.imagesFile,'utf8')===imageText,'Os dados mudaram durante a operação; execute a simulação novamente.');
+ if(JSON.stringify(result.unavailable)!==JSON.stringify(images))await atomicWrite(files.imagesFile,result.unavailable);
+ if(JSON.stringify(result.data)!==JSON.stringify(data))await atomicWrite(files.dataFile,result.data);
+ return result;
+}
 async function main(){
  const args=process.argv.slice(2);
- const sourceText=await readFile(dataFile,'utf8'),imageText=await readFile(imagesFile,'utf8');
- const data=JSON.parse(sourceText),images=JSON.parse(imageText);
+ const data=JSON.parse(await readFile(dataFile,'utf8'));
  if(args[0]==='--artists'){
   const term=(args[1]||'').toLocaleLowerCase('pt-BR');
   console.log(JSON.stringify({matches:data.artists.filter(a=>a.artist_name.toLocaleLowerCase('pt-BR').includes(term)).map(a=>({id:a.artist_id,name:a.artist_name})),nextArtistId:Math.max(0,...data.artists.map(a=>a.artist_id))+1},null,2));return;
  }
- if(args[0]!=='--file'||!args[1]||args.some((arg,index)=>index>1&&arg!=='--apply'))throw new Error('Uso: node scripts/programacao.mjs --artists "nome" OU --file "lote.json" [--apply]');
+ if(args[0]==='--events'){
+  const term=(args[1]||'').toLocaleLowerCase('pt-BR');
+  console.log(JSON.stringify(data.events.map(e=>({...e,artist_name:data.artists.find(a=>a.artist_id===e.calendar_artist)?.artist_name})).filter(e=>[e.calendar_id,e.calendar_date,e.artist_name].join(' ').toLocaleLowerCase('pt-BR').includes(term)),null,2));return;
+ }
+ if(args[0]!=='--file'||!args[1]||args.some((arg,index)=>index>1&&!['--apply','--confirmed'].includes(arg)))throw new Error('Uso: --artists "nome", --events "nome/data/ID" OU --file "lote.json" [--apply --confirmed]');
  const changes=JSON.parse(await readFile(path.resolve(args[1]),'utf8'));
- const result=prepareProgramacao(data,images,changes);
+ const result=await updateProgramacaoFiles({dataFile,imagesFile},changes,{apply:args.includes('--apply'),confirmed:args.includes('--confirmed')});
  console.log(JSON.stringify({mode:args.includes('--apply')?'aplicar':'simulação',...result.summary},null,2));
- if(!args.includes('--apply')){console.log('Nenhum arquivo alterado. Revise o lote; use --apply para atualizar apenas os dados locais.');return;}
- requireValue(await readFile(dataFile,'utf8')===sourceText&&await readFile(imagesFile,'utf8')===imageText,'Os dados mudaram durante a operação; execute a simulação novamente.');
- if(JSON.stringify(result.unavailable)!==JSON.stringify(images))await atomicWrite(imagesFile,result.unavailable);
- if(JSON.stringify(result.data)!==JSON.stringify(data))await atomicWrite(dataFile,result.data);
+ if(!args.includes('--apply')){console.log('Nenhum arquivo alterado. Após confirmar os dados com o proprietário, use --apply --confirmed para atualizar apenas os dados locais.');return;}
  console.log('Dados locais atualizados. Ainda é necessário testar, revisar o diff, fazer commit e push na main para publicar.');
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(error=>{console.error(error.message);process.exitCode=1;});

@@ -1,14 +1,19 @@
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-import {prepareProgramacao} from '../scripts/programacao.mjs';
+import {readFile,mkdtemp,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {prepareProgramacao,updateProgramacaoFiles} from '../scripts/programacao.mjs';
 
 // Real migrated records are used only in memory; production files are never written by these tests.
-const source=JSON.parse(await readFile('src/data/public-source.json','utf8'));
+const sourceText=await readFile('src/data/public-source.json','utf8');
+const source=JSON.parse(sourceText);
 const images=JSON.parse(await readFile('src/data/unavailable-artist-images.json','utf8'));
 const before=JSON.stringify(source),event=source.events[0],artist=source.artists.find(a=>a.artist_id===event.calendar_artist);
 const reduced=structuredClone(source);reduced.events=reduced.events.filter(e=>e.calendar_id!==event.calendar_id);
-const restored=prepareProgramacao(reduced,images,{events:[event]});
-assert.deepEqual(restored.data.events.find(e=>e.calendar_id===event.calendar_id),event);
+const omittedId={...event};delete omittedId.calendar_id;
+const restored=prepareProgramacao(reduced,images,{events:[omittedId]});
+const added=restored.data.events.find(e=>e.calendar_id===restored.summary.eventsAdded[0]);
+assert.deepEqual({...added,calendar_id:event.calendar_id},event);
 assert.equal(restored.summary.eventsAdded.length,1);
 const duplicate={...event};delete duplicate.calendar_id;
 assert.equal(prepareProgramacao(source,images,{events:[duplicate]}).summary.unchanged,1);
@@ -18,6 +23,8 @@ assert.ok(!prepareProgramacao(source,images,{deleteEvents:[event.calendar_id]}).
 const withoutArtist=structuredClone(source);withoutArtist.artists=withoutArtist.artists.filter(a=>a.artist_id!==artist.artist_id);
 assert.ok(prepareProgramacao(withoutArtist,images,{artists:[artist]}).unavailable.includes(artist.artist_id));
 assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_date:'20260230'}]}),/data real/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_date:'00000101'}]}),/data real/);
+assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_id:Math.max(...source.events.map(e=>e.calendar_id))+1}]}),/não encontrado para edição/);
 assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_time:'2460'}]}),/horário/);
 assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_artist:-1}]}),/artista/);
 assert.throws(()=>prepareProgramacao(source,images,{events:[{...event,calendar_unity:999}]}),/unidade/);
@@ -28,4 +35,29 @@ const sanitized=prepareProgramacao(source,images,{artists:[{...artist,artist_rel
 assert.equal(sanitized.data.artists.find(a=>a.artist_id===artist.artist_id).artist_release,'<p>Descrição</p>');
 assert.equal(JSON.stringify(source),before,'Input records must remain unchanged');
 for(const key of Object.keys(source).filter(k=>!['events','artists'].includes(k)))assert.deepEqual(restored.data[key],source[key]);
-console.log('Programação: inclusão, correção, cancelamento, idempotência, validação, sanitização e preservação aprovados; nenhum dado publicado.');
+// Exercise actual writes with explicitly fictional data in an OS temporary directory only.
+const sandbox=await mkdtemp(path.join(tmpdir(),'cafe-programacao-test-'));
+const files={dataFile:path.join(sandbox,'public-source.json'),imagesFile:path.join(sandbox,'missing-images.json')};
+await writeFile(files.dataFile,JSON.stringify(source));await writeFile(files.imagesFile,JSON.stringify(images));
+const diskBefore=await readFile(files.dataFile,'utf8');
+const fictionalArtist={artist_id:Math.max(...source.artists.map(a=>a.artist_id))+1,artist_name:'FICTÍCIO — TESTE LOCAL, NÃO PUBLICAR',artist_release:'<p>Registro fictício exclusivo do teste em pasta temporária.</p>'};
+const fictionalEvent={calendar_unity:1,calendar_date:'20300102',calendar_time:'2000',calendar_artist:fictionalArtist.artist_id,calendar_price:'FICTÍCIO — NÃO PUBLICAR'};
+const batch={artists:[fictionalArtist],events:[fictionalEvent]};
+await updateProgramacaoFiles(files,batch);
+assert.equal(await readFile(files.dataFile,'utf8'),diskBefore,'Simulation must never write');
+await assert.rejects(updateProgramacaoFiles(files,batch,{apply:true}),/bloqueada/);
+assert.equal(await readFile(files.dataFile,'utf8'),diskBefore,'Unconfirmed batch must never write');
+const inserted=await updateProgramacaoFiles(files,batch,{apply:true,confirmed:true});
+const temporaryId=inserted.summary.eventsAdded[0];
+assert.equal(inserted.data.events.length,source.events.length+1);
+for(const original of source.events)assert.deepEqual(inserted.data.events.find(e=>e.calendar_id===original.calendar_id),original);
+const edited=await updateProgramacaoFiles(files,{events:[{...fictionalEvent,calendar_id:temporaryId,calendar_time:'2130'}]},{apply:true,confirmed:true});
+assert.equal(edited.data.events.find(e=>e.calendar_id===temporaryId).calendar_time,'2130');
+const cancelled=await updateProgramacaoFiles(files,{deleteEvents:[temporaryId]},{apply:true,confirmed:true});
+assert.deepEqual(cancelled.data.events,source.events,'Cancelling test event must preserve every original event');
+const beforeInvalid=await readFile(files.dataFile,'utf8');
+await assert.rejects(updateProgramacaoFiles(files,{events:[fictionalEvent,{...fictionalEvent,calendar_date:'20300230'}]},{apply:true,confirmed:true}),/data real/);
+assert.equal(await readFile(files.dataFile,'utf8'),beforeInvalid,'Invalid batch must have no partial writes');
+assert.equal(await readFile('src/data/public-source.json','utf8'),sourceText,'Production data must remain byte-for-byte unchanged');
+assert.deepEqual(JSON.parse(await readFile('src/data/unavailable-artist-images.json','utf8')),images);
+console.log(JSON.stringify({passed:true,fictionalTests:'OS temporary directory only',sandbox,realEventsPreserved:source.events.length,productionDataUnchanged:true}));

@@ -10,6 +10,10 @@ if(process.env.WORKERS_CI==='1'||process.env.WORKERS_CI_BUILD_UUID){
  process.exit(1);
 }
 
+// Agenda regression tests write fictional records only to the OS temporary directory.
+const agendaTests=spawnSync(process.execPath,['tests/programacao.mjs'],{stdio:'inherit'});
+if(agendaTests.status!==0)process.exit(agendaTests.status||1);
+
 const production=!process.argv.includes('--preview')&&(process.argv.includes('--production')||process.env.DEPLOY_ENV==='production');
 const mode=production?'production':'preview';
 const data=JSON.parse(await readFile('src/data/public-source.json','utf8'));
