@@ -1,0 +1,54 @@
+{
+  "base": "https://2cdec9c2.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "name": "index",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "gastronomia",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "programacao",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "evento",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "livraria",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "casa",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    },
+    {
+      "name": "celular",
+      "status": 200,
+      "robots": "noindex, nofollow",
+      "overflow": 0
+    }
+  ],
+  "consoleErrors": [],
+  "resources": [],
+  "initialLegacy": "https://2cdec9c2.cafe-com-letras-pages.pages.dev/programacao/#agenda",
+  "hashChangeLegacy": "https://2cdec9c2.cafe-com-letras-pages.pages.dev/programacao/#agenda",
+  "map": "/casa/#mapa",
+  "mobileMenu": true,
+  "navigation": "https://2cdec9c2.cafe-com-letras-pages.pages.dev/gastronomia/"
+}

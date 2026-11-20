@@ -1,0 +1,569 @@
+{
+  "base": "https://1b0b3e11.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 18,
+      "name": "index",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Gastronomia",
+      "canonical": "https://cafecomletras.com.br/gastronomia/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 12,
+      "name": "gastronomia",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Programação",
+      "canonical": "https://cafecomletras.com.br/programacao/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 31,
+      "name": "programacao",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Evento",
+      "canonical": "https://cafecomletras.com.br/evento/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 5,
+      "name": "evento",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Livraria",
+      "canonical": "https://cafecomletras.com.br/livraria/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "livraria",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · A Casa",
+      "canonical": "https://cafecomletras.com.br/casa/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 9,
+      "name": "casa",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home no celular",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "celular",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 18,
+      "name": "index",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Gastronomia",
+      "canonical": "https://cafecomletras.com.br/gastronomia/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 12,
+      "name": "gastronomia",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Programação",
+      "canonical": "https://cafecomletras.com.br/programacao/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 31,
+      "name": "programacao",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Evento",
+      "canonical": "https://cafecomletras.com.br/evento/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 5,
+      "name": "evento",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Livraria",
+      "canonical": "https://cafecomletras.com.br/livraria/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "livraria",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · A Casa",
+      "canonical": "https://cafecomletras.com.br/casa/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 9,
+      "name": "casa",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home no celular",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "celular",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 18,
+      "name": "index",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Gastronomia",
+      "canonical": "https://cafecomletras.com.br/gastronomia/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 12,
+      "name": "gastronomia",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Programação",
+      "canonical": "https://cafecomletras.com.br/programacao/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 31,
+      "name": "programacao",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Evento",
+      "canonical": "https://cafecomletras.com.br/evento/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 5,
+      "name": "evento",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Livraria",
+      "canonical": "https://cafecomletras.com.br/livraria/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "livraria",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · A Casa",
+      "canonical": "https://cafecomletras.com.br/casa/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 9,
+      "name": "casa",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "overflow": 0,
+      "brokenImages": [],
+      "title": "Café com Letras · Home no celular",
+      "canonical": "https://cafecomletras.com.br/",
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "font": "800 64px 'Bricolage Grotesque'",
+          "loaded": true
+        },
+        {
+          "font": "400 16px Inter",
+          "loaded": true
+        },
+        {
+          "font": "500 12px 'IBM Plex Mono'",
+          "loaded": true
+        }
+      ],
+      "pending": 4,
+      "name": "celular",
+      "width": 390,
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "resources": [],
+  "mobileMenu": true,
+  "mobileNavigation": true,
+  "demoControls": 4,
+  "whatsapp": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+  "htmlAliases": [
+    {
+      "name": "gastronomia",
+      "status": 301,
+      "location": "/gastronomia/"
+    },
+    {
+      "name": "programacao",
+      "status": 301,
+      "location": "/programacao/"
+    },
+    {
+      "name": "evento",
+      "status": 301,
+      "location": "/evento/"
+    },
+    {
+      "name": "livraria",
+      "status": 301,
+      "location": "/livraria/"
+    },
+    {
+      "name": "casa",
+      "status": 301,
+      "location": "/casa/"
+    },
+    {
+      "name": "celular",
+      "status": 301,
+      "location": "/celular/"
+    }
+  ]
+}

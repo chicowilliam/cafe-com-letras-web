@@ -20,7 +20,10 @@ for name in ['index','gastronomia','programacao','evento','livraria','casa','cel
             diff=ImageChops.difference(a,b)
             channels=diff.split()
             maximum=ImageChops.lighter(ImageChops.lighter(channels[0],channels[1]),channels[2])
-            changed=sum(maximum.histogram()[9:])
+            histogram=maximum.histogram()
+            result['strictChangedPixels']=a.width*a.height-histogram[0]
+            result['maxChannelDelta']=max(i for i,n in enumerate(histogram) if n)
+            changed=sum(histogram[9:])
             result['changedPixelsOver8']=changed
             result['changedPercent']=round(changed/(a.width*a.height)*100,5)
             if width==1440 or (name in ['index','celular'] and width==390):

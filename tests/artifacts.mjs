@@ -15,7 +15,7 @@ for(const file of pages){
  const html=await readFile(file,'utf8');const route='/'+path.relative(root,file).split(path.sep).join('/').replace(/index\.html$/,'');
  const title=/<title>([^<]+)<\/title>/.exec(html)?.[1];assert.ok(title,route+' title');
  assert.match(html,/<meta name="description" content="[^"]+"/);assert.match(html,/<html lang="pt-BR"/);
- assert.equal(/<meta name="robots" content="noindex/.test(html),!production,route+' index policy');
+ assert.equal(/<meta name="robots" content="noindex/.test(html),!(production&&!['/celular/','/evento/'].includes(route)),route+' index policy');
  const canonical=/<link rel="canonical" href="([^"]+)"/.exec(html)?.[1];assert.ok(canonical?.startsWith(origin+'/'));assert.ok(!canonical.includes('?'));
  assert.equal(canonical,origin+(route==='/celular/'?'/':route).replace(/^\/m\/liberdade\//,'/liberdade/').replace(/^\/m\//,'/'));
  assert.ok(!/<%|<!--#include|\son\w+\s*=/i.test(html),'ASP or inline event handler');
