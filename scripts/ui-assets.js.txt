@@ -1,0 +1,21 @@
+async () => {
+ page.setDefaultNavigationTimeout(90000);
+ const report={before:__BASELINE__,after:__CANDIDATE__,pages:[]};
+ for(const [version,base] of [['before',report.before],['after',report.after]])for(const name of ['index','gastronomia','programacao','evento','livraria','casa','celular']){
+  await page.goto(base+(name==='index'?'/':'/'+name+'/'));
+  if(version==='after'&&name==='programacao')await page.waitForFunction(()=>document.querySelector('[data-agenda]')?.dataset.activeFilter);
+  await page.evaluate(()=>document.fonts.ready);
+  const data=await page.evaluate(async()=>{
+   const gzip=async text=>(await new Response(new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()).byteLength;
+   const sources=[...document.scripts].filter(s=>!s.src&&s.type!=='application/ld+json').map(s=>s.textContent);
+   const urls=[...new Set(performance.getEntriesByType('resource').map(e=>e.name).filter(url=>new URL(url).pathname.endsWith('.js')))];
+   for(const url of urls)sources.push(await (await fetch(url)).text());
+   const scripts=sources.join('\n');
+   const styles=[...document.querySelectorAll('style')].map(s=>s.textContent);
+   for(const link of document.querySelectorAll('link[rel=stylesheet]'))if(new URL(link.href).origin===location.origin)styles.push(await (await fetch(link.href)).text());
+   return {jsRaw:new TextEncoder().encode(scripts).length,jsGzip:await gzip(scripts),jsRequests:urls.length,jsUrls:urls,cssRaw:new TextEncoder().encode(styles.join('\n')).length,cssGzip:await gzip(styles.join('\n'))};
+  });
+  report.pages.push({version,name,...data});
+ }
+ return report;
+}

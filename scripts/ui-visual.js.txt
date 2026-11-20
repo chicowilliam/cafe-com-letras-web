@@ -1,0 +1,42 @@
+async () => {
+ page.setDefaultNavigationTimeout(90000);
+ const report={before:__BASELINE__,after:__CANDIDATE__,pages:[],errors:[],consoleErrors:[],resources:[]};
+ page.on('pageerror',error=>report.errors.push(String(error)));
+ page.on('console',message=>{if(message.type()==='error')report.consoleErrors.push(message.text());});
+ page.on('response',r=>{if(r.status()>=400)report.resources.push({url:r.url(),status:r.status()});});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [1440,768,390]){
+  await page.setViewportSize({width,height:900});
+  for(const name of ['index','gastronomia','programacao','evento','livraria','casa','celular']){
+   const path=name==='index'?'/':'/'+name+'/';
+   const meta=[];
+   for(const [tag,base] of [['before',report.before],['after',report.after]]){
+    const response=await page.goto(base+path);
+    await page.evaluate(()=>document.fonts.ready);
+    await page.mouse.move(0,0);
+    await page.screenshot({path:`output/playwright/evolution/${tag}-${name}-${width}.png`,fullPage:true});
+    const data=await page.evaluate(()=>({
+     overflow:document.documentElement.scrollWidth-innerWidth,
+     brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),
+     text:document.body.innerText.replace(document.querySelector('[data-filter-status]')?.textContent||'\u0000','').replace(/\s+/g,' ').trim(),
+     title:document.title,
+     description:document.querySelector('meta[name=description]')?.content,
+     canonical:document.querySelector('link[rel=canonical]')?.href,
+     og:[...document.querySelectorAll('meta[property^="og:"]')].map(m=>[m.getAttribute('property'),m.content]),
+     schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(s=>s.textContent),
+     fontSizes:[...document.querySelectorAll('h1,h2,h3')].filter(e=>e.getBoundingClientRect().width).map(e=>({text:e.textContent,font:getComputedStyle(e).fontFamily,size:getComputedStyle(e).fontSize})),
+     // hrefs are kept, even when an enhanced filter handles the activation.
+     hrefs:[...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href'))
+    }));
+    data.status=response.status();meta.push(data);
+   }
+   const [a,b]=meta;
+   const item={name,width,status:b.status,overflow:b.overflow,brokenImages:b.brokenImages,
+    contentUnchanged:a.text===b.text,seoUnchanged:JSON.stringify([a.title,a.description,a.canonical,a.og,a.schema])===JSON.stringify([b.title,b.description,b.canonical,b.og,b.schema]),
+    typographyUnchanged:JSON.stringify(a.fontSizes)===JSON.stringify(b.fontSizes),urlsUnchanged:JSON.stringify(a.hrefs)===JSON.stringify(b.hrefs)};
+   report.pages.push(item);
+  }
+ }
+ report.passed=report.errors.length===0&&report.consoleErrors.length===0&&report.resources.length===0&&report.pages.every(p=>p.status===200&&p.overflow===0&&!p.brokenImages.length&&p.contentUnchanged&&p.seoUnchanged&&p.typographyUnchanged&&p.urlsUnchanged);
+ return report;
+}

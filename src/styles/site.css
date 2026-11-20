@@ -1,0 +1,11 @@
+/* Preflight é intencionalmente omitido: margens e controles nativos são parte da referência. */
+@layer theme, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+@import './tokens.css';
+@import './components.css';
+@import './claude-responsive.css';
+@import './interactions.css';
+@source '../design/claude';
+@source '../layouts';
+@source '../client';
