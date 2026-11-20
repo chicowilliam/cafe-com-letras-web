@@ -9,6 +9,7 @@ for(const hostname of ['cafecomletras.com.br','cafe-com-letras-pages.pages.dev',
   const official=hostname==='cafecomletras.com.br';
   for(const method of ['GET','HEAD']){
    const r=await onRequest({request:new Request(`https://${hostname}/cardapio/`,{method}),env:{DEPLOY_ENV:env},next:async()=>new Response(html,{headers:{'Content-Type':'text/html','X-Robots-Tag':'noindex','ETag':'old'}})});
+   if(hostname==='cafe-com-letras-pages.pages.dev'){assert.equal(r.status,301);assert.equal(r.headers.get('location'),'https://cafecomletras.com.br/cardapio/');cases++;continue;}
    assert.equal(r.headers.has('X-Robots-Tag'),!official);
    const text=await r.text();
    if(method==='GET'){assert.ok(text.includes(official?'content="index, follow, max-image-preview:large"':'content="noindex, nofollow"'));assert.ok(text.includes(`data-production="${official}"`));assert.ok(text.includes('Preserved content'));assert.equal(r.headers.has('ETag'),false);}else assert.equal(text,'');

@@ -1,0 +1,58 @@
+---
+import {pages,production} from '../lib/data';
+import {seoFor} from '../lib/seo';
+import {whatsapp} from '../config/whatsapp';
+import originalCSS from '../design/claude/original.css?raw';
+import '../styles/claude-responsive.css';
+import home from '../design/claude/index.html?raw';
+import gastronomia from '../design/claude/gastronomia.html?raw';
+import programacao from '../design/claude/programacao.html?raw';
+import evento from '../design/claude/evento.html?raw';
+import livraria from '../design/claude/livraria.html?raw';
+import casa from '../design/claude/casa.html?raw';
+import celular from '../design/claude/celular.html?raw';
+interface Props {name?:string}
+const {name='index'}=Astro.props;
+const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
+const titles:Record<string,string>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
+const descriptions:Record<string,string>={index:'Café com Letras Savassi, em Belo Horizonte. Restaurante, café, jazz club e livraria. Cardápio, programação e informações da casa.',gastronomia:'Gastronomia do Café com Letras Savassi: cardápio, almoço executivo, sugestões do chef, bar e vinhos.',programacao:'Programação cultural do Café com Letras Savassi: música, jazz, DJs, livros e exposições em Belo Horizonte.',evento:'Nova Onda: Matheus Avelar Quarteto no Café com Letras Savassi. Informações do modelo de evento da proposta visual.',livraria:'Livraria do Café com Letras Savassi: lançamentos, encontros e clubes de leitura.',casa:'Conheça o Café com Letras Savassi: história, endereço, horários de visita e eventos privados.',celular:'Café com Letras Savassi: gastronomia, programação cultural e informações da casa no celular.'};
+const title='Café com Letras · '+titles[name];
+const canonical='https://cafecomletras.com.br'+(['index','celular'].includes(name)?'/':'/'+name+'/');
+const base=pages.find(p=>p.key==='savassi-desktop')!;
+// Somente entidades institucionais verificadas; não gerar Event para o modelo estático.
+const graph=seoFor(base).schema['@graph'].filter(x=>x['@type']!=='Event'&&x['@type']!=='WebPage');
+graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description:descriptions[name],inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
+const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
+const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`);
+---
+<!doctype html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={descriptions[name]} />
+  <meta name="robots" content={production&&name!=='celular'?'index, follow, max-image-preview:large':'noindex, nofollow'} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content="Café com Letras" />
+  <meta property="og:title" content={title} /><meta property="og:description" content={descriptions[name]} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/img/common/favicon.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
+  <style is:inline set:html={originalCSS} />
+  <script type="application/ld+json" set:html={schema} />
+ </head>
+ <body data-design="claude" data-page={name}>
+  {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
+  <script>
+   document.addEventListener('click',event=>{
+    const target=event.target instanceof Element?event.target:null;
+    const menu=target?.closest('[data-mobile-menu]');
+    if(menu){const nav=menu.closest('header')?.nextElementSibling as HTMLElement|null;if(nav){nav.hidden=!nav.hidden;menu.setAttribute('aria-expanded',String(!nav.hidden));}return;}
+    const demo=target?.closest<HTMLElement>('[data-demo]');
+    if(demo){event.preventDefault();alert(demo.dataset.demo);}
+   });
+   document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',event=>{event.preventDefault();alert('Formulário demonstrativo: nenhum dado é enviado.');}));
+  </script>
+ </body>
+</html>

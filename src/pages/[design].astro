@@ -1,0 +1,6 @@
+---
+import ClaudeLayout from '../layouts/ClaudeLayout.astro';
+export function getStaticPaths(){return ['gastronomia','programacao','evento','livraria','casa','celular'].map(name=>({params:{design:name},props:{name}}));}
+const {name}=Astro.props;
+---
+<ClaudeLayout name={name} />

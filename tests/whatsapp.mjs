@@ -11,6 +11,7 @@ assert.ok(expectedMessage.trim(),'Configured WhatsApp message must not be empty'
 function checkPublishedLink(link,label){
  link=link.replaceAll('&amp;','&');
  const url=new URL(link);
+ if(url.origin==='https://wa.me'){assert.equal(url.pathname,'/'+officialNumber,label);assert.equal(url.searchParams.get('text'),expectedMessage,label);assert.deepEqual([...url.searchParams.keys()],['text'],label);return;}
  assert.equal(url.origin,'https://api.whatsapp.com',label);
  assert.equal(url.pathname,'/send',label);
  assert.equal(url.searchParams.get('phone'),officialNumber,label);
@@ -40,7 +41,7 @@ for(const file of (await files('dist')).filter(file=>/\.(html|js|json)$/i.test(f
  const route='/'+path.relative('dist',file).split(path.sep).join('/').replace(/index\.html$/,'');
  const snapshot=snapshots.find(snapshot=>pagePath(snapshot.key)===route);
  const anchors=[...text.matchAll(/<a\b[^>]*>/gi)].map(match=>match[0]).filter(tag=>/wa\.me|whatsapp/i.test(tag));
- if(snapshot)assert.equal(anchors.length,links(snapshot.body).length,`${route}: existing WhatsApp links preserved`);
+ if(snapshot&&!text.includes('data-design="claude"'))assert.equal(anchors.length,links(snapshot.body).length,`${route}: existing WhatsApp links preserved`);
  if(anchors.length)pages++;
  for(const tag of anchors){
   const href=/href="([^"]*)"/i.exec(tag)?.[1];

@@ -1,0 +1,41 @@
+async () => {
+
+
+ const report={base:'http://127.0.0.1:4321',pages:[],errors:[],resources:[]};
+ const live=report.base;
+ const tag=live===report.base?'local':'preview';
+ page.on('pageerror',error=>report.errors.push(String(error)));
+ page.on('response',r=>{if(r.status()>=400)report.resources.push({url:r.url(),status:r.status()});});
+ for(const width of [1440,768,390]){
+  await page.setViewportSize({width,height:900});
+  for(const name of ['index','gastronomia','programacao','evento','livraria','casa','celular']){
+   const reference=await page.context().newPage();
+   await reference.setViewportSize({width,height:900});
+   await reference.goto('http://127.0.0.1:4322/'+name+'.html');
+   await reference.evaluate(()=>document.fonts.ready);
+   await reference.screenshot({path:`output/playwright/claude/reference-${name}-${width}.png`,fullPage:true});
+   const r=await page.goto(live+(name==='index'?'/':'/'+name+'/'));
+   await page.evaluate(()=>document.fonts.ready);
+   const item=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),title:document.title,canonical:document.querySelector('link[rel=canonical]')?.href,robots:document.querySelector('meta[name=robots]')?.content,fonts:["800 64px 'Bricolage Grotesque'","400 16px Inter","500 12px 'IBM Plex Mono'"].map(f=>({font:f,loaded:document.fonts.check(f)})),pending:document.querySelectorAll('[data-demo]').length}));
+   item.name=name;item.width=width;item.status=r.status();
+   report.pages.push(item);
+   await page.screenshot({path:`output/playwright/claude/${tag}-${name}-${width}.png`,fullPage:true});
+   await reference.close();
+  }
+ }
+ await page.setViewportSize({width:390,height:900});
+ await page.goto(live+'/');
+ await page.getByRole('button',{name:'Abrir menu',exact:true}).click();
+ report.mobileMenu=await page.locator('.home-mobile #mobile-navigation').isVisible();
+ await page.locator('.home-mobile #mobile-navigation').getByRole('link',{name:'Gastronomia',exact:true}).click();
+ report.mobileNavigation=page.url().endsWith('/gastronomia/');
+ let warning='';page.once('dialog',async dialog=>{warning=dialog.message();await dialog.accept();});
+ await page.getByRole('link',{name:'PT',exact:true}).first().dispatchEvent('click');
+ report.demoWarning=warning;
+ await page.goto(live+'/');
+ report.whatsapp=await page.locator('.home-mobile a[href^="https://wa.me/"]').first().getAttribute('href');
+ report.htmlAliases=[];
+ for(const name of ['gastronomia','programacao','evento','livraria','casa','celular']){const response=await page.request.get(live+'/'+name+'.html',{maxRedirects:0});report.htmlAliases.push({name,status:response.status(),location:response.headers().location});}
+
+ return report;
+}

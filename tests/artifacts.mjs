@@ -17,7 +17,7 @@ for(const file of pages){
  assert.match(html,/<meta name="description" content="[^"]+"/);assert.match(html,/<html lang="pt-BR"/);
  assert.equal(/<meta name="robots" content="noindex/.test(html),!production,route+' index policy');
  const canonical=/<link rel="canonical" href="([^"]+)"/.exec(html)?.[1];assert.ok(canonical?.startsWith(origin+'/'));assert.ok(!canonical.includes('?'));
- assert.equal(canonical,origin+route.replace(/^\/m\/liberdade\//,'/liberdade/').replace(/^\/m\//,'/'));
+ assert.equal(canonical,origin+(route==='/celular/'?'/':route).replace(/^\/m\/liberdade\//,'/liberdade/').replace(/^\/m\//,'/'));
  assert.ok(!/<%|<!--#include|\son\w+\s*=/i.test(html),'ASP or inline event handler');
  assert.ok(!html.includes('localhost:8080'),'No diagnostic origin in published HTML');
  for(const tag of html.matchAll(/<(?:a|img|script|link|form)\b[^>]*>/g))for(const attribute of tag[0].matchAll(/(?:href|src|action)="([^"]*)"/g)){
@@ -35,14 +35,14 @@ for(const file of pages){
 }
 report.privateFiles=files.filter(f=>/\.(asp|sql|ps1|ini|bak|config)$/i.test(f)||/[\\/](admin|system|novostalentos|node_modules)[\\/]/i.test(f));
 assert.equal(report.privateFiles.length,0);assert.equal(report.missingResources.length,0,JSON.stringify(report.missingResources));
-const sitemap=await readFile('dist/sitemap-0.xml','utf8');const locations=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(locations.length,12);assert.equal(new Set(locations).size,12);
+const sitemap=await readFile('dist/sitemap-0.xml','utf8');const locations=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(locations.length,16);assert.equal(new Set(locations).size,16);
 for(const location of locations){assert.ok(location.startsWith(origin));assert.ok(!new URL(location).pathname.startsWith('/m/'));assert.ok(await exists(new URL(location)));}
 const robots=await readFile('dist/robots.txt','utf8');assert.equal(robots.includes('Allow: /'),production);assert.equal(robots.includes('Disallow: /\n'),!production);
 const cases=[
  ['/index.asp',301,'/'],['/?unity=Liberdade',301,'/liberdade/'],['/?unity=Savassi',301,'/'],['/?section=menu&subsection=all',301,'/cardapio/'],['/?section=menu&subsection=wine&unity=Liberdade',301,'/liberdade/carta-de-vinhos/'],['/?section=menu&subsection=dessert',301,'/sobremesas/'],['/m/index.asp?unity=Liberdade',301,'/m/liberdade/'],['/index-cardapios.asp',301,'/cardapiodigital/'],['/ajax/menu-card.asp?date=20261119',301,'/?date=20261119#part1'],['/admin/login/',404,null],['/system/connection.asp',404,null],['/novostalentos/files/probe.pdf',404,null],['/?unity=%27%20OR%201%3D1',400,null],['/?section=menu&subsection=invalid',400,null],['/talk-to-us.asp',503,null]
 ];
 for(const [route,status,location] of cases){const r=await onRequest({request:new Request(origin+route),env:{DEPLOY_ENV:'production'},next:async()=>new Response('static')});assert.equal(r.status,status,route);assert.equal(r.headers.get('location'),location,route);report.redirects.push({route,status,location});}
-const mobile=await onRequest({request:new Request(origin+'/',{headers:{'User-Agent':'iPhone Mobile'}}),next:async()=>new Response('static')});assert.equal(mobile.status,302);assert.equal(mobile.headers.get('location'),'/m/');
+const mobile=await onRequest({request:new Request(origin+'/',{headers:{'User-Agent':'iPhone Mobile'}}),next:async()=>new Response('static')});assert.equal(mobile.status,200);assert.equal(mobile.headers.get('location'),null);
 assert.equal(mobile.headers.get('vary'),'User-Agent');
 assert.equal((await onRequest({request:new Request(origin+'/talk-to-us.asp',{method:'POST'}),next:async()=>new Response('static')})).status,503);
 assert.ok(headers.includes("connect-src 'self'"));assert.ok(!headers.includes("script-src 'self' 'unsafe-inline'"));

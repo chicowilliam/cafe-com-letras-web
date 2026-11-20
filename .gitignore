@@ -20,3 +20,6 @@ Thumbs.db
 .DS_Store
 .wrangler/
 .cf/
+
+.playwright-cli/
+output/playwright/

@@ -9,7 +9,7 @@ export default defineConfig({
   site: url.origin,
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap({ filter: page => !new URL(page).pathname.startsWith('/m/') && !page.includes('/indisponivel/') })],
+  integrations: [sitemap({ filter: page => !new URL(page).pathname.startsWith('/m/') && !page.includes('/indisponivel/') && !page.includes('/celular/') && !page.includes('/evento/') })],
   devToolbar: { enabled: false },
   server: { host: '127.0.0.1', port: 4321 },
 });

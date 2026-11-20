@@ -40,6 +40,8 @@ async function handle(context:Context):Promise<Response>{
  const requested=url.searchParams.get('unity');if(requested&&!units.includes(requested))return response('Unidade inválida.',400);
  const unit=requested||(p.includes('/liberdade/')?'Liberdade':(p.endsWith('.asp')||url.searchParams.has('section'))?cookie||'Savassi':'Savassi');
  const base=unit==='Liberdade'?'/liberdade/':'/';const mobileBase=unit==='Liberdade'?'/m/liberdade/':'/m/';
+ const designAlias=/^\/(index|gastronomia|programacao|evento|livraria|casa|celular)\.html$/.exec(p);
+ if(designAlias)return redirect(designAlias[1]==='index'?'/':'/'+designAlias[1]+'/',301);
  const aliases:Record<string,string>={'/liberdade/index.asp':'/liberdade/','/m/liberdade/index.asp':'/m/liberdade/','/linktree/index.asp':'/linktree/','/delivery/index.asp':'/delivery/'};
  if(aliases[p])return redirect(aliases[p]);
  const section=url.searchParams.get('section'),subsection=url.searchParams.get('subsection')||'all';
@@ -55,9 +57,10 @@ async function handle(context:Context):Promise<Response>{
  const legacy=['/','/index.asp','/m','/m/','/m/index.asp','/m/liberdade/','/liberdade/'].includes(p);
  if(legacy){
   if(section==='menu')return redirect((unit==='Liberdade'?'/liberdade':'')+({all:'/cardapio/',wine:'/carta-de-vinhos/',dessert:'/sobremesas/'}[subsection]||'/cardapio/'),301,unit);
+  if(unit==='Savassi'&&p.startsWith('/m')&&!section)return redirect('/'+url.hash,301,unit);
   const isMobile=p.startsWith('/m');const target=isMobile?mobileBase:base;
   if(requested||p.endsWith('.asp')||p==='/m'||p!==target)return redirect(target,301,unit);
-  if(!isMobile&&/Android|iPhone|iPod|Windows Phone|Mobile/i.test(request.headers.get('user-agent')||''))return redirect(mobileBase,302,unit);
+  if(unit==='Liberdade'&&!isMobile&&/Android|iPhone|iPod|Windows Phone|Mobile/i.test(request.headers.get('user-agent')||''))return redirect(mobileBase,302,unit);
  }
  return context.next();
 }
