@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile,readdir,stat,writeFile,mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import {onRequest} from '../functions/_middleware.ts';
+await import('./whatsapp.mjs');
 const root=path.resolve('dist'),origin='https://cafecomletras.com.br';
 const info=JSON.parse(await readFile('dist/build-info.json','utf8'));const production=info.mode==='production';
 const report={mode:info.mode,pages:[],missingResources:[],redirects:[],schemaEvents:0,privateFiles:[],passed:false};
