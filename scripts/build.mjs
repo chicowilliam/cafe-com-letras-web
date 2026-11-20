@@ -35,7 +35,7 @@ await writeFile('dist/data/menu.json',JSON.stringify({suggestions:data.suggestio
 const jsonHashes=new Set();
 async function walk(dir){let out=[];for(const item of await readdir(dir,{withFileTypes:true})){const file=path.join(dir,item.name);if(item.isDirectory())out.push(...await walk(file));else out.push(file);}return out;}
 const files=await walk('dist');
-for(const file of files.filter(f=>f.endsWith('.html'))){const html=await readFile(file,'utf8');for(const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g))jsonHashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);}
+for(const file of files.filter(f=>f.endsWith('.html'))){const html=await readFile(file,'utf8');for(const match of html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g))jsonHashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);}
 const csp=`default-src 'none'; script-src 'self' ${[...jsonHashes].join(' ')}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-src 'self'; object-src 'self'; base-uri 'none'; form-action ${production?'https://25.idmkt8.com':"'none'"}; frame-ancestors 'none'`;
 await mkdir('shared',{recursive:true});
 await writeFile('shared/security-policy.ts',`// Generated public response policy. No credentials.\nexport const contentSecurityPolicy=${JSON.stringify(csp)};\n`);

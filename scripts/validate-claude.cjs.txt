@@ -1,9 +1,10 @@
 async () => {
 
 
- const report={base:'http://127.0.0.1:4321',pages:[],errors:[],resources:[]};
+ const report={base:'http://127.0.0.1:4321',pages:[],errors:[],consoleErrors:[],resources:[]};
  const live=report.base;
  const tag=live===report.base?'local':'preview';
+ page.on('console',message=>{if(message.type()==='error')report.consoleErrors.push(message.text());});
  page.on('pageerror',error=>report.errors.push(String(error)));
  page.on('response',r=>{if(r.status()>=400)report.resources.push({url:r.url(),status:r.status()});});
  for(const width of [1440,768,390]){

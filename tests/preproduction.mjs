@@ -24,7 +24,7 @@ for(const route of ['/admin/probe.asp','/system/probe.asp','/novostalentos/probe
  assert.equal(r.status,404);assert.match(r.headers.get('X-Robots-Tag'),/noindex/);cases++;
 }
 for(const [from,to] of [['/liberdade/index.asp','/liberdade/'],['/m/liberdade/index.asp','/m/liberdade/'],['/linktree/index.asp','/linktree/'],['/delivery/index.asp','/delivery/']]){
- const r=await onRequest({request:new Request('https://cafe-com-letras-pages.pages.dev'+from),next:async()=>new Response('unused')});assert.equal(r.status,301);assert.equal(r.headers.get('location'),to);cases++;
+ const r=await onRequest({request:new Request('https://hash.cafe-com-letras-pages.pages.dev'+from),next:async()=>new Response('unused')});assert.equal(r.status,301);assert.equal(r.headers.get('location'),to);cases++;
 }
 const bad=/raccoonbet|casino-portugal|casinotop|casinosnobrasil|casinoonline777/i;
 for(const file of ['src/data/public-source.json','src/data/page-snapshots.json'])assert.ok(!bad.test(await readFile(file,'utf8')),file);

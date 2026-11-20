@@ -17,7 +17,9 @@ for name in ['index','gastronomia','programacao','evento','livraria','casa','cel
         result={'name':name,'width':width,'referenceSize':a.size,'actualSize':b.size,'sameSize':same_size}
         if same_size:
             diff=ImageChops.difference(a,b)
-            changed=sum(1 for p in diff.getdata() if max(p)>8)
+            channels=diff.split()
+            maximum=ImageChops.lighter(ImageChops.lighter(channels[0],channels[1]),channels[2])
+            changed=sum(maximum.histogram()[9:])
             result['changedPixelsOver8']=changed
             result['changedPercent']=round(changed/(a.width*a.height)*100,5)
             if width==1440 or (name in ['index','celular'] and width==390):
