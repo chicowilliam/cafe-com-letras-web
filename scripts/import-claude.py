@@ -33,6 +33,7 @@ for file in sorted((source / 'site').glob('*.html')):
     body = re.sub(r'(<a\b[^>]*class="[^"]*chip[^\"]*"[^>]*)(>)',r'\1 data-demo="Filtros demonstrativos: a filtragem ainda não está implementada." title="Filtro demonstrativo"\2',body)
     body = body.replace('type="button"', 'type="button" data-demo="Formulário demonstrativo: nenhum dado é enviado."')
     body = body.replace('<input ', '<input data-demo-input readonly aria-description="Campo demonstrativo; envio indisponível." ')
+    body = re.sub(r'<input\b[^>]*type="date"[^>]*>', lambda m:m.group(0).replace(' readonly',''), body)
     body = body.replace('<textarea ', '<textarea data-demo-input readonly aria-description="Campo demonstrativo; envio indisponível." ')
     body = re.sub(r'<a\b([^>]*href="/evento/"[^>]*)>(.*?)</a>', lambda m: m.group(0) if 'Matheus Avelar' in m.group(2) else '<a'+m.group(1)+' data-demo="Existe apenas um modelo de evento nesta proposta. O detalhe deste evento ainda não foi integrado." title="Detalhe demonstrativo">'+m.group(2)+'</a>', body, flags=re.S)
     # A referência mobile mantém o mesmo botão fechado; abrir usa navegação real.
