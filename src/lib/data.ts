@@ -23,7 +23,7 @@ export function bodyFor(page:PageSnapshot){
  if(page.kind==='mobile'){body=replaceSlot(body,'mobile-menu',renderMobileMenu(publicData,id,contentDay));body=replaceSlot(body,'mobile-events',renderMobileEvents(publicData,id,contentDay));}
  if(['all','wine','dessert'].includes(page.kind))body=replaceSlot(body,'catalogue',renderCatalog(publicData,id,page.kind));
  // Existing HTTPS newsletter form is compatible with static hosting; no data is posted during preview/tests.
- if(production){body=body.replace(/<form\b([^>]*data-newsletter-action="([^"]+)"[^>]*)>([\s\S]*?)<\/form>/g,(_all,attrs:string,action:string,inside:string)=>{
+ if(production&&process.env.NEWSLETTER_ENABLED==='1'){body=body.replace(/<form\b([^>]*data-newsletter-action="([^"]+)"[^>]*)>([\s\S]*?)<\/form>/g,(_all,attrs:string,action:string,inside:string)=>{
   if(!action.startsWith('https://25.idmkt8.com/'))return _all;
   return `<form ${attrs.replace(/\saction="[^"]*"/g,'')} action="${action}" target="_blank">${inside.replace(/\sdisabled(?:="[^"]*")?/g,'')}</form>`;
  });}

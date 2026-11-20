@@ -27,6 +27,8 @@ async function handle(context:Context):Promise<Response>{
  if(url.hostname!=='cafecomletras.com.br')headers.set('X-Robots-Tag','noindex, nofollow');
  const response=(text:string,status:number)=>new Response(text,{status,headers:new Headers([...headers,['Content-Type','text/plain; charset=utf-8']])});
  const redirect=(target:string,status=301,unit?:string)=>{const h=new Headers(headers);h.set('Location',target);if(unit)h.append('Set-Cookie',`unity=${unit}; Path=/; Max-Age=604800; SameSite=Lax${url.protocol==='https:'?'; Secure':''}`);return new Response(null,{status,headers:h});};
+ if(url.hostname==='cafecomletras.com.br'&&url.protocol==='http:')return redirect(CANONICAL+p+url.search);
+ if(url.hostname==='cafe-com-letras-pages.pages.dev')return redirect(CANONICAL+p+url.search);
  if(url.hostname==='www.cafecomletras.com.br')return redirect(CANONICAL+p+url.search);
  if(url.hostname==='m.cafecomletras.com.br')return redirect(CANONICAL+(p.startsWith('/m/')?p:'/m'+p)+url.search);
  if(url.hostname==='linktree.cafecomletras.com.br')return redirect(CANONICAL+(p.startsWith('/linktree/')?p:'/linktree'+p)+url.search);
