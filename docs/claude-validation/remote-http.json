@@ -1,0 +1,93 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/"
+  },
+  {
+    "path": "/gastronomia/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/gastronomia/"
+  },
+  {
+    "path": "/programacao/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/programacao/"
+  },
+  {
+    "path": "/evento/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/evento/"
+  },
+  {
+    "path": "/livraria/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/livraria/"
+  },
+  {
+    "path": "/casa/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/casa/"
+  },
+  {
+    "path": "/celular/",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": "https://cafecomletras.com.br/"
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "blocksIndexing": true
+  },
+  {
+    "path": "/sitemap-index.xml",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true
+  },
+  {
+    "path": "/sitemap-0.xml",
+    "status": 200,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true
+  },
+  {
+    "path": "/not-found-claude-validation/",
+    "status": 404,
+    "xRobotsTag": "noindex, nofollow",
+    "csp": true,
+    "missingScriptHashes": [],
+    "googleFontsCsp": true,
+    "canonical": null
+  }
+]

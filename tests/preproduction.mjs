@@ -9,6 +9,7 @@ for(const hostname of ['cafecomletras.com.br','cafe-com-letras-pages.pages.dev',
   const official=hostname==='cafecomletras.com.br';
   for(const method of ['GET','HEAD']){
    const r=await onRequest({request:new Request(`https://${hostname}/cardapio/`,{method}),env:{DEPLOY_ENV:env},next:async()=>new Response(html,{headers:{'Content-Type':'text/html','X-Robots-Tag':'noindex','ETag':'old'}})});
+   if(hostname==='cafe-com-letras-pages.pages.dev'){assert.equal(r.status,301);assert.equal(r.headers.get('location'),'https://cafecomletras.com.br/cardapio/');cases++;continue;}
    assert.equal(r.headers.has('X-Robots-Tag'),!official);
    const text=await r.text();
    if(method==='GET'){assert.ok(text.includes(official?'content="index, follow, max-image-preview:large"':'content="noindex, nofollow"'));assert.ok(text.includes(`data-production="${official}"`));assert.ok(text.includes('Preserved content'));assert.equal(r.headers.has('ETag'),false);}else assert.equal(text,'');
@@ -23,8 +24,9 @@ for(const route of ['/admin/probe.asp','/system/probe.asp','/novostalentos/probe
  assert.equal(r.status,404);assert.match(r.headers.get('X-Robots-Tag'),/noindex/);cases++;
 }
 for(const [from,to] of [['/liberdade/index.asp','/liberdade/'],['/m/liberdade/index.asp','/m/liberdade/'],['/linktree/index.asp','/linktree/'],['/delivery/index.asp','/delivery/']]){
- const r=await onRequest({request:new Request('https://cafe-com-letras-pages.pages.dev'+from),next:async()=>new Response('unused')});assert.equal(r.status,301);assert.equal(r.headers.get('location'),to);cases++;
+ const r=await onRequest({request:new Request('https://hash.cafe-com-letras-pages.pages.dev'+from),next:async()=>new Response('unused')});assert.equal(r.status,301);assert.equal(r.headers.get('location'),to);cases++;
 }
+for(const route of ['/celular/','/evento/']){const r=await onRequest({request:new Request('https://cafecomletras.com.br'+route),next:async()=>new Response(html,{headers:{'Content-Type':'text/html'}})});assert.match(r.headers.get('X-Robots-Tag'),/noindex/);assert.match(await r.text(),/content="noindex, nofollow"/);cases++;}
 const bad=/raccoonbet|casino-portugal|casinotop|casinosnobrasil|casinoonline777/i;
 for(const file of ['src/data/public-source.json','src/data/page-snapshots.json'])assert.ok(!bad.test(await readFile(file,'utf8')),file);
 async function walk(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const file=dir+'/'+entry.name;if(entry.isDirectory())await walk(file);else if(/\.(html|json)$/.test(file))assert.ok(!bad.test(await readFile(file,'utf8')),file);}}

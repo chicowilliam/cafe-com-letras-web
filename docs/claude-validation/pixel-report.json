@@ -1,0 +1,336 @@
+[
+  {
+    "source": "preview",
+    "name": "index",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      4785
+    ],
+    "actualSize": [
+      1440,
+      4785
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "index",
+    "width": 768,
+    "referenceSize": [
+      768,
+      8016
+    ],
+    "actualSize": [
+      768,
+      9514
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "index",
+    "width": 390,
+    "referenceSize": [
+      390,
+      3038
+    ],
+    "actualSize": [
+      390,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "gastronomia",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      6706
+    ],
+    "actualSize": [
+      1440,
+      6706
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "gastronomia",
+    "width": 768,
+    "referenceSize": [
+      804,
+      9502
+    ],
+    "actualSize": [
+      768,
+      10923
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "gastronomia",
+    "width": 390,
+    "referenceSize": [
+      502,
+      13778
+    ],
+    "actualSize": [
+      390,
+      14675
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "programacao",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      4230
+    ],
+    "actualSize": [
+      1440,
+      4230
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "programacao",
+    "width": 768,
+    "referenceSize": [
+      768,
+      8389
+    ],
+    "actualSize": [
+      768,
+      10578
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "programacao",
+    "width": 390,
+    "referenceSize": [
+      706,
+      9642
+    ],
+    "actualSize": [
+      390,
+      11665
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "evento",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      2867
+    ],
+    "actualSize": [
+      1440,
+      2867
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "evento",
+    "width": 768,
+    "referenceSize": [
+      768,
+      5001
+    ],
+    "actualSize": [
+      768,
+      5811
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "evento",
+    "width": 390,
+    "referenceSize": [
+      549,
+      6340
+    ],
+    "actualSize": [
+      390,
+      6133
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "livraria",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      4106
+    ],
+    "actualSize": [
+      1440,
+      4106
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "livraria",
+    "width": 768,
+    "referenceSize": [
+      768,
+      5324
+    ],
+    "actualSize": [
+      768,
+      6105
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "livraria",
+    "width": 390,
+    "referenceSize": [
+      504,
+      7015
+    ],
+    "actualSize": [
+      390,
+      6915
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "casa",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      3862
+    ],
+    "actualSize": [
+      1440,
+      3862
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 463,
+    "maxChannelDelta": 1,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "casa",
+    "width": 768,
+    "referenceSize": [
+      768,
+      5661
+    ],
+    "actualSize": [
+      768,
+      6372
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "casa",
+    "width": 390,
+    "referenceSize": [
+      590,
+      7148
+    ],
+    "actualSize": [
+      390,
+      7154
+    ],
+    "sameSize": false
+  },
+  {
+    "source": "preview",
+    "name": "celular",
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      3038
+    ],
+    "actualSize": [
+      1440,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "celular",
+    "width": 768,
+    "referenceSize": [
+      768,
+      3038
+    ],
+    "actualSize": [
+      768,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "source": "preview",
+    "name": "celular",
+    "width": 390,
+    "referenceSize": [
+      390,
+      3038
+    ],
+    "actualSize": [
+      390,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "maxChannelDelta": 0,
+    "changedPixelsOver8": 0,
+    "changedPercent": 0.0
+  }
+]

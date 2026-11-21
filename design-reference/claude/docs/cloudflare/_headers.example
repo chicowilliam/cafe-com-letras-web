@@ -1,0 +1,11 @@
+# Cabeçalhos RECOMENDADOS para Cloudflare Pages. NÃO estão ativos.
+# Para ativar: copie este arquivo para site/_headers e teste o site antes de publicar.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'none'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
