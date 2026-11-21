@@ -22,7 +22,7 @@ for(const slug of ['politica-de-privacidade','politica-de-cookies','termos-de-us
  }
  const sitemap=await readFile('dist/sitemap-0.xml','utf8');assert.ok(!sitemap.includes(slug));
 }
-const home=await readFile('dist/index.html','utf8');assert.ok(home.includes('Newsletter indisponível'));assert.ok(home.includes('disabled'));assert.ok(home.includes('https://usetag.me/cafecomletras'));
+const home=await readFile('dist/index.html','utf8');assert.ok(home.includes('Newsletter indisponível'));assert.ok(home.includes('disabled'));assert.ok(home.includes('https://reservation.getin.app/36qBovkN?utm_source=ig'));
 if(production){assert.ok(!/href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\//.test(home));const assets=await readdir('dist/_astro');for(const name of assets.filter(n=>n.endsWith('.js')))assert.ok(!(await readFile('dist/_astro/'+name,'utf8')).includes('Identificação jurídica do responsável'));}
 const agenda=await readFile('dist/programacao/index.html','utf8');assert.ok(agenda.includes('data-event-start="2026-11-20T20:00:00-03:00"'));assert.ok(agenda.includes('data-event-start="2026-12-'));assert.ok(!agenda.includes('atualizada direto da planilha'));
 console.log('Institutional: legal draft isolation, real event states, disabled newsletter, reservations and cookie inventory passed.');
