@@ -73,3 +73,7 @@ Os testes do comando usam registros reais já migrados em cópias na memória; n
 Também há um ciclo completo em arquivos temporários do sistema com artista/evento explicitamente FICTÍCIOS: simulação, tentativa bloqueada sem confirmação, inclusão, edição e cancelamento. O teste verifica que os 3.611 eventos atuais continuam intactos e que os arquivos reais de publicação não mudam. Esses dados fictícios nunca são copiados para src/data, public ou dist.
 
 Atalhos: npm run programacao -- --artists "nome"; npm run test:programacao. O build passa a executar os testes de programação antes de gerar o site; uma falha interrompe o build e o Pages mantém o deployment anterior. Nenhum workflow Actions ou serviço adicional é necessário.
+
+## Página individual de artista
+
+Cada artista com perfil em `src/data/artist-profiles.json` ganha a página `/artistas/<slug>/`, no visual da página de evento. Nome e release vêm de `src/data/public-source.json` (pelo `artistId`); o perfil guarda só o slug, o tipo (ex.: DJ), os estilos e a foto aprovada em `public/img/destaques/`. A página lista as apresentações na Savassi a partir da data do build. Para incluir um artista: revisar o release, salvar a foto (WebP 440 e 800 px), acrescentar o perfil e apontar para `/artistas/<slug>/` os links da programação. Começou pela DJ Poetry (artista 1437).

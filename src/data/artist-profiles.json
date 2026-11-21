@@ -1,0 +1,16 @@
+[
+  {
+    "artistId": 1437,
+    "slug": "dj-poetry",
+    "kind": "DJ",
+    "genres": "R&B, rap, house e afro music",
+    "photo": {
+      "src": "/img/destaques/dj-poetry-800.webp",
+      "small": "/img/destaques/dj-poetry-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "DJ Poetry (Rafael Augusto)",
+      "position": "50% 22%"
+    }
+  }
+]

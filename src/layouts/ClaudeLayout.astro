@@ -10,17 +10,20 @@ import evento from '../design/claude/evento.html?raw';
 import livraria from '../design/claude/livraria.html?raw';
 import casa from '../design/claude/casa.html?raw';
 import celular from '../design/claude/celular.html?raw';
-interface Props {name?:string}
-const {name='index'}=Astro.props;
+// custom: página gerada a partir dos dados (ex.: /artistas/<slug>/), com o mesmo cabeçalho, estilos e scripts.
+interface Custom {key:string;title:string;description:string;path:string;html:string}
+interface Props {name?:string;custom?:Custom}
+const {name='index',custom}=Astro.props;
 const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const titles:Record<string,string>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
 const descriptions:Record<string,string>={index:'Café com Letras Savassi, em Belo Horizonte. Restaurante, café, jazz club e livraria. Cardápio, programação e informações da casa.',gastronomia:'Gastronomia do Café com Letras Savassi: cardápio, almoço executivo, sugestões do chef, bar e vinhos.',programacao:'Programação cultural do Café com Letras Savassi: música, jazz, DJs, livros e exposições em Belo Horizonte.',evento:'Nova Onda: Matheus Avelar Quarteto no Café com Letras Savassi. Informações do modelo de evento da proposta visual.',livraria:'Livraria do Café com Letras Savassi: lançamentos, encontros e clubes de leitura.',casa:'Conheça o Café com Letras Savassi: história, endereço, horários de visita e eventos privados.',celular:'Café com Letras Savassi: gastronomia, programação cultural e informações da casa no celular.'};
-const title='Café com Letras · '+titles[name];
-const canonical='https://cafecomletras.com.br'+(['index','celular'].includes(name)?'/':'/'+name+'/');
+const title='Café com Letras · '+(custom?.title??titles[name]);
+const description=custom?.description??descriptions[name];
+const canonical='https://cafecomletras.com.br'+(custom?custom.path:['index','celular'].includes(name)?'/':'/'+name+'/');
 const base=pages.find(p=>p.key==='savassi-desktop')!;
 // Somente entidades institucionais verificadas; não gerar Event para o modelo estático.
 const graph=seoFor(base).schema['@graph'].filter(x=>x['@type']!=='Event'&&x['@type']!=='WebPage');
-graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description:descriptions[name],inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
+graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
 const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
 const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`);
 ---
@@ -30,18 +33,18 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>
-  <meta name="description" content={descriptions[name]} />
+  <meta name="description" content={description} />
   <meta name="robots" content={production&&!['celular','evento'].includes(name)?'index, follow, max-image-preview:large':'noindex, nofollow'} />
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content="Café com Letras" />
-  <meta property="og:title" content={title} /><meta property="og:description" content={descriptions[name]} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
+  <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/img/common/favicon.ico" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
   <script type="application/ld+json" set:html={schema} />
  </head>
- <body class="w-full min-w-0" data-design="claude" data-page={name}>
-  {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
+ <body class="w-full min-w-0" data-design="claude" data-page={custom?.key??name}>
+  {custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   <script>import '../client/interactions';</script>
  </body>
 </html>
