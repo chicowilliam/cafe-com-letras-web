@@ -1,4 +1,5 @@
 // Pages Functions: URL compatibility only. No database, secrets or external requests.
+import {legalReview} from '../src/config/institutional.ts';
 import {contentSecurityPolicy} from '../shared/security-policy.ts';
 interface Context { request:Request;env?:{DEPLOY_ENV?:string};next:()=>Promise<Response> }
 const CANONICAL='https://cafecomletras.com.br';
@@ -35,6 +36,7 @@ async function handle(context:Context):Promise<Response>{
  let decoded:string;try{decoded=decodeURIComponent(p);}catch{return response('Endereço inválido.',400);}
  if(/[\u0000-\u001f\\]/.test(decoded)||decoded.split('/').some(x=>x==='..'))return response('Endereço inválido.',400);
  if(/^\/(admin|system|novostalentos|concurso-[^/]+)(\/|$)/i.test(decoded)||/\.(sql|ini|config|bak|ps1)$/i.test(decoded)){headers.set('X-Robots-Tag','noindex');return response('Não encontrado.',404);}
+ if(url.hostname==='cafecomletras.com.br'&&!legalReview.approved&&/^\/(politica-de-privacidade|politica-de-cookies|termos-de-uso)(?:\/|\.html|$)/i.test(decoded))return response('Documento em revisão; publicação ainda não autorizada.',404);
  if(!['GET','HEAD'].includes(request.method))return response('Este envio depende de um serviço ainda não habilitado.',503);
  const cookie=/(?:^|;\s*)unity=(Savassi|Liberdade)(?:;|$)/.exec(request.headers.get('cookie')||'')?.[1];
  const requested=url.searchParams.get('unity');if(requested&&!units.includes(requested))return response('Unidade inválida.',400);
