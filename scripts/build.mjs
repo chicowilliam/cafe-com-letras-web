@@ -3,6 +3,7 @@ import {readFile,writeFile,mkdir,readdir,stat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import sanitizeHTML from 'sanitize-html';
+import {legalReview} from '../src/config/institutional.ts';
 
 // This repository targets Pages. Stop a duplicate Workers Builds pipeline before deployment.
 if(process.env.WORKERS_CI==='1'||process.env.WORKERS_CI_BUILD_UUID){
@@ -19,6 +20,7 @@ const agendaTests=spawnSync(process.execPath,['tests/programacao.mjs'],{stdio:'i
 if(agendaTests.status!==0)process.exit(agendaTests.status||1);
 
 const production=!process.argv.includes('--preview')&&(process.argv.includes('--production')||process.env.DEPLOY_ENV==='production');
+if(production&&!legalReview.approved)throw new Error('Etapa institucional: publicação bloqueada até revisão jurídica e aprovação explícita. Revise src/config/institutional.ts e este bloqueio após homologação.');
 const mode=production?'production':'preview';
 const data=JSON.parse(await readFile('src/data/public-source.json','utf8'));
 const monthIndex=Object.fromEntries(data.units.map(unit=>[unit.unity_unity.toLowerCase(),[...new Set(data.events.filter(e=>e.calendar_unity===unit.unity_id).map(e=>e.calendar_date.slice(0,6)))].sort()]));

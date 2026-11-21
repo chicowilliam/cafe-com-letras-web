@@ -12,7 +12,7 @@ export default defineConfig({
   trailingSlash: 'always',
   vite: { plugins: [tailwindcss()] },
   build: { inlineStylesheets: 'always' },
-  integrations: [sitemap({ filter: page => !new URL(page).pathname.startsWith('/m/') && !page.includes('/indisponivel/') && !page.includes('/celular/') && !page.includes('/evento/') })],
+  integrations: [sitemap({ filter: page => !['/politica-de-privacidade/','/politica-de-cookies/','/termos-de-uso/'].includes(new URL(page).pathname) && !new URL(page).pathname.startsWith('/m/') && !page.includes('/indisponivel/') && !page.includes('/celular/') && !page.includes('/evento/') })],
   devToolbar: { enabled: false },
   server: { host: '127.0.0.1', port: 4321 },
 });

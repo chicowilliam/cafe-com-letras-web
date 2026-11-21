@@ -1,0 +1,16 @@
+---
+import {legalReview} from '../config/institutional';
+import '../styles/institutional.css';
+---
+<aside class="institutional-footer" aria-label="Informações institucionais">
+ <div class="wrap"><nav aria-label="Privacidade e atendimento"><a href="/politica-de-privacidade/">Privacidade · rascunho</a><a href="/politica-de-cookies/">Cookies · rascunho</a><a href="/termos-de-uso/">Termos de uso · rascunho</a><button type="button" data-cookie-preferences aria-haspopup="dialog">Preferências de cookies</button><a href="/casa/#perguntas-frequentes">Perguntas frequentes</a><a href="tel:+5531984244285">(31) 98424-4285</a></nav><p>© <span data-current-year>{new Date().getFullYear()}</span> Café com Letras · Savassi</p></div>
+</aside>
+<dialog id="cookie-preferences" aria-labelledby="cookie-title" aria-describedby="cookie-description" data-notice-version={legalReview.version}>
+ <h2 id="cookie-title" class="h3">Preferências de cookies</h2>
+ <p id="cookie-description">Esta versão não utiliza analytics ou marketing opcionais. Por isso, não solicitamos um consentimento que não teria efeito.</p>
+ <h3>Funcionais e necessários</h3><p><strong>unity</strong>: lembra a unidade escolhida, por até sete dias, nas rotas legadas. <strong>cafe-agenda-filter</strong>: mantém um filtro entre páginas e é removido ao chegar à agenda ou ao encerrar a sessão. Não são usados para publicidade.</p>
+ <p>As fontes são carregadas do Google Fonts, que recebe dados técnicos da conexão. Reservas, mapas e redes sociais só são abertos quando você segue seus links. <a href="/politica-de-cookies/">Consultar o rascunho da política de cookies</a>.</p>
+ <button type="button" class="btn" data-clear-preferences>Limpar preferências locais</button><p role="status" data-preferences-status aria-live="polite"></p>
+ <form method="dialog"><button class="btn ink" value="close">Fechar</button></form>
+</dialog>
+<script>import '../client/institutional';</script>

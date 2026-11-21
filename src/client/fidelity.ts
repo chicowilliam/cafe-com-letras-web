@@ -35,6 +35,7 @@ document.addEventListener('click',event=>{
 });
 document.addEventListener('submit',event=>{
  const form=event.target as HTMLFormElement;
+ if(form.method==='dialog')return;
  const existingNewsletter=production&&form.closest('.newsletter')&&form.action.startsWith('https://25.idmkt8.com/');
  if(!existingNewsletter){event.preventDefault();alert('Envio indisponível neste canal. Consulte os contatos da unidade.');}
 });
