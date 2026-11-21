@@ -5,7 +5,9 @@ import {seoFor} from '../lib/seo';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
 import '../styles/institutional.css';
-import {whatsapp} from '../config/whatsapp';
+import {whatsapp,whatsappMessage,type WhatsAppContext} from '../config/whatsapp';
+import MobileHeader from '../components/MobileHeader.astro';
+import WhatsAppContact from '../components/WhatsAppContact.astro';
 import '../styles/site.css';
 import home from '../design/claude/index.html?raw';
 import gastronomia from '../design/claude/gastronomia.html?raw';
@@ -19,7 +21,7 @@ interface Custom {key:string;title:string;description:string;path:string;html:st
 interface Props {name?:string;custom?:Custom;documentTitle?:string}
 const {name='index',custom,documentTitle}=Astro.props;
 const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
-const titles:Record<string,string>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
+const titles:Record<string,WhatsAppContext>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
 const descriptions:Record<string,string>={index:'Café com Letras Savassi, em Belo Horizonte. Restaurante, café, jazz club e livraria. Cardápio, programação e informações da casa.',gastronomia:'Gastronomia do Café com Letras Savassi: cardápio, almoço executivo, sugestões do chef, bar e vinhos.',programacao:'Programação cultural do Café com Letras Savassi: música, jazz, DJs, livros e exposições em Belo Horizonte.',evento:'Nova Onda: Matheus Avelar Quarteto no Café com Letras Savassi. Informações do modelo de evento da proposta visual.',livraria:'Livraria do Café com Letras Savassi: lançamentos, encontros e clubes de leitura.',casa:'Conheça o Café com Letras Savassi: história, endereço, horários de visita e eventos privados.',celular:'Café com Letras Savassi: gastronomia, programação cultural e informações da casa no celular.'};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
 const description=documentTitle??custom?.description??descriptions[name];
@@ -30,7 +32,10 @@ const graph=seoFor(base).schema['@graph'].filter(x=>x['@type']!=='Event'&&x['@ty
 graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
 const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
 const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
-const adapt=(html:string)=>adaptBase(html).replace('<main>','<main id="main-content" tabindex="-1">').replace(/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/g,nav=>nav.replace(/(<a\b[^>]*class="[^" ]*\bon\b[^"]*")/g,'$1 aria-current="page"'));
+const adapt=(html:string)=>adaptBase(html).replace(/<a\b[^>]*href="(#trabalhe|#imprensa)"[^>]*>/g,(tag,destination)=>{
+ const context=destination==='#trabalhe'?'Trabalhe conosco':'Imprensa';
+ return tag.replace(/href="[^"]*"/,`href="https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsappMessage(context))}"`).replace(/ (?:data-demo|aria-disabled|title)="[^"]*"/g,'');
+}).replace('<main>','<main id="main-content" tabindex="-1">').replace(/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/g,nav=>nav.replace(/(<a\b[^>]*class="[^" ]*\bon\b[^"]*")/g,'$1 aria-current="page"'));
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -45,15 +50,19 @@ const adapt=(html:string)=>adaptBase(html).replace('<main>','<main id="main-cont
   <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/img/common/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
   <script type="application/ld+json" set:html={schema} />
  </head>
  <body class="w-full min-w-0" data-design="claude" data-page={custom?.key??name}>
   <a class:list={["skip-link", {"skip-desktop":name==='index'&&!custom&&!documentTitle}]} data-skip-content href={documentTitle?'#conteudo':name==='celular'?'#mobile-content':'#main-content'}>Pular para o conteúdo</a>
   {name==='index'&&!custom&&!documentTitle&&<a class="skip-link skip-mobile" href="#mobile-content">Pular para o conteúdo</a>}
+  {(custom||documentTitle||!["index","celular"].includes(name))&&<MobileHeader page={custom?.key??name} />}
   {documentTitle?<><Fragment set:html={adapt(home.split('<main>')[0] ?? '')}/><main id="conteudo"><slot/></main><Fragment set:html={adapt(home.slice(home.indexOf('<footer')))}/></>:custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   {name==='casa'&&<FAQ/>}
   <InstitutionalSupport/>
+  <WhatsAppContact context={custom||documentTitle?undefined:titles[name]} />
   <script>import '../client/interactions';</script>
  </body>
 </html>

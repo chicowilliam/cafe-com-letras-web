@@ -36,4 +36,43 @@ const gallery=publicData.photos.filter(p=>p.photo_unity===unitId).sort((a,b)=>b.
  .photos:hover .galleria-image-nav-left,.photos:hover .galleria-image-nav-right{opacity:1!important}
  [data-pending-service] input:disabled,[data-pending-service] textarea:disabled{cursor:not-allowed}
  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{transition-duration:.01ms!important}}
+ @media(max-width:960px){
+  body:is([data-kind='desktop'],[data-kind='digital']) .alignment{width:100%}
+  body:is([data-kind='desktop'],[data-kind='digital']) .page{width:100%;padding:16px;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .page>*{max-width:100%;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.highlight,.highlight ul,.highlight ol,#arrows,nav,nav ul,.about,.photos,.calendar,.menu,.menu-navigation,.menu-navigation ul,.menu-navigation ul li){width:100%;max-width:100%;box-sizing:border-box;margin-inline:0}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.highlight img,.photos img){max-width:100%;height:auto}
+  body:is([data-kind='desktop'],[data-kind='digital']) .page>h1{background-position:center}
+  body:is([data-kind='desktop'],[data-kind='digital']) .projects{width:100%;margin-inline:0;padding:0}
+  body:is([data-kind='desktop'],[data-kind='digital']) .projects li{max-width:100%;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-card{width:100%;margin-inline:0;padding:20px;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(input,textarea,iframe){max-width:100%;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) #slider-next-1{right:0;left:auto!important}
+  body:is([data-kind='desktop'],[data-kind='digital']) .calendar table{width:100%;table-layout:fixed;font-size:12px}
+  body:is([data-kind='desktop'],[data-kind='digital']) .calendar :is(td,th){padding-inline:0;overflow-wrap:anywhere}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.venues,.venues h2,.venues ul){width:100%;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .news{width:100%;margin-inline:0;overflow:hidden}
+  body:is([data-kind='desktop'],[data-kind='digital']) .news li{width:calc(100vw - 32px)!important;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .news .info{float:none;width:100%;margin:0;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.galleria-container,.galleria-stage,.galleria-images,.galleria-image,.galleria-image-nav){width:100%!important;max-width:100%}
+  body:is([data-kind='desktop'],[data-kind='digital']) .galleria-image img{width:100%!important;height:auto!important;left:0!important}
+  body:is([data-kind='desktop'],[data-kind='digital']) .galleria-image-nav-right{right:0!important;left:auto!important}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.social,.newsletter,.footer,.talk-to-us,.contacts){float:none;clear:both;width:100%;max-width:100%;margin-inline:0;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) :is(.footer,.contacts) :is(form,fieldset,h3,.block,p){max-width:100%;margin-inline:0;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .newsletter{position:relative;margin-block:20px}
+  body:is([data-kind='desktop'],[data-kind='digital']) .contacts{padding:24px 0}
+  body:is([data-kind='desktop'],[data-kind='digital']) .photos{overflow:hidden}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-fixed{width:100%;max-width:100%;margin-inline:0;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-fixed ul{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:100%;padding:0;box-sizing:border-box}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-fixed li{margin:0;max-width:100%}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-navigation{overflow:hidden}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-navigation ul{width:calc((100vw - 32px) * 21)!important;max-width:none!important}
+  body:is([data-kind='desktop'],[data-kind='digital']) .menu-navigation ul li{width:calc(100vw - 32px)!important}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) .alignment{width:100%;max-width:960px}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) .page{width:100%;padding:20px;box-sizing:border-box}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) .alignment>h1{max-width:100%;background-size:contain;background-position:center;background-repeat:no-repeat}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) table{width:100%;table-layout:fixed}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) td{overflow-wrap:anywhere}
+  body:is([data-kind='all'],[data-kind='wine'],[data-kind='dessert']) td.price{width:72px;text-align:right;white-space:nowrap}
+ }
 </style>

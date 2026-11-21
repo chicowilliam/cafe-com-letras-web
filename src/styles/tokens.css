@@ -32,7 +32,7 @@
   --spacing-page-mobile: 20px;
   --spacing-section: 96px;
   --container-page: 1360px;
-  --radius-action: 999px;
+  --radius-action: 12px;
   --ease-ui: cubic-bezier(.22, 1, .36, 1);
 }
 :root {

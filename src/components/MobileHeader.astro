@@ -1,0 +1,16 @@
+---
+interface Props { page: string }
+const {page}=Astro.props;
+const links=[['gastronomia','Gastronomia'],['programacao','Programação'],['livraria','Livraria'],['programacao/#em-cartaz','Exposições'],['casa','A Casa']] as const;
+---
+<div class="compact-navigation">
+ <header class="compact-header">
+  <a href="/" aria-label="Café com Letras, página inicial"><img src="/claude/assets/logo-ink.png" alt="Café com Letras" width="373" height="121" /></a>
+  <button type="button" data-mobile-menu aria-expanded="false" aria-controls="page-navigation" aria-label="Abrir menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6h14M3 14h14"/></svg></button>
+ </header>
+ <nav id="page-navigation" class="mobile-navigation" hidden aria-label="Principal">
+  {links.map(([slug,label])=><a href={'/'+slug+(slug.includes('#')?'':'/')} aria-current={page===slug?'page':undefined}>{label}</a>)}
+  <a class="btn ink" href="https://usetag.me/cafecomletras" target="_blank" rel="noopener noreferrer">Reservar</a>
+  <a class="btn" href="/delivery/">Delivery</a>
+ </nav>
+</div>
