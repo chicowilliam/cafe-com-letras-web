@@ -1,0 +1,57 @@
+---
+// Página de um festival: reúne todos os artistas da programação do festival, com link para a página de cada um.
+// Dados em src/data/festivals.json. O destaque "Em cartaz" da home aponta para cá.
+import ClaudeLayout from '../../layouts/ClaudeLayout.astro';
+import template from '../../design/claude/evento.html?raw';
+import festivals from '../../data/festivals.json';
+import {publicData} from '../../lib/data';
+import {artistProfiles,shortTime} from '../../lib/artists';
+import {escapeHTML,weekday} from '../../lib/presentation';
+
+interface Festival {slug:string;title:string;tag:string;intro:string;titlePrefix:string;artistIds:number[]}
+export function getStaticPaths(){return (festivals as Festival[]).map(festival=>({params:{slug:festival.slug},props:{festival}}));}
+interface Props {festival:Festival}
+const {festival}=Astro.props;
+
+const day=(d:string)=>`${weekday(d)}, ${d.slice(6,8)}/${d.slice(4,6)}`;
+const price=(p:string)=>escapeHTML(p.replace(/\s+por pessoa$/i,''));
+const acts=festival.artistIds.map(id=>{
+ const artist=publicData.artists.find(a=>a.artist_id===id);
+ const profile=artistProfiles.find(p=>p.artistId===id);
+ const event=publicData.events.filter(e=>e.calendar_artist===id&&e.calendar_unity===1).sort((a,b)=>(a.calendar_date+a.calendar_time).localeCompare(b.calendar_date+b.calendar_time))[0];
+ if(!artist||!profile||!event)throw new Error(`Festival ${festival.slug}: artista ${id} sem cadastro, página ou data.`);
+ return {name:artist.artist_name.replace(festival.titlePrefix,''),profile,event};
+}).sort((a,b)=>(a.event.calendar_date+a.event.calendar_time).localeCompare(b.event.calendar_date+b.event.calendar_time));
+
+const start=template.indexOf('<main>');const end=template.indexOf('</main>');
+if(start<0||end<0)throw new Error('Modelo evento.html sem <main>.');
+
+const cards=acts.map(({name,profile,event})=>{
+ const photo=profile.photo;
+ return `<a href="/artistas/${profile.slug}/" class="no-underline block" style="border:1.5px solid var(--color-ink)">
+  ${photo?`<img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width:900px) 100vw, 400px" width="${photo.width}" height="${photo.height}" alt="${escapeHTML(photo.alt)}" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:${photo.position};background:var(--color-palco-photo)">`:''}
+  <div style="padding:24px">
+   <div class="tag" style="color:var(--color-palco)">${escapeHTML(day(event.calendar_date))} · ${shortTime(event.calendar_time)}</div>
+   <div class="h3" style="margin-top:10px;font-size:28px">${escapeHTML(name)}</div>
+   <p class="p" style="margin-top:8px;font-size:15px;color:var(--color-text-muted)">${escapeHTML(profile.kind)} · ${escapeHTML(profile.genres)}</p>
+   <div class="mono" style="margin-top:14px;font-size:15px">Couvert ${price(event.calendar_price)}</div>
+   <div style="margin-top:16px;font-weight:700;font-size:15px">Conheça o artista →</div>
+  </div>
+ </a>`;}).join('');
+
+const main=`<main>
+<div class="wrap" style="padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--color-text-muted)"><a href="/programacao/">Programação</a> / Festival / ${escapeHTML(festival.title)}</div>
+<section class="wrap" style="padding-bottom:96px">
+ <div style="background:var(--color-palco);color:#fff;padding:40px 32px">
+  <div class="tag" style="opacity:.8">${escapeHTML(festival.tag)}</div>
+  <h1 class="disp" style="font-size:72px;margin-top:14px">${escapeHTML(festival.title)}</h1>
+  <p class="p" style="margin-top:18px;max-width:720px;opacity:.92">${escapeHTML(festival.intro)}</p>
+ </div>
+ <div class="gap-[32px]" style="margin-top:40px;display:grid;grid-template-columns:repeat(${acts.length},minmax(0,1fr))" data-responsive-grid>${cards}</div>
+ <div class="acts" style="margin-top:40px"><a class="btn palco" href="https://reservation.getin.app/36qBovkN">Reservar mesa</a><a class="btn" href="/programacao/">Ver toda a programação</a></div>
+</section>
+</main>`;
+const html=template.slice(0,start)+main+template.slice(end+'</main>'.length);
+const description=`${festival.title} no Café com Letras Savassi: ${acts.map(a=>`${a.name} (${day(a.event.calendar_date)}, ${shortTime(a.event.calendar_time)})`).join('; ')}.`;
+---
+<ClaudeLayout custom={{key:'festival',title:festival.title,description,path:`/festivais/${festival.slug}/`,html}} />
