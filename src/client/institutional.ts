@@ -1,13 +1,13 @@
 import {eventState} from '../lib/event-state';
 const dialog=document.querySelector<HTMLDialogElement>('#cookie-preferences');
 let opener:HTMLElement|null=null;
-document.querySelectorAll<HTMLButtonElement>('[data-cookie-preferences]').forEach(button=>button.addEventListener('click',()=>{opener=button;dialog?.showModal();}));
+document.querySelectorAll<HTMLButtonElement>('[data-cookie-preferences]').forEach(button=>button.addEventListener('click',()=>{opener=button;if(dialog){dialog.showModal();dialog.scrollTop=0;dialog.querySelector<HTMLElement>('#cookie-title')?.focus({preventScroll:true});}}));
 dialog?.addEventListener('close',()=>opener?.focus()); // Native dialog traps focus, handles Escape and inerts the page.
 dialog?.addEventListener('keydown',event=>{
  if(event.key!=='Tab')return;
  const controls=Array.from(dialog.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),[tabindex="0"]'));
  const first=controls[0],last=controls.at(-1);if(!first||!last)return;
- if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+ if(event.shiftKey&&(document.activeElement===first||document.activeElement===dialog.querySelector('#cookie-title'))){event.preventDefault();last.focus();}
  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 });
 document.querySelector('[data-clear-preferences]')?.addEventListener('click',()=>{

@@ -9,7 +9,7 @@ const unitId=Number(body.dataset.unitId);const kind=body.dataset.kind||'';
 const production=body.dataset.production==='true'&&location.hostname==='cafecomletras.com.br';
 const mobile=kind==='mobile';const slug=unit.toLowerCase();
 const today=businessDay();const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-document.cookie=`unity=${unit};Path=/;Max-Age=604800;SameSite=Lax${location.protocol==='https:'?';Secure':''}`;
+// Persistência da unidade ocorre no middleware somente após escolha explícita.
 const $=<T extends Element=HTMLElement>(selector:string,scope:ParentNode=document)=>scope.querySelector<T>(selector);
 const $$=<T extends Element=HTMLElement>(selector:string,scope:ParentNode=document)=>Array.from(scope.querySelectorAll<T>(selector));
 function scrollToNode(node:Element|null,offset=0){if(node)window.scrollTo({top:node.getBoundingClientRect().top+window.scrollY-offset,behavior:reduce?'instant':'smooth'});}

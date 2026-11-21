@@ -4,6 +4,8 @@ Branch: feature/institucional-privacidade. Base: main 9a18755. Nenhuma publicaç
 
 ## Auditoria (21/11/2026)
 
+O inventário descreve a base auditada. Nesta etapa, foi removida a criação automática do cookie unity pelo cliente legado: ele passa a ser gravado somente pelo middleware após escolha explícita de unidade via parâmetro unity. Redirecionamentos sem escolha não gravam esse cookie. Há testes para ambos os casos.
+
 Home oficial, contexto Chrome limpo: zero cookies, localStorage e sessionStorage vazios. Requisições externas para Google Fonts e tentativa de beacon Cloudflare (bloqueada por CSP). Sem GA, GTM ou pixel. Configuração Pages: analytics não configurado; NEWSLETTER_ENABLED ausente. Não foram lidos ou publicados valores de segredos.
 
 Inventário de código: cookie unity de unidade, 7 dias, SameSite=Lax e Secure em HTTPS; definido no middleware ao escolher unidade e pelo cliente legado. sessionStorage cafe-agenda-filter transporta categoria e é removido ao chegar à agenda. Não há categorias opcionais ativas; não se cria banner, escolhas ou registro de consentimento fictício. Painel nativo informa o inventário e limpa as preferências. Antes/depois da abertura e limpeza, nenhuma integração opcional é iniciada. Aceitação/rejeição/revogação opcionais: não aplicáveis sem fornecedor ativo. Se um fornecedor for introduzido, exige inventário, bloqueio prévio, categorias reais e testes de escolha/revogação; a estrutura atual não se apresenta como CMP preparada para terceiros.
