@@ -1,6 +1,7 @@
 ---
 import {legalReview} from '../config/institutional';
-import {pages,production} from '../lib/data';
+import {pages,production,publicData} from '../lib/data';
+import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature} from '../lib/home-stage';
 import {seoFor} from '../lib/seo';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
@@ -9,20 +10,28 @@ import {whatsapp,whatsappMessage,type WhatsAppContext} from '../config/whatsapp'
 import MobileHeader from '../components/MobileHeader.astro';
 import WhatsAppContact from '../components/WhatsAppContact.astro';
 import '../styles/site.css';
-import home from '../design/claude/index.html?raw';
+import homeRaw from '../design/claude/index.html?raw';
 import gastronomia from '../design/claude/gastronomia.html?raw';
 import programacao from '../design/claude/programacao.html?raw';
 import evento from '../design/claude/evento.html?raw';
 import livraria from '../design/claude/livraria.html?raw';
 import casa from '../design/claude/casa.html?raw';
-import celular from '../design/claude/celular.html?raw';
+import celularRaw from '../design/claude/celular.html?raw';
 // custom: página gerada a partir dos dados (ex.: /artistas/<slug>/), com o mesmo cabeçalho, estilos e scripts.
 interface Custom {key:string;title:string;description:string;path:string;html:string}
 interface Props {name?:string;custom?:Custom;documentTitle?:string}
 const {name='index',custom,documentTitle}=Astro.props;
-const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const titles:Record<string,WhatsAppContext>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
 const descriptions:Record<string,string>={index:'Café com Letras Savassi, em Belo Horizonte. Restaurante, café, jazz club e livraria. Cardápio, programação e informações da casa.',gastronomia:'Gastronomia do Café com Letras Savassi: cardápio, almoço executivo, sugestões do chef, bar e vinhos.',programacao:'Programação cultural do Café com Letras Savassi: música, jazz, DJs, livros e exposições em Belo Horizonte.',evento:'Nova Onda: Matheus Avelar Quarteto no Café com Letras Savassi. Informações do modelo de evento da proposta visual.',livraria:'Livraria do Café com Letras Savassi: lançamentos, encontros e clubes de leitura.',casa:'Conheça o Café com Letras Savassi: história, endereço, horários de visita e eventos privados.',celular:'Café com Letras Savassi: gastronomia, programação cultural e informações da casa no celular.'};
+// Home: destaque do dia e semana calculados no build; o navegador recalcula na virada do dia (src/client/home.ts).
+const homeState=pickHome(publicData.events,process.env.CONTENT_DATE?{day:process.env.CONTENT_DATE,minutes:0}:bhNow());
+const homeArtists=new Map(publicData.artists.map(a=>[a.artist_id,a]));
+const homeSlots:Record<string,()=>string>={stage:()=>renderStage(homeState,homeArtists),week:()=>renderWeek(homeState,homeArtists),mstage:()=>renderMobileStage(homeState,homeArtists),mweek:()=>renderMobileWeek(homeState,homeArtists)};
+const homeSig=homeSignature(homeState);
+const dynamicHome=(html:string)=>html.replace(/<!--home:(\w+)-->[\s\S]*?<!--\/home:\1-->/g,(match,key:string)=>homeSlots[key]?.()??match).replace(/data-home="(\w+)"/g,`data-home="$1" data-home-sig="${homeSig}"`);
+const home=dynamicHome(homeRaw);
+const celular=dynamicHome(celularRaw);
+const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
 const description=documentTitle??custom?.description??descriptions[name];
 const canonical='https://cafecomletras.com.br'+(custom?custom.path:['index','celular'].includes(name)?'/':'/'+name+'/');
