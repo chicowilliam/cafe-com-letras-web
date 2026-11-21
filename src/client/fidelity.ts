@@ -17,7 +17,7 @@ for(const anchor of $$<HTMLAnchorElement>('a[href]')){
  if(!production&&new URL(anchor.href,location.href).origin!==location.origin){anchor.setAttribute('aria-disabled','true');anchor.title='Link externo desativado nesta prévia.';}
 }
 for(const anchor of $$<HTMLAnchorElement>('.reservations,.restorando')){
- if(production&&unit==='Savassi'&&anchor.href==='https://usetag.me/cafecomletras')continue;
+ if(production&&unit==='Savassi'&&anchor.href==='https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg')continue;
  anchor.setAttribute('aria-disabled','true');anchor.title='Reservas indisponíveis neste canal. Consulte os contatos da unidade.';
 }
 
@@ -31,7 +31,7 @@ document.addEventListener('click',event=>{
  }
  const heading=target?.closest('h1');if(heading){location.href=unitPath(unit,mobile);return;}
  const reservation=target?.closest<HTMLAnchorElement>('.reservations,.restorando');
- if(reservation&&!(production&&unit==='Savassi'&&reservation.href==='https://usetag.me/cafecomletras')){event.preventDefault();alert('Reservas indisponíveis neste canal. Consulte os contatos da unidade.');}
+ if(reservation&&!(production&&unit==='Savassi'&&reservation.href==='https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg')){event.preventDefault();alert('Reservas indisponíveis neste canal. Consulte os contatos da unidade.');}
 });
 document.addEventListener('submit',event=>{
  const form=event.target as HTMLFormElement;
