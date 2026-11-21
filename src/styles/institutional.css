@@ -9,6 +9,7 @@
 #cookie-preferences::backdrop{background:rgb(22 22 20 / .6)}
 #cookie-preferences .btn{border-radius:12px;white-space:normal}
 #cookie-preferences button{font-family:inherit}
+#cookie-preferences :focus-visible{outline:3px solid #161614;outline-offset:4px}
 html:has(#cookie-preferences[open]){overflow:hidden}
 .legal-copy{max-width:800px;margin:auto;padding:64px 24px;line-height:1.7}
 .legal-copy h1{font:800 clamp(36px,6vw,64px)/1.05 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;overflow-wrap:anywhere}
