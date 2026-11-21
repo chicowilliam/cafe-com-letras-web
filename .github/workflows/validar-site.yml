@@ -40,3 +40,6 @@ jobs:
       # testes de programacao, de artefatos e de regressao.
       - name: Validar e compilar o site
         run: npm run build
+
+      - name: Validar build de produção com documentos jurídicos bloqueados
+        run: npm run build:production && npm run test:artifacts && node tests/migration.mjs && node tests/preproduction.mjs && node tests/institutional.mjs
