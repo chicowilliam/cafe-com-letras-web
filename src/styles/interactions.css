@@ -1,0 +1,69 @@
+body[data-design='claude'] [hidden] { display: none !important; }
+body[data-design='claude'] a,
+body[data-design='claude'] button {
+  transition: opacity var(--motion-feedback) ease-out,
+    color var(--motion-feedback) ease-out,
+    background-color var(--motion-feedback) ease-out,
+    border-color var(--motion-feedback) ease-out;
+}
+body[data-design='claude'] :is(.btn, .chip, [data-mobile-menu]) {
+  transition: opacity var(--motion-feedback) ease-out,
+    color var(--motion-feedback) ease-out,
+    background-color var(--motion-feedback) ease-out,
+    border-color var(--motion-feedback) ease-out,
+    transform var(--motion-press) var(--ease-ui);
+}
+body[data-design='claude'] :is(.btn, .chip, [data-mobile-menu]):active { transform: scale(.98); }
+body[data-design='claude'] :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+body[data-design='claude'] .nav a { text-underline-offset: 5px; }
+body[data-design='claude'] .nav a:focus-visible { outline-offset: 2px; }
+body[data-design='claude'] .chip[aria-pressed='true'] { background: var(--color-ink); color: #fff; }
+#mobile-navigation {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--color-paper);
+  transform-origin: top right;
+}
+[data-mobile-menu][aria-expanded='true'] { background: var(--color-ink) !important; color: var(--color-paper); }
+[data-mobile-menu][aria-expanded='true'] svg { stroke: currentColor; }
+[data-interaction-feedback] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 14px 18px;
+  max-width: min(360px, calc(100vw - 32px));
+  border: 1.5px solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: 14px/1.5 var(--font-body);
+  border-radius: 12px;
+  z-index: 30;
+}
+.filter-empty { padding: 24px 0; font: 16px/1.55 var(--font-body); }
+@media (hover: hover) and (pointer: fine) {
+  body[data-design='claude'] a:hover { opacity: .82; }
+  body[data-design='claude'] :is(.grid3, .grid4) > a,
+  body[data-design='claude'] [data-event-row] { transition: opacity 160ms ease-out, transform 160ms var(--ease-ui); }
+  body[data-design='claude'] :is(.grid3, .grid4) > a:hover { transform: translateY(-2px); }
+  body[data-design='claude'] [data-event-row]:hover { transform: translateX(2px); }
+  body[data-design='claude'] main .photo { transition: opacity 160ms ease-out; }
+  body[data-design='claude'] main .photo:hover { opacity: .94; }
+  body[data-design='claude'] .nav a:hover { text-decoration: underline; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-reveal] { transition: opacity var(--motion-reveal) ease-out, transform var(--motion-reveal) var(--ease-ui); }
+  [data-scroll-reveal].reveal-pending { opacity: 0; transform: translateY(6px); }
+}
+/* Teclado não espera animações; o conteúdo nunca depende de animação para existir. */
+body[data-input='keyboard'] :is(a, button, [data-scroll-reveal]) { transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  body[data-design='claude'] *, body[data-design='claude'] *::before, body[data-design='claude'] *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+  body[data-design='claude'] :is(.btn, .chip, [data-mobile-menu], [data-event-row], .grid3 > a, .grid4 > a):is(:hover, :active) { transform: none !important; }
+  [data-scroll-reveal] { opacity: 1 !important; transform: none !important; }
+}

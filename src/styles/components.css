@@ -1,0 +1,46 @@
+
+body{margin:0;background:var(--color-paper);color:var(--color-ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+*{box-sizing:border-box}
+.wrap{@apply mx-auto px-page;max-width:var(--container-page)}
+.disp{font-family:var(--font-display);font-weight:800;letter-spacing:-.035em;line-height:.9;margin:0}
+.h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;line-height:.95;font-size:64px;margin:0}
+.h3{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.05;font-size:28px;margin:0}
+.mono{@apply font-mono}
+.tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.lead{font-size:19px;line-height:1.5;margin:0}
+.p{font-size:16px;line-height:1.55;margin:0}
+.util{background:var(--color-ink);color:var(--color-paper);font-size:13px}
+.util .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.hdr{background:var(--color-paper);border-bottom:1.5px solid var(--color-ink)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px}
+.nav{display:flex;gap:28px;flex-wrap:wrap;font-weight:600;font-size:15px}
+.nav a{text-decoration:none;padding:10px 0;border-bottom:2px solid transparent}
+.nav a.on{border-bottom-color:var(--color-ink)}
+.acts{@apply flex flex-wrap gap-[10px]}
+.btn{@apply inline-flex items-center justify-center gap-2;min-height:44px;padding:0 20px;border-radius:var(--radius-action);font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--color-ink);color:var(--color-ink);background:transparent;white-space:nowrap}
+.btn.ink{background:var(--color-ink);color:#fff}
+.btn.mesa{background:var(--color-mesa);border-color:var(--color-mesa);color:#fff}
+.btn.palco{background:var(--color-palco);border-color:var(--color-palco);color:#fff}
+.btn.w{background:#fff;border-color:#fff;color:var(--color-ink)}
+.btn.wo{border-color:rgba(255,255,255,.9);color:#fff}
+.photo{background:var(--color-photo);display:flex;align-items:flex-end;padding:14px;font-family:var(--font-mono);font-size:12px;color:var(--color-photo-text)}
+.photo.dark{background:var(--color-palco-photo);color:var(--color-palco-photo-text)}
+.photo.warm{background:var(--color-mesa-photo);color:var(--color-mesa-photo-text)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:8px}
+.v{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--color-vegan);color:#fff;font-size:11px;font-weight:700;margin-left:8px;vertical-align:middle}
+.rule{border:0;border-top:1.5px solid var(--color-ink);margin:0}
+.grid2{@apply grid grid-cols-2}
+.grid3{@apply grid grid-cols-3 gap-6}
+.grid4{@apply grid grid-cols-4 gap-6}
+.row{@apply flex justify-between items-baseline gap-4;padding:14px 0;border-bottom:1px solid rgba(22,22,20,.18)}
+.row .n{font-weight:600;font-size:17px}
+.row .d{font-size:14px;color:var(--color-text-muted);margin-top:3px;line-height:1.4}
+.row .pr{font-family:var(--font-mono);font-size:16px;white-space:nowrap}
+.foot{background:var(--color-ink);color:var(--color-text-light);font-size:15px;line-height:1.6}
+.foot a{text-decoration:none}
+.foot .wrap{padding-top:72px;padding-bottom:40px}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:var(--radius-action);border:1.5px solid var(--color-ink);font-size:14px;font-weight:600;text-decoration:none;background:transparent;color:var(--color-ink)}
+.chip.on{background:var(--color-ink);color:#fff}
+.ex{font-family:var(--font-mono);font-size:11px;background:var(--color-example);color:var(--color-ink);padding:2px 6px;border-radius:4px;vertical-align:middle;letter-spacing:.04em}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:minmax(0,1fr)}.h2{font-size:44px}.wrap{padding-left:var(--spacing-page-mobile);padding-right:var(--spacing-page-mobile)}.hide-m{display:none}}

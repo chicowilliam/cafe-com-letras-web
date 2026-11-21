@@ -1,0 +1,102 @@
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
+function routeLegacySection(){const target=legacySections[location.hash];if(location.pathname==='/'&&target)location.replace(target);}
+routeLegacySection();
+addEventListener('hashchange',routeLegacySection);
+document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
+document.addEventListener('pointerdown',()=>{delete document.body.dataset.input;},{passive:true});
+
+// Navegação de divulgação não é um menu ARIA de aplicação: Tab segue a ordem nativa.
+for(const button of document.querySelectorAll<HTMLButtonElement>('[data-mobile-menu]')){
+ const sibling=button.closest('header')?.nextElementSibling;
+ if(!(sibling instanceof HTMLElement))continue;
+ const nav:HTMLElement=sibling;
+ let animation:Animation|undefined;
+ let open=false;
+ function setOpen(next:boolean,instant=false,restoreFocus=false){
+  animation?.cancel();
+  open=next;
+  button.setAttribute('aria-expanded',String(next));
+  button.setAttribute('aria-label',next?'Fechar menu':'Abrir menu');
+  button.querySelector('path')?.setAttribute('d',next?'M4 4l12 12M4 16L16 4':'M3 6h14M3 14h14');
+  nav.inert=!next;
+  if(restoreFocus)button.focus({preventScroll:true});
+  if(next)nav!.hidden=false;
+  if(instant||reducedMotion.matches){nav!.hidden=!next;return;}
+  animation=nav!.animate(next?
+   [{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'translateY(0)'}]:
+   [{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-4px)'}],
+   {duration:next?220:140,easing:'cubic-bezier(.22,1,.36,1)'});
+  animation.finished.then(()=>{if(!open)nav!.hidden=true;}).catch(()=>{/* Retoggles cancel the previous animation. */});
+ }
+ button.addEventListener('click',event=>setOpen(!open,event.detail===0));
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&open){event.preventDefault();setOpen(false,true,true);}});
+ document.addEventListener('pointerdown',event=>{
+  if(open&&event.target instanceof Node&&!nav.contains(event.target)&&!button.contains(event.target))setOpen(false);
+ },{passive:true});
+ nav.addEventListener('click',event=>{if(event.target instanceof Element&&event.target.closest('a'))setOpen(false,true);});
+ nav.addEventListener('focusout',()=>queueMicrotask(()=>{
+  if(open&&!nav.contains(document.activeElement)&&document.activeElement!==button)setOpen(false,true);
+ }));
+ matchMedia('(max-width:600px)').addEventListener('change',()=>setOpen(false,true));
+ reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)setOpen(open,true);});
+}
+
+// Um feedback local e não modal substitui alerts bloqueantes para recursos indisponíveis.
+let feedback:HTMLDivElement|undefined;
+function showFeedback(trigger:HTMLElement,message:string){
+ if(!feedback){
+  feedback=document.createElement('div');
+  feedback.dataset.interactionFeedback='';
+  feedback.setAttribute('role','status');
+  feedback.setAttribute('aria-live','polite');
+  feedback.setAttribute('popover','auto');
+  feedback.hidden=true;
+  document.body.append(feedback);
+ }
+ feedback.textContent=message;
+ feedback.hidden=false;
+ const rect=trigger.getBoundingClientRect();
+ feedback.style.left=Math.max(16,Math.min(rect.left,innerWidth-392))+'px';
+ feedback.style.top=Math.max(16,Math.min(rect.bottom+8,innerHeight-160))+'px';
+ if('showPopover' in feedback){if(!feedback.matches(':popover-open'))feedback.showPopover();}
+ else{
+  const close=(event:Event)=>{if(event.target instanceof Node&&!feedback?.contains(event.target)){feedback!.hidden=true;document.removeEventListener('pointerdown',close);}};
+  document.addEventListener('pointerdown',close,{passive:true});
+ }
+}
+document.addEventListener('click',event=>{
+ const target=event.target instanceof Element?event.target:null;
+ const sectionLink=target?.closest<HTMLElement>('[data-section-link]');
+ if(sectionLink)for(const link of sectionLink.parentElement?.querySelectorAll('[data-section-link]')||[]){
+  link.classList.toggle('on',link===sectionLink);
+  if(link===sectionLink)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
+ }
+ const intent=target?.closest<HTMLElement>('[data-agenda-intent]')?.dataset.agendaIntent;
+ if(intent){try{sessionStorage.setItem('cafe-agenda-filter',intent);}catch{/* Navigation remains available. */}}
+ const demo=target?.closest<HTMLElement>('[data-demo]');
+ if(demo){event.preventDefault();showFeedback(demo,demo.dataset.demo||'Recurso indisponível nesta prévia.');}
+});
+document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',event=>{
+ event.preventDefault();showFeedback(form.querySelector<HTMLElement>('button')||form,'Formulário demonstrativo: nenhum dado é enviado.');
+}));
+
+// Apenas elementos abaixo da dobra: nunca adiar o hero ou o candidato a LCP.
+if('IntersectionObserver' in window&&!reducedMotion.matches){
+ const pending=new Set<HTMLElement>();
+ const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries)if(entry.isIntersecting){
+   const element=entry.target as HTMLElement;element.classList.remove('reveal-pending');pending.delete(element);observer.unobserve(element);
+  }
+ },{rootMargin:'0px 0px 24px 0px',threshold:0});
+ for(const element of document.querySelectorAll<HTMLElement>('main > section, .home-desktop main > section, .home-mobile > div > section, body[data-page="celular"] > div > section')){
+  const rect=element.getBoundingClientRect();
+  if(rect.width&&rect.top>innerHeight+48){element.dataset.scrollReveal='';element.classList.add('reveal-pending');pending.add(element);observer.observe(element);}
+ }
+ const revealAll=()=>{for(const element of pending)element.classList.remove('reveal-pending');pending.clear();observer.disconnect();};
+ reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)revealAll();});
+ // Focus, fragments and print must never land on visually hidden content.
+ document.addEventListener('focusin',event=>{if(event.target instanceof Element)event.target.closest('[data-scroll-reveal]')?.classList.remove('reveal-pending');});
+ addEventListener('beforeprint',revealAll);
+}
+if(document.querySelector('[data-agenda]'))import('./agenda').then(module=>module.initAgenda());

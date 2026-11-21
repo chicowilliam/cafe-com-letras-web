@@ -2,8 +2,7 @@
 import {pages,production} from '../lib/data';
 import {seoFor} from '../lib/seo';
 import {whatsapp} from '../config/whatsapp';
-import originalCSS from '../design/claude/original.css?raw';
-import '../styles/claude-responsive.css';
+import '../styles/site.css';
 import home from '../design/claude/index.html?raw';
 import gastronomia from '../design/claude/gastronomia.html?raw';
 import programacao from '../design/claude/programacao.html?raw';
@@ -39,25 +38,10 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/img/common/favicon.ico" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
-  <style is:inline set:html={originalCSS} />
   <script type="application/ld+json" set:html={schema} />
  </head>
  <body data-design="claude" data-page={name}>
   {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
-  <script>
-   // Fragmentos legados chegam ao navegador, nunca ao middleware HTTP.
-   const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
-   function routeLegacySection(){if(location.pathname==='/'&&legacySections[location.hash])location.replace(legacySections[location.hash]!);}
-   routeLegacySection();
-   window.addEventListener('hashchange',routeLegacySection);
-   document.addEventListener('click',event=>{
-    const target=event.target instanceof Element?event.target:null;
-    const menu=target?.closest('[data-mobile-menu]');
-    if(menu){const nav=menu.closest('header')?.nextElementSibling as HTMLElement|null;if(nav){nav.hidden=!nav.hidden;menu.setAttribute('aria-expanded',String(!nav.hidden));}return;}
-    const demo=target?.closest<HTMLElement>('[data-demo]');
-    if(demo){event.preventDefault();alert(demo.dataset.demo);}
-   });
-   document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',event=>{event.preventDefault();alert('Formulário demonstrativo: nenhum dado é enviado.');}));
-  </script>
+  <script>import '../client/interactions';</script>
  </body>
 </html>

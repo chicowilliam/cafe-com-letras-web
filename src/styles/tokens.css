@@ -1,0 +1,43 @@
+/* Valores exatos da identidade Mesa e Palco; sem conversão de cores. */
+@theme static {
+  --color-ink: #161614;
+  --color-paper: #FAFAF7;
+  --color-mesa: #B83C18;
+  --color-mesa-deep: #8E2E12;
+  --color-mesa-photo: #9E3414;
+  --color-mesa-photo-text: #F6D9CD;
+  --color-mesa-soft: #F6E4DC;
+  --color-palco: #1D2B53;
+  --color-palco-photo: #2C3A63;
+  --color-palco-photo-text: #D5DAEA;
+  --color-palco-soft: #E3E7F1;
+  --color-photo: #D8D5CC;
+  --color-photo-text: #3F3D38;
+  --color-surface: #EDEBE4;
+  --color-text-light: #E9E7E1;
+  --color-text-muted: #55534D;
+  --color-text-subtle: #77746C;
+  --color-text-on-dark: #B9B6AE;
+  --color-text-dim: #8E8B83;
+  --color-line-dark: #4A4844;
+  --color-line-deep: #3A3936;
+  --color-vegan: #2F6B3A;
+  --color-example: #FFE58A;
+  --color-live: #C8102E;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --spacing: 4px;
+  --spacing-page: 40px;
+  --spacing-page-mobile: 20px;
+  --spacing-section: 96px;
+  --container-page: 1360px;
+  --radius-action: 999px;
+  --ease-ui: cubic-bezier(.22, 1, .36, 1);
+}
+:root {
+  --motion-press: 120ms;
+  --motion-feedback: 160ms;
+  --motion-menu: 220ms;
+  --motion-reveal: 280ms;
+}

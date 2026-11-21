@@ -1,0 +1,68 @@
+async () => {
+ page.setDefaultNavigationTimeout(90000);
+ const base=__CANDIDATE__;
+ const report={base,filters:[],errors:[],requests:[],passed:false};
+ page.on('pageerror',error=>report.errors.push(String(error)));
+ page.on('request',request=>{if(request.method()!=='GET')report.requests.push({method:request.method(),url:request.url()});});
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:390,height:900});
+ await page.goto(base+'/programacao/');
+ await page.waitForFunction(()=>document.querySelector('[data-agenda]')?.dataset.activeFilter==='all');
+ const expected=await page.locator('[data-event-row]').evaluateAll(rows=>{
+  const counts={all:rows.length};for(const row of rows){const key=row.dataset.eventCategory;counts[key]=(counts[key]||0)+1;}return counts;
+ });
+ for(const [name,category] of [['Jazz','jazz'],['Bossa Nova','bossa'],['DJs','dj'],['Piano Bar','piano'],['Livros','books'],['Tudo','all']]){
+  const control=page.getByRole('button',{name,exact:true});await control.click();
+  const item=await page.locator('[data-agenda]').evaluate((agenda,category)=>({
+   category,visible:[...agenda.querySelectorAll('[data-event-row]')].filter(r=>!r.hidden).length,
+   wrong:[...agenda.querySelectorAll('[data-event-row]')].some(r=>!r.hidden&&category!=='all'&&r.dataset.eventCategory!==category),
+   monthMismatch:[...agenda.querySelectorAll('[data-agenda-month]')].some(m=>m.hidden===Boolean(m.querySelector('[data-event-row]:not([hidden])'))),
+   status:agenda.querySelector('[data-filter-status]').textContent,
+   focus:document.activeElement?.getAttribute('data-agenda-filter')
+  }),category);
+  item.expected=expected[category];item.pressed=await control.getAttribute('aria-pressed');report.filters.push(item);
+ }
+ const jazz=page.getByRole('button',{name:'Jazz',exact:true});await jazz.focus();await page.keyboard.press('Space');
+ report.keyboardFilter=await page.locator('[data-agenda]').getAttribute('data-active-filter');
+ report.keyboardFilterAnimations=await page.locator('[data-agenda]').evaluate(e=>e.getAnimations().filter(a=>a.playState==='running').length);
+ await page.getByRole('button',{name:'Tudo',exact:true}).focus();await page.keyboard.press('Enter');
+ report.enterFilter=await page.locator('[data-agenda]').getAttribute('data-active-filter');
+ await page.goto(base+'/');
+ const trigger=page.getByRole('button',{name:'Abrir menu',exact:true});
+ const hero=page.locator('.home-mobile section').first();
+ const beforeY=await hero.evaluate(e=>e.getBoundingClientRect().top);
+ await trigger.focus();await page.keyboard.press('Enter');
+ report.keyboardMenu=await page.locator('.home-mobile #mobile-navigation').isVisible();
+ report.keyboardMenuAnimations=await page.locator('.home-mobile #mobile-navigation').evaluate(e=>e.getAnimations().length);
+ await page.keyboard.press('Tab');report.firstLinkFocused=await page.locator('.home-mobile #mobile-navigation a').first().evaluate(e=>e===document.activeElement);
+ await page.keyboard.press('Escape');report.escapeClosed=await trigger.getAttribute('aria-expanded')==='false';report.focusRestored=await trigger.evaluate(e=>e===document.activeElement);
+ await trigger.click();await page.getByRole('button',{name:'Fechar menu',exact:true}).click();await page.getByRole('button',{name:'Abrir menu',exact:true}).click();await page.waitForTimeout(250);
+ report.rapidRetoggle=await page.locator('.home-mobile #mobile-navigation').isVisible();
+ report.menuLayoutShift=(await hero.evaluate(e=>e.getBoundingClientRect().top))-beforeY;
+ await page.mouse.click(5,600);await page.waitForTimeout(200);report.outsideClosed=await trigger.getAttribute('aria-expanded')==='false';
+ await page.getByRole('button',{name:'Abrir menu',exact:true}).click();await page.locator('.home-mobile #mobile-navigation').getByRole('link',{name:'Programação',exact:true}).click();
+ report.menuNavigation=page.url().endsWith('/programacao/');
+ await page.waitForFunction(()=>document.querySelector('[data-agenda]')?.dataset.activeFilter==='all');
+ // Feedback honesto sem dialogs bloqueantes nem envio de formulário.
+ await page.getByRole('link',{name:'PT',exact:true}).dispatchEvent('click');
+ report.demoFeedback=await page.locator('[data-interaction-feedback]').isVisible();
+ report.demoMessage=await page.locator('[data-interaction-feedback]').textContent();
+ await page.keyboard.press('Escape');report.feedbackEscapeClosed=await page.locator('[data-interaction-feedback]').evaluate(e=>!e.matches(':popover-open'));
+ await page.goto(base+'/');
+ report.revealPending=await page.locator('.reveal-pending').count();
+ const firstReveal=page.locator('[data-scroll-reveal]').first();
+ if(report.revealPending){await firstReveal.scrollIntoViewIfNeeded();await page.waitForTimeout(350);report.scrollRevealed=await firstReveal.evaluate(e=>getComputedStyle(e).opacity==='1'&&getComputedStyle(e).transform==='none');}
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'/');
+ report.reducedPending=await page.locator('.reveal-pending').count();
+ await page.getByRole('button',{name:'Abrir menu',exact:true}).click();report.reducedMenuAnimations=await page.locator('.home-mobile #mobile-navigation').evaluate(e=>e.getAnimations().length);
+ const plain=await page.context().browser().newContext({javaScriptEnabled:false,viewport:{width:390,height:900}});
+ const nojs=await plain.newPage();await nojs.goto(base+'/programacao/');
+ report.nojsRows=await nojs.locator('[data-event-row]').count();report.nojsHidden=await nojs.locator('[data-event-row][hidden]').count();report.nojsOpacity=await nojs.locator('h1').evaluate(e=>getComputedStyle(e).opacity);await plain.close();
+ await page.goto(base+'/gastronomia/');await page.locator('[data-section-link][href="#bar"]').click();
+ report.sectionNavigation=page.url().endsWith('/gastronomia/#bar');report.sectionCurrent=await page.locator('[data-section-link][href="#bar"]').getAttribute('aria-current');
+ await page.setViewportSize({width:1440,height:900});await page.goto(base+'/');await page.locator('.home-desktop [data-agenda-intent="dj"]').click();await page.waitForFunction(()=>document.querySelector('[data-agenda]')?.dataset.activeFilter==='dj');
+ report.homeFilterIntent=await page.locator('[data-event-row]:not([hidden])').count();
+ report.passed=report.filters.every(f=>f.visible===f.expected&&!f.wrong&&!f.monthMismatch&&f.pressed==='true'&&f.focus===f.category)&&report.keyboardFilter==='jazz'&&report.enterFilter==='all'&&report.keyboardFilterAnimations===0&&report.keyboardMenu&&report.keyboardMenuAnimations===0&&report.firstLinkFocused&&report.escapeClosed&&report.focusRestored&&report.rapidRetoggle&&report.menuLayoutShift===0&&report.outsideClosed&&report.menuNavigation&&report.demoFeedback&&report.feedbackEscapeClosed&&report.revealPending>0&&report.scrollRevealed&&report.reducedPending===0&&report.reducedMenuAnimations===0&&report.nojsRows===expected.all&&report.nojsHidden===0&&report.nojsOpacity==='1'&&!report.errors.length&&!report.requests.length;
+ report.passed=report.passed&&report.sectionNavigation&&report.sectionCurrent==='location'&&report.homeFilterIntent===expected.dj;
+ return report;
+}
