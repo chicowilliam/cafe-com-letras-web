@@ -37,6 +37,12 @@ export function renderCatalog(data:Pick<PublicData,'categories'|'items'>,unit:nu
  return categories.map(c=>`<h3>${escapeHTML(c.category_category.trim())}</h3><table>${data.items.filter(i=>i.item_unity===unit&&i.item_category===c.category_id).map(i=>`<tr><td class="item"><div>${escapeHTML(i.item_item.trim())}</div><div class="description">${escapeHTML(i.item_description.trim())}</div></td><td class="price">${escapeHTML(i.item_price.trim())}</td></tr>`).join('')}</table>`).join('');
 }
 
+/** Carta de vinhos no padrão do cardápio da página Gastronomia (grupos com .row/.n/.d/.pr). */
+export function renderWineMenu(secoes:{titulo:string;itens:{nome:string;descricao:string;preco:string}[]}[]=cartaDeVinhos.secoes){
+ const price=(v:string)=>v.replace(/,00$/,'');
+ return secoes.map(sec=>`<div class="mb-[48px]" style="break-inside:avoid"><h3 class="h3" style="font-size:32px;padding-bottom:12px;border-bottom:3px solid var(--color-mesa)">${escapeHTML(sec.titulo)}</h3>${sec.itens.map(i=>`<div class="row"><div><div class="n">${escapeHTML(i.nome)}</div><div class="d">${escapeHTML(i.descricao)}</div></div><div class="pr">${escapeHTML(price(i.preco))}</div></div>`).join('')}</div>`).join('');
+}
+
 export function renderWineList(secoes:{titulo:string;itens:{nome:string;descricao:string;preco:string}[]}[]){
  return secoes.map(sec=>`<h3>${escapeHTML(sec.titulo)}</h3><table>${sec.itens.map(i=>`<tr><td class="item"><div>${escapeHTML(i.nome)}</div><div class="description">${escapeHTML(i.descricao)}</div></td><td class="price">${escapeHTML(i.preco)}</td></tr>`).join('')}</table>`).join('');
 }

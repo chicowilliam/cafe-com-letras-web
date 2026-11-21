@@ -101,6 +101,19 @@
   #menu-items .row .d { font-size: 14px; line-height: 1.55; }
   #menu-items .row .pr { font-size: 14px; font-variant-numeric: tabular-nums; text-align: end; }
   #cardapio [data-menu-filter] { padding-inline: 11px; }
+  #wine-items { column-count: 1 !important; }
+  #wine-items > div { margin-bottom: 32px; }
+  #wine-items .h3 { font-size: 27px !important; }
+  #wine-items .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    align-items: baseline;
+    gap: 8px 14px;
+    padding-block: 14px;
+  }
+  #wine-items .row .n { font-size: 16px; line-height: 1.35; }
+  #wine-items .row .d { font-size: 14px; line-height: 1.55; }
+  #wine-items .row .pr { font-size: 14px; font-variant-numeric: tabular-nums; text-align: end; }
 }
 
 @keyframes mobile-panel-enter {

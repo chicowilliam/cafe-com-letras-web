@@ -46,6 +46,8 @@ async function handle(context:Context):Promise<Response>{
  if(designAlias)return redirect(designAlias[1]==='index'?'/':'/'+designAlias[1]+'/',301);
  const aliases:Record<string,string>={'/liberdade/index.asp':'/liberdade/','/m/liberdade/index.asp':'/m/liberdade/','/linktree/index.asp':'/linktree/','/delivery/index.asp':'/delivery/'};
  if(aliases[p])return redirect(aliases[p]);
+ // Carta de vinhos da Savassi agora fica na página Gastronomia, no padrão do cardápio.
+ if(p==='/carta-de-vinhos/'||p==='/carta-de-vinhos')return redirect('/gastronomia/#vinhos',302);
  const section=url.searchParams.get('section'),subsection=url.searchParams.get('subsection')||'all';
  if(section&&section!=='menu')return response('Seção inválida.',400);
  if(section==='menu'&&!['all','wine','dessert'].includes(subsection))return response('Cardápio inválido.',400);
@@ -58,7 +60,7 @@ async function handle(context:Context):Promise<Response>{
  if(p.endsWith('/cardapiodigital/index.asp'))return redirect(base+'cardapiodigital/',301,unit);
  const legacy=['/','/index.asp','/m','/m/','/m/index.asp','/m/liberdade/','/liberdade/'].includes(p);
  if(legacy){
-  if(section==='menu')return redirect((unit==='Liberdade'?'/liberdade':'')+({all:'/cardapio/',wine:'/carta-de-vinhos/',dessert:'/sobremesas/'}[subsection]||'/cardapio/'),301,unit);
+  if(section==='menu')return redirect((unit==='Liberdade'?'/liberdade':'')+({all:'/cardapio/',wine:unit==='Liberdade'?'/carta-de-vinhos/':'/gastronomia/#vinhos',dessert:'/sobremesas/'}[subsection]||'/cardapio/'),301,unit);
   if(unit==='Savassi'&&p.startsWith('/m')&&!section)return redirect('/'+url.hash,301,unit);
   const isMobile=p.startsWith('/m');const target=isMobile?mobileBase:base;
   if(requested||p.endsWith('.asp')||p==='/m'||p!==target)return redirect(target,301,unit);
