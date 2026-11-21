@@ -1,0 +1,62 @@
+{
+  "fonte": "Carta de vinhos Café com Letras 2026 julho (PDF), enviada por Bruno Golgher em 21/11/2026",
+  "unidade": "Savassi",
+  "secoes": [
+    {
+      "titulo": "Tintos em garrafa (750 ml)",
+      "itens": [
+        { "nome": "Achao", "descricao": "Carménère | Chile", "preco": "R$ 130,00" },
+        { "nome": "Achao", "descricao": "Cabernet Sauvignon | Chile", "preco": "R$ 130,00" },
+        { "nome": "Andean Perch", "descricao": "Malbec | Valle de Maule, Chile", "preco": "R$ 140,00" },
+        { "nome": "3 Tons", "descricao": "Blend | Minas Gerais, Brasil", "preco": "R$ 170,00" },
+        { "nome": "Marques de Tejares", "descricao": "Tempranillo e Cabernet Sauvignon | Castilha, Espanha", "preco": "R$ 180,00" },
+        { "nome": "La Grive Musicienne", "descricao": "Pinot Noir | Languedoc, França", "preco": "R$ 185,00" },
+        { "nome": "Aldaba Roble", "descricao": "Tempranillo | Espanha", "preco": "R$ 185,00" }
+      ]
+    },
+    {
+      "titulo": "Brancos em garrafa (750 ml)",
+      "itens": [
+        { "nome": "Vila Rosa", "descricao": "Blend | Frisante | Portugal", "preco": "R$ 130,00" },
+        { "nome": "Reina Ana", "descricao": "Chardonnay | Valle de Maule, Chile", "preco": "R$ 130,00" },
+        { "nome": "Andean Perch", "descricao": "Pinot Grigio | Valle de Maule, Chile", "preco": "R$ 130,00" },
+        { "nome": "Vigia Superior", "descricao": "Sauvignon Blanc | Valle Central, Chile", "preco": "R$ 140,00" }
+      ]
+    },
+    {
+      "titulo": "Rosés em garrafa (750 ml)",
+      "itens": [
+        { "nome": "Vila Rosa", "descricao": "Blend | Frisante | Portugal", "preco": "R$ 130,00" },
+        { "nome": "Avemaria", "descricao": "Blend | Valle Central, Chile", "preco": "R$ 130,00" }
+      ]
+    },
+    {
+      "titulo": "Espumantes em garrafa (750 ml)",
+      "itens": [
+        { "nome": "Rex Bibendi", "descricao": "Brut | Sul de Minas Gerais, Brasil", "preco": "R$ 125,00" },
+        { "nome": "Alud", "descricao": "Tempranillo | Rosé | Badajoz, Espanha", "preco": "R$ 135,00" },
+        { "nome": "Alud", "descricao": "Pardina e Eva | Brut | Badajoz, Espanha", "preco": "R$ 135,00" }
+      ]
+    },
+    {
+      "titulo": "Vinhos em decanter (750 ml)",
+      "itens": [
+        { "nome": "Vinho da Casa Tavernello Rosso d’Italia", "descricao": "Blend | Itália", "preco": "R$ 110,00" },
+        { "nome": "Vinho da Casa Tavernello Bianco d’Italia", "descricao": "Blend | Itália", "preco": "R$ 110,00" }
+      ]
+    },
+    {
+      "titulo": "Vinhos em taça (150 ml)",
+      "itens": [
+        { "nome": "Vinho da Casa Tavernello Rosso d’Italia", "descricao": "Tinto | Itália", "preco": "R$ 22,00" },
+        { "nome": "Achao", "descricao": "Tinto | Carménère | Chile", "preco": "R$ 28,00" },
+        { "nome": "3 Tons", "descricao": "Tinto | Blend | Minas Gerais, Brasil", "preco": "R$ 36,00" },
+        { "nome": "Vinho da Casa Tavernello Bianco d’Italia", "descricao": "Branco | Itália", "preco": "R$ 22,00" },
+        { "nome": "Reina Ana", "descricao": "Branco | Chardonnay | Valle de Maule, Chile", "preco": "R$ 30,00" },
+        { "nome": "Andean Perch", "descricao": "Branco | Pinot Grigio | Valle de Maule, Chile", "preco": "R$ 30,00" },
+        { "nome": "Vila Rosa", "descricao": "Blend | Frisante | Portugal", "preco": "R$ 28,00" },
+        { "nome": "Rex Bibendi", "descricao": "Brut | Sul de Minas Gerais, Brasil", "preco": "R$ 34,00" }
+      ]
+    }
+  ]
+}

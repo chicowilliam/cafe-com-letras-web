@@ -1,5 +1,6 @@
 import type { CalendarChunk, PublicData } from './types';
 import unavailableImages from '../data/unavailable-artist-images.json';
+import cartaDeVinhos from '../data/carta-de-vinhos.json';
 
 export function artistImage(id:number){return unavailableImages.includes(id)?null:`/img/artists/${id}.jpg`;}
 function artistPhoto(id:number,name:string){const src=artistImage(id);return src?`<img src="${src}" alt="${escapeHTML(name)}" title="${escapeHTML(name)}" loading="lazy" />`:'';}
@@ -30,8 +31,14 @@ export function renderMenu(data: Pick<PublicData,'suggestions'|'plates'|'suggest
 }
 
 export function renderCatalog(data:Pick<PublicData,'categories'|'items'>,unit:number,kind:string){
+ // Carta de vinhos da Savassi (unidade 1) vem da carta atual (src/data/carta-de-vinhos.json), não do cadastro antigo exportado do MySQL.
+ if(kind==='wine'&&unit===1)return renderWineList(cartaDeVinhos.secoes);
  const categories=data.categories.filter(c=>kind==='all'||c.category_category.toLocaleLowerCase('pt-BR').includes(kind==='wine'?'vinho':'sobremesa'));
  return categories.map(c=>`<h3>${escapeHTML(c.category_category.trim())}</h3><table>${data.items.filter(i=>i.item_unity===unit&&i.item_category===c.category_id).map(i=>`<tr><td class="item"><div>${escapeHTML(i.item_item.trim())}</div><div class="description">${escapeHTML(i.item_description.trim())}</div></td><td class="price">${escapeHTML(i.item_price.trim())}</td></tr>`).join('')}</table>`).join('');
+}
+
+export function renderWineList(secoes:{titulo:string;itens:{nome:string;descricao:string;preco:string}[]}[]){
+ return secoes.map(sec=>`<h3>${escapeHTML(sec.titulo)}</h3><table>${sec.itens.map(i=>`<tr><td class="item"><div>${escapeHTML(i.nome)}</div><div class="description">${escapeHTML(i.descricao)}</div></td><td class="price">${escapeHTML(i.preco)}</td></tr>`).join('')}</table>`).join('');
 }
 
 /** release is sanitized during the public-data build, before entering any browser chunk. */
