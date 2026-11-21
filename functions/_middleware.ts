@@ -57,7 +57,7 @@ async function handle(context:Context):Promise<Response>{
   if(section==='menu')return redirect((unit==='Liberdade'?'/liberdade':'')+({all:'/cardapio/',wine:'/carta-de-vinhos/',dessert:'/sobremesas/'}[subsection]||'/cardapio/'),301,unit);
   const isMobile=p.startsWith('/m');const target=isMobile?mobileBase:base;
   if(requested||p.endsWith('.asp')||p==='/m'||p!==target)return redirect(target,301,unit);
-  if(p!=='/'&&!isMobile&&/Android|iPhone|iPod|Windows Phone|Mobile/i.test(request.headers.get('user-agent')||''))return redirect(mobileBase,302,unit);
+  if(!isMobile&&/Android|iPhone|iPod|Windows Phone|Mobile/i.test(request.headers.get('user-agent')||''))return redirect(mobileBase,302,unit);
  }
  return context.next();
 }
