@@ -28,7 +28,7 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
 <html lang="pt-BR">
  <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={descriptions[name]} />
   <meta name="robots" content={production&&!['celular','evento'].includes(name)?'index, follow, max-image-preview:large':'noindex, nofollow'} />
@@ -40,8 +40,8 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
   <script type="application/ld+json" set:html={schema} />
  </head>
- <body data-design="claude" data-page={name}>
-  {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
+ <body class="w-full min-w-0" data-design="claude" data-page={name}>
+  {name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   <script>import '../client/interactions';</script>
  </body>
 </html>

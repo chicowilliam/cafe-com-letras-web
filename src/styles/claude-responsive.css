@@ -1,4 +1,5 @@
 /* Somente adaptações abaixo dos breakpoints. O CSS desktop original é intocado. */
+html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
 .home-mobile{display:none}
 #mobile-navigation:not([hidden]){display:flex;flex-direction:column;padding:16px 20px;gap:16px;border-bottom:1.5px solid #161614}
 [data-demo-input]{cursor:not-allowed}
@@ -11,7 +12,6 @@
  body[data-design="claude"] .row> :first-child{min-width:0}
  body[data-design="claude"] [style*="display:flex"],body[data-design="claude"] .flex{min-width:0}
  body[data-design="claude"] input,body[data-design="claude"] textarea,body[data-design="claude"] select{max-width:100%;min-width:0}
- body[data-design="claude"] [style*="width:390px"]{width:100%!important;max-width:390px}
 }
 @media(max-width:600px){
  .home-desktop{display:none}.home-mobile{display:block}
@@ -22,7 +22,13 @@
  body[data-design="claude"] .disp[style*="font-size:96px"],body[data-design="claude"] .disp[style*="font-size:100px"]{font-size:64px!important}
  body[data-design="claude"] main>section>.wrap{min-width:0}
  body[data-design="claude"] .row{gap:10px}
- body[data-design="claude"] .btn{max-width:100%}
+ body[data-design="claude"] .btn{@apply min-w-0 max-w-full whitespace-normal text-center py-2}
+ body[data-design="claude"] .row .pr{@apply shrink-0}
+ body[data-design="claude"] .photo{@apply min-w-0}
+ body[data-design="claude"] img{@apply max-w-full}
+ body[data-design="claude"]{--mobile-safe-bottom:env(safe-area-inset-bottom,0px)}
+ body[data-design="claude"] .mobile-actions{padding-bottom:calc(12px + var(--mobile-safe-bottom));padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+ body[data-design="claude"] .mobile-footer{padding-bottom:calc(120px + var(--mobile-safe-bottom))}
  body[data-design="claude"] .disp[style*="font-size:84px"]{font-size:60px!important}
  body[data-page="evento"] .photo[style*="min-height:720px"]{min-height:360px!important}
  body[data-design="claude"] main{overflow-wrap:break-word}
