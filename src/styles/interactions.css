@@ -18,14 +18,6 @@ body[data-design='claude'] :focus-visible { outline: 2px solid currentColor; out
 body[data-design='claude'] .nav a { text-underline-offset: 5px; }
 body[data-design='claude'] .nav a:focus-visible { outline-offset: 2px; }
 body[data-design='claude'] .chip[aria-pressed='true'] { background: var(--color-ink); color: #fff; }
-#mobile-navigation {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  background: var(--color-paper);
-  transform-origin: top right;
-}
 [data-mobile-menu][aria-expanded='true'] { background: var(--color-ink) !important; color: var(--color-paper); }
 [data-mobile-menu][aria-expanded='true'] svg { stroke: currentColor; }
 [data-interaction-feedback] {

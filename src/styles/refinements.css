@@ -14,47 +14,25 @@ body[data-design='claude'] .chip{min-height:44px}
 body[data-design='claude'] .chip[data-section-link][aria-current='location']{background:var(--color-paper)!important;color:var(--color-ink)!important}
 body[data-design='claude'] .chip[data-section-link]:not([aria-current]){background:transparent!important;color:inherit!important}
 body[data-design='claude'] :is(.btn,.chip):focus-visible{outline:3px solid currentColor;outline-offset:4px}
-.compact-navigation{display:none}
 .institutional-footer{padding-bottom:112px}
 .skip-mobile{display:none}
 .skip-link{position:fixed;top:12px;left:20px;z-index:50;padding:12px 18px;background:var(--color-paper);color:var(--color-ink);border:2px solid currentColor;border-radius:12px;transform:translateY(-180%)}
 .skip-link:focus{transform:translateY(0)}
-.whatsapp-contact{position:fixed;right:max(24px,env(safe-area-inset-right));bottom:calc(24px + env(safe-area-inset-bottom));z-index:25;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 18px;border-radius:12px;background:var(--color-ink,#161614);color:#fff;text-decoration:none;border:1px solid #fafaf7;box-shadow:0 3px 12px #16161418;font:600 14px/1.2 var(--font-body,system-ui);transition:transform 160ms ease,background-color 160ms ease}
-.whatsapp-contact svg{flex:none}
-.whatsapp-contact:focus-visible{outline:3px solid var(--color-mesa,#b83c18);outline-offset:4px}
-.whatsapp-contact:active{transform:scale(.97)}
 @media(hover:hover){
  body[data-design='claude'] .btn:hover{opacity:1;background:var(--color-ink);color:var(--color-paper);border-color:var(--color-ink)}
  body[data-design='claude'] .btn:is(.ink,.mesa,.palco):hover{background:var(--color-paper);color:var(--color-ink);border-color:var(--color-ink)}
  body[data-design='claude'] .btn.wo:hover{background:var(--color-paper);color:var(--color-ink);border-color:var(--color-paper)}
- .whatsapp-contact:hover{opacity:1!important;background:var(--color-palco,#1d2b53);transform:translateY(-2px)}
 }
 @media(max-width:1100px) and (min-width:901px){body[data-design='claude'] .hdr .wrap{gap:16px}body[data-design='claude'] .nav{gap:16px}}
 @media(max-width:900px){
  .skip-desktop{display:none}.skip-mobile{display:block}
- .compact-navigation{display:block;position:relative;z-index:21;background:var(--color-paper)}
- .compact-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1.5px solid var(--color-ink)}
- .compact-header img{width:148px;height:auto;display:block}
- [data-mobile-menu]{border-radius:12px!important;color:var(--color-ink)}
- .compact-header button{display:grid;place-items:center;width:44px;height:44px;background:transparent;border:1.5px solid currentColor}
- body[data-design='claude']:not([data-page='index']):not([data-page='celular'])>.util{font-size:12px}
- body[data-design='claude']:not([data-page='index']):not([data-page='celular'])>.util .wrap{padding-block:8px}
- body[data-design='claude']:not([data-page='index']):not([data-page='celular'])>.util .wrap>span:not(:first-child),body[data-design='claude']>.hdr{display:none}
- .mobile-navigation,#mobile-navigation:not([hidden]){position:absolute;inset:auto 0 auto;z-index:22;padding:12px 20px 20px;background:var(--color-paper);border-bottom:1.5px solid var(--color-ink);box-shadow:0 8px 12px #1616140a}
- .mobile-navigation:not([hidden]){display:grid;gap:8px;grid-template-columns:1fr 1fr}
- .mobile-navigation>a:not(.btn),#mobile-navigation>a{display:flex;align-items:center;min-height:44px;padding:8px 12px;text-decoration:none;border-radius:8px}
- .mobile-navigation>a[aria-current='page']{background:var(--color-surface);font-weight:700}
  .home-desktop{display:none}.home-mobile{display:block}
  body[data-design='claude'] [style*='width:390px']{width:100%!important;max-width:100%}
  body[data-design='claude'] :is(.grid2,.grid3,.grid4){gap:32px!important}
  body[data-design='claude'] .h2{font-size:clamp(36px,6vw,48px)}
  body[data-design='claude'] .foot .wrap{padding-block:48px 112px}
  body[data-design='claude'] .foot [data-responsive-grid]{gap:28px!important}
- body[data-design='claude'] .home-mobile nav[aria-label='Ações rápidas'],body[data-page='celular'] nav[aria-label='Ações rápidas']{position:fixed!important;inset:auto 0 0;z-index:24;padding-bottom:calc(12px + env(safe-area-inset-bottom))!important;border-top:1px solid var(--color-line-dark)}
- body[data-design='claude']:is([data-page='index'],[data-page='celular']) .whatsapp-contact{bottom:calc(96px + env(safe-area-inset-bottom))}
- body[data-design='claude'] .home-mobile>div,body[data-page='celular']>div[style*='width:390px']{padding-bottom:76px}
  .home-mobile .mobile-canvas{max-width:100%}
- body[data-design='claude']:is([data-page='index'],[data-page='celular']) .institutional-footer{padding-bottom:calc(156px + env(safe-area-inset-bottom))}
 }
 @media(max-width:600px){
  body[data-design='claude'] main>section[style*='padding:96px 0'],body[data-design='claude'] main>section[style*='padding:80px 0']{padding-block:48px!important}
@@ -62,7 +40,4 @@ body[data-design='claude'] :is(.btn,.chip):focus-visible{outline:3px solid curre
  body[data-design='claude'] .lead[style*='font-size:2']{font-size:19px!important;line-height:1.6}
  body[data-design='claude'] .photo[style*='height:520px'],body[data-design='claude'] .photo[style*='height:460px'],body[data-design='claude'] .photo[style*='height:420px']{height:280px!important}
  body[data-design='claude'] .acts{gap:10px}
- .whatsapp-contact{right:max(16px,env(safe-area-inset-right));min-width:52px;min-height:52px;padding:0 13px}
- .whatsapp-contact span{display:none}
 }
-@media(prefers-reduced-motion:reduce){.whatsapp-contact{transition:none}.whatsapp-contact:is(:hover,:active){transform:none}}

@@ -44,7 +44,9 @@ for(const file of (await files('dist')).filter(file=>/\.(html|js|json)$/i.test(f
  const route='/'+path.relative('dist',file).split(path.sep).join('/').replace(/index\.html$/,'');
  const snapshot=snapshots.find(snapshot=>pagePath(snapshot.key)===route);
  const anchors=[...text.matchAll(/<a\b[^>]*>/gi)].map(match=>match[0]).filter(tag=>/wa\.me|whatsapp/i.test(tag));
- if(snapshot&&!text.includes('data-design="claude"'))assert.equal(anchors.length,links(snapshot.body).length,`${route}: existing WhatsApp links preserved`);
+ const floating=anchors.filter(tag=>/class="[^"]*\bwhatsapp-contact\b/.test(tag));
+ assert.equal(floating.length,1,`${route}: one floating WhatsApp link`);
+ if(snapshot&&!text.includes('data-design="claude"'))assert.equal(anchors.length-floating.length,links(snapshot.body).length,`${route}: existing WhatsApp links preserved`);
  if(anchors.length)pages++;
  for(const tag of anchors){
   const href=/href="([^"]*)"/i.exec(tag)?.[1];

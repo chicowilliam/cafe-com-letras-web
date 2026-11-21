@@ -4,7 +4,6 @@ body[data-design="claude"] img[src="/claude/assets/logo-white.png"]{clip-path:po
 /* Somente adaptações abaixo dos breakpoints. O CSS desktop original é intocado. */
 html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
 .home-mobile{display:none}
-#mobile-navigation:not([hidden]){display:flex;flex-direction:column;padding:16px 20px;gap:16px;border-bottom:1.5px solid #161614}
 [data-demo-input]{cursor:not-allowed}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 @media(max-width:900px){
@@ -17,7 +16,6 @@ html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
  body[data-design="claude"] input,body[data-design="claude"] textarea,body[data-design="claude"] select{max-width:100%;min-width:0}
 }
 @media(max-width:600px){
- html{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
  .home-desktop{display:none}.home-mobile{display:block}
  /* O artboard de 390px conserva seu grid de duas abas. */
  body[data-design="claude"] .home-mobile [style*="grid-template-columns:repeat(2"],body[data-page="celular"] [style*="grid-template-columns:repeat(2"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -30,9 +28,6 @@ html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
  body[data-design="claude"] .row .pr{@apply shrink-0}
  body[data-design="claude"] .photo{@apply min-w-0}
  body[data-design="claude"] img{@apply max-w-full}
- body[data-design="claude"]{--mobile-safe-bottom:env(safe-area-inset-bottom,0px)}
- body[data-design="claude"] .mobile-actions{padding-bottom:calc(12px + var(--mobile-safe-bottom));padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
- body[data-design="claude"] .mobile-footer{padding-bottom:calc(120px + var(--mobile-safe-bottom))}
  body[data-design="claude"] .disp[style*="font-size:84px"]{font-size:60px!important}
  body[data-page="evento"] .photo[style*="min-height:720px"]{min-height:360px!important}
  body[data-design="claude"] main{overflow-wrap:break-word}

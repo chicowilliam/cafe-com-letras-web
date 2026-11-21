@@ -10,40 +10,34 @@ addEventListener('hashchange',routeLegacySection);
 document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
 document.addEventListener('pointerdown',()=>{delete document.body.dataset.input;},{passive:true});
 
-// Navegação de divulgação não é um menu ARIA de aplicação: Tab segue a ordem nativa.
-for(const button of document.querySelectorAll<HTMLButtonElement>('[data-mobile-menu]')){
- const sibling=button.closest('header')?.nextElementSibling;
- if(!(sibling instanceof HTMLElement))continue;
- const nav:HTMLElement=sibling;
+const menuButton=document.querySelector<HTMLButtonElement>('[data-mobile-menu]');
+const menu=document.querySelector<HTMLDialogElement>('#page-navigation');
+if(menuButton&&menu){
+ const panel=menu.querySelector<HTMLElement>('.mobile-panel');
  let animation:Animation|undefined;
- let open=false;
- function setOpen(next:boolean,instant=false,restoreFocus=false){
+ const closeMenu=(instant=false,restoreFocus=true)=>{
+  if(!menu.open)return;
   animation?.cancel();
-  open=next;
-  button.setAttribute('aria-expanded',String(next));
-  button.setAttribute('aria-label',next?'Fechar menu':'Abrir menu');
-  button.querySelector('path')?.setAttribute('d',next?'M4 4l12 12M4 16L16 4':'M3 6h14M3 14h14');
-  nav.inert=!next;
-  if(restoreFocus)button.focus({preventScroll:true});
-  if(next)nav!.hidden=false;
-  if(instant||reducedMotion.matches){nav!.hidden=!next;return;}
-  animation=nav!.animate(next?
-   [{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'translateY(0)'}]:
-   [{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-4px)'}],
-   {duration:next?220:140,easing:'cubic-bezier(.22,1,.36,1)'});
-  animation.finished.then(()=>{if(!open)nav!.hidden=true;}).catch(()=>{/* Retoggles cancel the previous animation. */});
- }
- button.addEventListener('click',event=>setOpen(!open,event.detail===0));
- document.addEventListener('keydown',event=>{if(event.key==='Escape'&&open){event.preventDefault();setOpen(false,true,true);}});
- document.addEventListener('pointerdown',event=>{
-  if(open&&event.target instanceof Node&&!nav.contains(event.target)&&!button.contains(event.target))setOpen(false);
- },{passive:true});
- nav.addEventListener('click',event=>{if(event.target instanceof Element&&event.target.closest('a'))setOpen(false,true);});
- nav.addEventListener('focusout',()=>queueMicrotask(()=>{
-  if(open&&!nav.contains(document.activeElement)&&document.activeElement!==button)setOpen(false,true);
- }));
- matchMedia('(max-width:900px)').addEventListener('change',()=>setOpen(false,true));
- reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)setOpen(open,true);});
+  const close=()=>{
+   menu.close();
+   menuButton.setAttribute('aria-expanded','false');
+   if(restoreFocus&&menuButton.getClientRects().length)menuButton.focus({preventScroll:true});
+  };
+  if(instant||reducedMotion.matches||!panel){close();return;}
+  animation=panel.animate([{transform:'translateX(0)'},{transform:'translateX(100%)'}],{duration:160,easing:'ease-in',fill:'forwards'});
+  void animation.finished.then(()=>{close();animation?.cancel();},()=>{});
+ };
+ menuButton.addEventListener('click',()=>{
+  if(menu.open)return;
+  menu.showModal();
+  menuButton.setAttribute('aria-expanded','true');
+ });
+ menu.addEventListener('cancel',event=>{event.preventDefault();closeMenu();});
+ menu.addEventListener('click',event=>{
+  if(event.target===menu||(event.target instanceof Element&&event.target.closest('[data-close-mobile-menu]')))closeMenu();
+  else if(event.target instanceof Element&&event.target.closest('a[href]'))closeMenu(true);
+ });
+ matchMedia('(max-width:900px)').addEventListener('change',()=>closeMenu(true,false));
 }
 
 // Um feedback local e não modal substitui alerts bloqueantes para recursos indisponíveis.
@@ -71,8 +65,9 @@ function showFeedback(trigger:HTMLElement,message:string){
 }
 document.addEventListener('click',event=>{
  const target=event.target instanceof Element?event.target:null;
- if(target?.closest('[data-skip-content]')){
-  const content=[...document.querySelectorAll<HTMLElement>('main, .home-mobile section, body[data-page="celular"] section')].find(element=>element.getClientRects().length>0);
+ const skip=target?.closest<HTMLAnchorElement>('[data-skip-content]');
+ if(skip){
+  const content=document.getElementById(skip.hash.slice(1));
   if(content){event.preventDefault();content.tabIndex=-1;content.focus({preventScroll:true});content.scrollIntoView({block:'start',behavior:'instant'});}
  }
  const sectionLink=target?.closest<HTMLElement>('[data-section-link]');
