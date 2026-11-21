@@ -1,7 +1,8 @@
 ---
 import ClaudeLayout from '../layouts/ClaudeLayout.astro';
+import {legalReview} from '../config/institutional';
 import drafts from '../data/legal-drafts.json';
-export function getStaticPaths(){return Object.entries(drafts).map(([slug,value])=>{const title=value[0],sections=value[1];if(typeof title!=='string'||!Array.isArray(sections))throw new Error('Rascunho jurídico inválido.');return {params:{institutional:slug},props:{slug,title,sections}};});}
+export function getStaticPaths(){if(process.env.DEPLOY_ENV==='production'&&!legalReview.approved)return [];return Object.entries(drafts).map(([slug,value])=>{const title=value[0],sections=value[1];if(typeof title!=='string'||!Array.isArray(sections))throw new Error('Rascunho jurídico inválido.');return {params:{institutional:slug},props:{slug,title,sections}};});}
 interface Props {slug:string;title:string;sections:string[][]}
 const {slug,title,sections}=Astro.props;
 ---
