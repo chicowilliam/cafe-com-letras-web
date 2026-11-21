@@ -1,6 +1,8 @@
 /* Scoped additions preserve existing typography, colors and layouts. */
 .institutional-footer,#cookie-preferences{--color-ink:#161614;--color-paper:#FAFAF7;--color-text-on-dark:#B9B6AE;--color-surface:#EDEBE4;--color-mesa:#B83C18}
 .institutional-footer{background:var(--color-ink);color:var(--color-paper);padding:24px 0;font-size:14px}
+body[data-kind] .institutional-footer{display:flow-root;clear:both}
+body[data-kind] .institutional-footer .wrap{padding-inline:20px;max-width:1280px;margin-inline:auto;box-sizing:border-box}
 .institutional-footer nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
 .institutional-footer a,.institutional-footer button{color:inherit;min-height:44px;display:inline-flex;align-items:center}
 .institutional-footer button{font:inherit;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}

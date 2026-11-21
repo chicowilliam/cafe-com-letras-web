@@ -1,0 +1,113 @@
+.compact-navigation { display: none; }
+
+@media (max-width: 900px) {
+  body[data-design='claude'] > :is(.hdr, .util) { display: none; }
+  .compact-navigation { display: block; position: sticky; top: 0; z-index: 24; background: var(--color-paper); }
+  .compact-header {
+    min-height: 68px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: calc(9px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 9px max(20px, env(safe-area-inset-left));
+    border-bottom: 1px solid var(--color-ink);
+  }
+  .compact-header > a img { display: block; width: clamp(122px, 34vw, 148px); height: auto; }
+  .mobile-hours { justify-self: end; font: 500 11px/1.4 var(--font-mono); color: var(--color-text-muted); }
+  .mobile-menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--color-ink);
+    background: transparent;
+    border: 1px solid var(--color-ink);
+    border-radius: 12px;
+  }
+  .mobile-menu-toggle:is(:hover, :active) { background: var(--color-surface); }
+  .mobile-navigation {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    color: var(--color-ink);
+    background: transparent;
+    overflow: hidden;
+  }
+  .mobile-navigation[open] { display: flex; justify-content: flex-end; }
+  .mobile-navigation::backdrop { background: rgb(22 22 20 / .49); }
+  html:has(.mobile-navigation[open]) { overflow: hidden; }
+  body:has(.mobile-navigation[open]) { overflow: hidden; }
+  .mobile-panel {
+    width: min(88vw, 390px);
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-sizing: border-box;
+    padding: calc(20px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) 20px;
+    background: var(--color-paper);
+  }
+  .mobile-navigation[open] .mobile-panel { animation: mobile-panel-enter 210ms ease-out; }
+  .mobile-panel-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .mobile-panel-links { border-top: 1px solid var(--color-surface); }
+  .mobile-panel-links > a {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    min-height: 48px;
+    border-bottom: 1px solid var(--color-surface);
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .mobile-panel-links > a:is(:hover, :active, [aria-current='page']) { background: var(--color-surface); }
+  .mobile-panel-links > a[aria-current='page'] { box-shadow: inset 3px 0 var(--color-mesa); font-weight: 700; }
+  .mobile-panel-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 20px; }
+  .mobile-panel-actions .btn { padding-inline: 12px; white-space: normal; }
+  .mobile-directions { grid-column: 1 / -1; min-height: 44px; display: flex; align-items: center; text-underline-offset: 4px; }
+
+  html:has(.compact-navigation) { scroll-padding-top: calc(84px + env(safe-area-inset-top)); scroll-padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  body[data-design='claude'] .mobile-footer { padding-bottom: 28px; }
+  body[data-design='claude'] .institutional-footer { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  body[data-design='claude'] .mobile-feature { padding-block: 32px !important; }
+  body[data-design='claude'] .mobile-feature .disp { line-height: 1; }
+  body[data-design='claude'] .mobile-feature-palco img {
+    aspect-ratio: 7 / 4;
+    border-radius: 4px;
+  }
+  body[data-design='claude'] .mobile-feature .btn {
+    margin-top: 20px !important;
+    max-width: calc(100% - 56px);
+  }
+}
+
+@media (max-width: 720px) {
+  #menu-items { column-count: 1 !important; }
+  #menu-items [data-menu-group] { margin-bottom: 32px; }
+  #menu-items .h3 { font-size: 27px !important; }
+  #menu-items .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    align-items: baseline;
+    gap: 8px 14px;
+    padding-block: 14px;
+  }
+  #menu-items .row .n { font-size: 16px; line-height: 1.35; }
+  #menu-items .row .d { font-size: 14px; line-height: 1.55; }
+  #menu-items .row .pr { font-size: 14px; font-variant-numeric: tabular-nums; text-align: end; }
+  #cardapio [data-menu-filter] { padding-inline: 11px; }
+}
+
+@keyframes mobile-panel-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-navigation[open] .mobile-panel { animation: none; }
+}

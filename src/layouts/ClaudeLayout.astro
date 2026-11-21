@@ -32,7 +32,7 @@ const graph=seoFor(base).schema['@graph'].filter(x=>x['@type']!=='Event'&&x['@ty
 graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
 const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
 const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
-const adapt=(html:string)=>adaptBase(html).replace(/<a\b[^>]*href="(#trabalhe|#imprensa)"[^>]*>/g,(tag,destination)=>{
+const adapt=(html:string)=>adaptBase(html).replace(/<span><a href="#pt"[^>]*>PT<\/a>\s*\/\s*<a href="#en"[^>]*>EN<\/a><\/span>/g,'').replace(/<a\b[^>]*href="(#trabalhe|#imprensa)"[^>]*>/g,(tag,destination)=>{
  const context=destination==='#trabalhe'?'Trabalhe conosco':'Imprensa';
  return tag.replace(/href="[^"]*"/,`href="https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsappMessage(context))}"`).replace(/ (?:data-demo|aria-disabled|title)="[^"]*"/g,'');
 }).replace('<main>','<main id="main-content" tabindex="-1">').replace(/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/g,nav=>nav.replace(/(<a\b[^>]*class="[^" ]*\bon\b[^"]*")/g,'$1 aria-current="page"'));
@@ -57,8 +57,9 @@ const adapt=(html:string)=>adaptBase(html).replace(/<a\b[^>]*href="(#trabalhe|#i
  </head>
  <body class="w-full min-w-0" data-design="claude" data-page={custom?.key??name}>
   <a class:list={["skip-link", {"skip-desktop":name==='index'&&!custom&&!documentTitle}]} data-skip-content href={documentTitle?'#conteudo':name==='celular'?'#mobile-content':'#main-content'}>Pular para o conteúdo</a>
-  {name==='index'&&!custom&&!documentTitle&&<a class="skip-link skip-mobile" href="#mobile-content">Pular para o conteúdo</a>}
-  {(custom||documentTitle||!["index","celular"].includes(name))&&<MobileHeader page={custom?.key??name} />}
+  {name==='index'&&!custom&&!documentTitle&&<a class="skip-link skip-mobile" data-skip-content href="#mobile-content">Pular para o conteúdo</a>}
+  {name==='celular'&&<Fragment set:html={adapt(home.split('<main>')[0] ?? '')}/> }
+  <MobileHeader page={custom?.key??(name==='celular'?'index':name)} />
   {documentTitle?<><Fragment set:html={adapt(home.split('<main>')[0] ?? '')}/><main id="conteudo"><slot/></main><Fragment set:html={adapt(home.slice(home.indexOf('<footer')))}/></>:custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   {name==='casa'&&<FAQ/>}
   <InstitutionalSupport/>
