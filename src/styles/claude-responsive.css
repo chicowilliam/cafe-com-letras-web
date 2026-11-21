@@ -14,6 +14,7 @@ html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
  body[data-design="claude"] input,body[data-design="claude"] textarea,body[data-design="claude"] select{max-width:100%;min-width:0}
 }
 @media(max-width:600px){
+ html{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
  .home-desktop{display:none}.home-mobile{display:block}
  /* O artboard de 390px conserva seu grid de duas abas. */
  body[data-design="claude"] .home-mobile [style*="grid-template-columns:repeat(2"],body[data-page="celular"] [style*="grid-template-columns:repeat(2"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
