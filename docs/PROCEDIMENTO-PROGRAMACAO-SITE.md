@@ -66,7 +66,8 @@ ou deixou de estar "Confirmado" — cancelar só se a data for futura).
    `node scripts/programacao.mjs` faz isso com validação quando há `node_modules`; sem ele, edite o JSON
    com Python mantendo o formato e a ordem existentes. Artista novo sem `public/img/artists/<id>.jpg`
    entra em `src/data/unavailable-artist-images.json`.
-2. Couvert: o da planilha. Vazio: DJ e Piano Bar "R$ 8 por pessoa"; Show e Bossa Nova
+2. Couvert: **sempre** o da coluna Couvert da planilha, conferido a cada publicação (no JSON e na
+   linha da Programação). Nenhum show, DJ, Bossa Nova ou Piano Bar pode ir ao ar sem couvert. Vazio: DJ e Piano Bar "R$ 8 por pessoa"; Show e Bossa Nova
    "R$ 15 por pessoa"; Livraria "." (sem couvert).
 3. `artist-profiles.json` (artista novo ou ainda sem perfil): `artistId`, `slug` (kebab-case, sem
    acento), `kind` (DJ, Jazz, Bossa Nova, Piano Bar, Livro, Show), `genres` (curto, minúsculas, a
@@ -74,7 +75,8 @@ ou deixou de estar "Confirmado" — cancelar só se a data for futura).
 4. `programacao.html`: copie uma linha da mesma categoria e insira na ordem cronológica, com `href`
    `/artistas/<slug>/`, `data-event-start`, `data-event-category` (dj, jazz, bossa, piano, books),
    dia da semana abreviado, dia com dois dígitos, horário ("20h", "13h30"), nome, rótulo e couvert
-   ("Couvert R$ 8"; "—" quando não houver). Se o mês ainda não existir na lista, copie o bloco do mês.
+   ("Couvert R$ 8"; "—" só para Livraria sem couvert). O teste `tests/programacao-couvert.mjs`
+   (no `npm run build`) falha se algum evento que não seja da Livraria estiver sem couvert. Se o mês ainda não existir na lista, copie o bloco do mês.
 
 ## 7. Conferir e publicar
 
