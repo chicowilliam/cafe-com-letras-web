@@ -22,7 +22,14 @@ export function bodyFor(page:PageSnapshot){
   body=replaceSlot(body,'daily-menu',renderMenu(publicData,id,contentDay));body=replaceSlot(body,'days',renderDays(contentDay));
  }
  if(page.kind==='mobile'){body=replaceSlot(body,'mobile-menu',renderMobileMenu(publicData,id,contentDay));body=replaceSlot(body,'mobile-events',renderMobileEvents(publicData,id,contentDay));}
- if(['all','wine','dessert'].includes(page.kind))body=replaceSlot(body,'catalogue',renderCatalog(publicData,id,page.kind));
+ if(['all','wine','dessert'].includes(page.kind)){
+  const catalog=renderCatalog(publicData,id,page.kind);
+  if(page.kind==='wine'&&page.unit==='Savassi'){
+   const pdf='/pdf/carta-de-vinhos-cafe-com-letras-novembro-2026.pdf';
+   const pdfViewer=`<div class="wine-pdf"><p>Carta de vinhos atualizada em novembro de 2026.</p><p><a href="${pdf}" target="_blank" rel="noopener noreferrer">Abrir ou baixar a carta original (PDF)</a></p><iframe src="${pdf}#toolbar=1" title="Carta de vinhos Café com Letras — novembro de 2026" loading="lazy" style="display:block;width:100%;height:900px;border:0" ></iframe><details style="margin-top:24px"><summary>Consultar vinhos e preços em texto</summary>${catalog}</details></div>`;
+   body=replaceSlot(body,'catalogue',pdfViewer);
+  }else body=replaceSlot(body,'catalogue',catalog);
+ }
  // Existing HTTPS newsletter form is compatible with static hosting; no data is posted during preview/tests.
  if(production&&process.env.NEWSLETTER_ENABLED==='1'){body=body.replace(/<form\b([^>]*data-newsletter-action="([^"]+)"[^>]*)>([\s\S]*?)<\/form>/g,(_all,attrs:string,action:string,inside:string)=>{
   if(!action.startsWith('https://25.idmkt8.com/'))return _all;
