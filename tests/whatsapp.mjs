@@ -6,12 +6,15 @@ import {whatsapp,whatsappUrl} from '../src/config/whatsapp.ts';
 
 const officialNumber=whatsapp.number;
 const expectedMessage=whatsapp.message;
+const contextualMessages=new Set([expectedMessage,'Olá! Gostaria de informações sobre um evento privado no Café com Letras.','Olá! Gostaria de informações sobre privacidade no site do Café com Letras.']);
+const eventShare='Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/';
 assert.match(officialNumber,/^\d{10,15}$/);
 assert.ok(expectedMessage.trim(),'Configured WhatsApp message must not be empty');
 function checkPublishedLink(link,label){
  link=link.replaceAll('&amp;','&');
  const url=new URL(link);
- if(url.origin==='https://wa.me'){assert.equal(url.pathname,'/'+officialNumber,label);assert.equal(url.searchParams.get('text'),expectedMessage,label);assert.deepEqual([...url.searchParams.keys()],['text'],label);return;}
+ if(url.origin==='https://api.whatsapp.com'&&url.pathname==='/send'&&!url.searchParams.has('phone')){assert.equal(url.searchParams.get('text'),eventShare,label);assert.deepEqual([...url.searchParams.keys()],['text']);return;}
+ if(url.origin==='https://wa.me'){assert.equal(url.pathname,'/'+officialNumber,label);assert.ok(contextualMessages.has(url.searchParams.get('text')),label);assert.deepEqual([...url.searchParams.keys()],['text'],label);return;}
  assert.equal(url.origin,'https://api.whatsapp.com',label);
  assert.equal(url.pathname,'/send',label);
  assert.equal(url.searchParams.get('phone'),officialNumber,label);

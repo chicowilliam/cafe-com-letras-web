@@ -3,6 +3,7 @@ import {readFile,writeFile,mkdir,readdir,stat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import sanitizeHTML from 'sanitize-html';
+import {legalReview} from '../src/config/institutional.ts';
 
 // This repository targets Pages. Stop a duplicate Workers Builds pipeline before deployment.
 if(process.env.WORKERS_CI==='1'||process.env.WORKERS_CI_BUILD_UUID){
@@ -19,6 +20,7 @@ const agendaTests=spawnSync(process.execPath,['tests/programacao.mjs'],{stdio:'i
 if(agendaTests.status!==0)process.exit(agendaTests.status||1);
 
 const production=!process.argv.includes('--preview')&&(process.argv.includes('--production')||process.env.DEPLOY_ENV==='production');
+// Unapproved legal documents are excluded by the route and checked after build.
 const mode=production?'production':'preview';
 const data=JSON.parse(await readFile('src/data/public-source.json','utf8'));
 const monthIndex=Object.fromEntries(data.units.map(unit=>[unit.unity_unity.toLowerCase(),[...new Set(data.events.filter(e=>e.calendar_unity===unit.unity_id).map(e=>e.calendar_date.slice(0,6)))].sort()]));
@@ -39,6 +41,7 @@ await writeFile('dist/data/menu.json',JSON.stringify({suggestions:data.suggestio
 const jsonHashes=new Set();
 async function walk(dir){let out=[];for(const item of await readdir(dir,{withFileTypes:true})){const file=path.join(dir,item.name);if(item.isDirectory())out.push(...await walk(file));else out.push(file);}return out;}
 const files=await walk('dist');
+if(production&&!legalReview.approved){for(const slug of ['politica-de-privacidade','politica-de-cookies','termos-de-uso'])if(files.some(file=>file.split(path.sep).join('/').includes('/'+slug+'/')))throw new Error('Documento jurídico não aprovado presente no build: '+slug);}
 for(const file of files.filter(f=>f.endsWith('.html'))){const html=await readFile(file,'utf8');for(const match of html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g))jsonHashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);}
 const csp=`default-src 'none'; script-src 'self' ${[...jsonHashes].join(' ')}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-src 'self'; object-src 'self'; base-uri 'none'; form-action ${production?'https://25.idmkt8.com':"'none'"}; frame-ancestors 'none'`;
 await mkdir('shared',{recursive:true});

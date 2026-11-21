@@ -1,5 +1,6 @@
 ---
 import type { PageSnapshot } from '../lib/types';
+import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import {bodyFor,getUnitId,contentDay,production,publicData} from '../lib/data';
 import {seoFor} from '../lib/seo';
 import {unitPath} from '../lib/routes';
@@ -26,6 +27,7 @@ const gallery=publicData.photos.filter(p=>p.photo_unity===unitId).sort((a,b)=>b.
  </head>
  <body data-unit={page.unit} data-unit-id={unitId} data-kind={page.kind} data-content-day={contentDay} data-production={production?'true':'false'} data-gallery={JSON.stringify(gallery)}>
   {page.kind==='linktree'?<Fragment set:html={body}/>:<main id="conteudo" set:html={body} />}
+  <InstitutionalSupport/>
   <script>import '../client/fidelity';</script>
  </body>
 </html>

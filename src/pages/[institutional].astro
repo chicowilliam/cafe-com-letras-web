@@ -1,0 +1,9 @@
+---
+import ClaudeLayout from '../layouts/ClaudeLayout.astro';
+import {legalReview} from '../config/institutional';
+import drafts from '../data/legal-drafts.json';
+export function getStaticPaths(){if(process.env.DEPLOY_ENV==='production'&&!legalReview.approved)return [];return Object.entries(drafts).map(([slug,value])=>{const title=value[0],sections=value[1];if(typeof title!=='string'||!Array.isArray(sections))throw new Error('Rascunho jurídico inválido.');return {params:{institutional:slug},props:{slug,title,sections}};});}
+interface Props {slug:string;title:string;sections:string[][]}
+const {slug,title,sections}=Astro.props;
+---
+<ClaudeLayout name={slug} documentTitle={title}><article class="legal-copy"><p class="tag">Institucional · versão preliminar</p><h1>{title}</h1><p>Última atualização: <time datetime="2026-11-21">21 de novembro de 2026</time></p><p class="review-notice"><strong>Rascunho para revisão jurídica e aprovação do responsável.</strong> Há informações pendentes de confirmação. Esta versão não foi aprovada para publicação em produção.</p>{sections.map(([heading,text]:string[])=><section><h2>{heading}</h2><p>{text}</p></section>)}<p><a href="/casa/">Contato e informações da casa</a></p></article></ClaudeLayout>

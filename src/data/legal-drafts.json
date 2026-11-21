@@ -1,0 +1,89 @@
+{
+  "politica-de-privacidade": [
+    "Política de Privacidade",
+    [
+      [
+        "Responsável e canal de contato",
+        "Este documento é um rascunho. Razão social, CNPJ, identidade do controlador, encarregado e canal específico de privacidade: pendentes de confirmação pelo responsável. O WhatsApp oficial (31) 98424-4285 pode ser usado para solicitar o encaminhamento de uma dúvida; sua habilitação como canal de direitos ainda deve ser confirmada."
+      ],
+      [
+        "Dados e finalidades",
+        "A hospedagem Cloudflare processa dados técnicos de conexão, como endereço IP e informações da requisição, para entregar e proteger o site. A preferência de unidade é guardada por até sete dias e o filtro de programação é temporário. Não há criação de conta no site. Os formulários da nova interface estão indisponíveis e não transmitem os dados digitados."
+      ],
+      [
+        "Atendimento, reservas e serviços externos",
+        "Ao seguir um link para WhatsApp, Tagme, Google Maps, Instagram, YouTube ou um destino de delivery, você passa a usar um serviço externo, sujeito aos seus próprios avisos e condições. As mensagens e os dados de reserva são tratados nesses canais. Fontes Google Fonts são requisitadas para exibir a tipografia; esse serviço recebe dados técnicos da conexão. Não há vídeos ou mapas incorporados automaticamente."
+      ],
+      [
+        "Bases legais — proposta para revisão",
+        "A entrega técnica e a proteção do site devem ter sua base legal documentada pelo controlador, inclusive a avaliação de legítimo interesse quando cabível. O atendimento solicitado pelo visitante pode envolver procedimentos preliminares a contrato ou execução contratual, conforme o caso. Se marketing for habilitado futuramente, sua finalidade e base legal serão informadas separadamente. Este texto não substitui essa avaliação e não representa conformidade garantida."
+      ],
+      [
+        "Retenção e proteção",
+        "A preferência unity expira em sete dias. O filtro da agenda é removido ao ser utilizado ou ao encerrar a sessão do navegador. Prazos de logs da hospedagem, mensagens de atendimento e registros de reservas: pendentes de confirmação com os responsáveis e fornecedores. O site utiliza HTTPS, política de segurança de conteúdo, validação de rotas e evita publicar credenciais. Nenhuma medida elimina todos os riscos."
+      ],
+      [
+        "Direitos do titular",
+        "Você pode solicitar informações sobre tratamento, acesso, correção e os demais direitos aplicáveis da LGPD, incluindo oposição ou revogação quando cabíveis. O fluxo de identificação, resposta e encaminhamento deve ser confirmado pelo controlador. Não envie documentos sensíveis sem orientação. Pedidos relativos ao Tagme ou a outro serviço também podem exigir contato com esse fornecedor."
+      ],
+      [
+        "Transferências e atualização",
+        "A infraestrutura e serviços externos podem processar dados fora do Brasil. Países, papéis contratuais, salvaguardas e canais dos fornecedores devem ser verificados pelo responsável antes da aprovação deste aviso. Mudanças relevantes no tratamento exigem revisão deste documento."
+      ]
+    ]
+  ],
+  "politica-de-cookies": [
+    "Política de Cookies",
+    [
+      [
+        "Tecnologias identificadas",
+        "unity é um cookie funcional próprio, usado nas rotas legadas para lembrar Savassi ou Liberdade; expira em até sete dias, tem caminho /, SameSite=Lax e Secure sob HTTPS. Não é um cookie de autenticação. cafe-agenda-filter é uma chave de sessionStorage usada para transferir um filtro de categoria; é lida e removida na página da agenda ou descartada no fim da sessão."
+      ],
+      [
+        "Sem cookies opcionais ativos",
+        "Não foram encontrados Google Analytics, Google Tag Manager, pixels de publicidade ou uma integração opcional ativa nesta versão. Por isso, não há banner para aceitar ou rejeitar categorias inexistentes e não há registro fictício de consentimento. O painel de preferências permite consultar e limpar o armazenamento funcional. A hospedagem pode aplicar medidas técnicas de segurança, sujeitas à configuração do provedor."
+      ],
+      [
+        "Serviços externos e fontes",
+        "Google Fonts entrega os arquivos da tipografia e recebe dados técnicos de conexão; a requisição não equivale a integração com Google Analytics. Links para mapas, reservas, WhatsApp e redes sociais não incorporam esses serviços na página. Os serviços acessados por esses links têm políticas próprias."
+      ],
+      [
+        "Cloudflare Analytics",
+        "Foi observada no domínio oficial uma tentativa de injeção de beacon Cloudflare, bloqueada pela CSP existente. O código desta aplicação não habilita o beacon nem libera seu destino. A configuração externa deve ser revisada antes de qualquer ativação. Não declaramos esse monitoramento como ativo nem criamos uma opção de consentimento sem efeito."
+      ],
+      [
+        "Como controlar preferências",
+        "Use Preferências de cookies no rodapé para apagar a preferência de unidade e o filtro temporário. Também é possível remover dados do domínio pelas configurações do navegador. Se houver futura integração opcional que dependa de consentimento, ela deverá permanecer bloqueada até a escolha e permitir rejeição e revogação. Nenhuma categoria opcional é ativada por esta etapa."
+      ]
+    ]
+  ],
+  "termos-de-uso": [
+    "Termos de Uso",
+    [
+      [
+        "Natureza do site",
+        "O site apresenta gastronomia, programação cultural e informações do Café com Letras. Este é um texto preliminar, sujeito à revisão jurídica e aprovação. Identificação jurídica do responsável: pendente de confirmação."
+      ],
+      [
+        "Programação, preços e disponibilidade",
+        "Consulte a data de cada evento. Início informado não confirma que uma apresentação continua em andamento quando seu horário final é desconhecido. A agenda contém conteúdo estático e pode precisar de confirmação. Preços, couvert, horários e condições devem ser confirmados com a casa. Campos e imagens marcados como exemplo não representam oferta confirmada."
+      ],
+      [
+        "Reservas e atendimento",
+        "As reservas são realizadas no canal Tagme preservado pelo site e seguem a confirmação desse serviço. Clicar em Reservar ou entrar em contato não garante mesa ou contratação. WhatsApp, mapas, redes sociais e delivery são serviços externos com condições próprias."
+      ],
+      [
+        "Formulários indisponíveis",
+        "Os formulários demonstrativos não enviam solicitações, e-mails ou cadastros. A newsletter ainda não está habilitada. Não há autorização para disparos de marketing ao apenas navegar, solicitar atendimento ou reservar. O canal oficial pode orientar sobre eventos privados e outras dúvidas."
+      ],
+      [
+        "Uso responsável e direitos",
+        "Use o site de forma lícita, sem tentar acessar áreas restritas, comprometer a disponibilidade ou divulgar dados de terceiros indevidamente. Textos, marca e imagens estão sujeitos aos direitos aplicáveis. Estas condições não afastam direitos legais do consumidor ou do titular de dados."
+      ],
+      [
+        "Privacidade e contato",
+        "Consulte os rascunhos das políticas de privacidade e cookies. Questões sobre o site podem ser encaminhadas ao WhatsApp oficial (31) 98424-4285. Contato jurídico e canal específico de privacidade: pendentes de confirmação."
+      ]
+    ]
+  ]
+}

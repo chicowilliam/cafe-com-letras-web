@@ -1,0 +1,23 @@
+/* Scoped additions preserve existing typography, colors and layouts. */
+.institutional-footer,#cookie-preferences{--color-ink:#161614;--color-paper:#FAFAF7;--color-text-on-dark:#B9B6AE;--color-surface:#EDEBE4;--color-mesa:#B83C18}
+.institutional-footer{background:var(--color-ink);color:var(--color-paper);padding:24px 0;font-size:14px}
+.institutional-footer nav{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.institutional-footer a,.institutional-footer button{color:inherit;min-height:44px;display:inline-flex;align-items:center}
+.institutional-footer button{font:inherit;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}
+.institutional-footer p{margin-bottom:0;color:var(--color-text-on-dark)}
+#cookie-preferences{box-sizing:border-box;width:min(560px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;background:var(--color-paper);color:var(--color-ink);padding:28px;border:1.5px solid var(--color-ink);border-radius:12px;font:16px/1.6 Inter,system-ui,sans-serif}
+#cookie-preferences::backdrop{background:rgb(22 22 20 / .6)}
+#cookie-preferences .btn{border-radius:12px;white-space:normal}
+#cookie-preferences button{font-family:inherit}
+#cookie-preferences :focus-visible{outline:3px solid #161614;outline-offset:4px}
+html:has(#cookie-preferences[open]){overflow:hidden}
+.legal-copy{max-width:800px;margin:auto;padding:64px 24px;line-height:1.7}
+.legal-copy h1{font:800 clamp(36px,6vw,64px)/1.05 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;overflow-wrap:anywhere}
+.legal-copy h2{font-family:'Bricolage Grotesque',sans-serif;margin-top:32px}
+.review-notice{border-left:4px solid var(--color-mesa);padding:12px 20px;background:var(--color-surface)}
+.faq{padding-top:64px;padding-bottom:64px}.faq details{border-bottom:1px solid var(--color-ink);padding:16px 0}.faq summary{cursor:pointer;min-height:44px;font-weight:600;align-content:center}.faq p{max-width:70ch;line-height:1.6}
+.institutional-form-note{flex-basis:100%;font:14px/1.6 Inter,system-ui,sans-serif}.event-status{display:block;font:12px/1.6 'IBM Plex Mono',monospace;margin-top:8px}
+.skip-content{position:fixed;left:16px;top:-100px;z-index:100;background:var(--color-paper);color:var(--color-ink);padding:14px;border:2px solid currentColor}.skip-content:focus{top:16px}
+:focus-visible{outline:3px solid currentColor;outline-offset:4px}
+@media(max-width:600px){.institutional-footer{padding-bottom:100px}#cookie-preferences{padding:20px}.legal-copy{padding-top:32px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

@@ -1,4 +1,5 @@
 // Pages Functions: URL compatibility only. No database, secrets or external requests.
+import {legalReview} from '../src/config/institutional.ts';
 import {contentSecurityPolicy} from '../shared/security-policy.ts';
 interface Context { request:Request;env?:{DEPLOY_ENV?:string};next:()=>Promise<Response> }
 const CANONICAL='https://cafecomletras.com.br';
@@ -11,7 +12,7 @@ export async function onRequest(context:Context):Promise<Response>{
   : await handle(context);const headers=new Headers(response.headers);
  if(['/','/liberdade/','/index.asp'].includes(new URL(context.request.url).pathname))headers.append('Vary','User-Agent');
  headers.set('Content-Security-Policy',contentSecurityPolicy);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
- const indexable=official&&response.status===200&&!['/404.html','/celular/','/evento/'].includes(url.pathname);
+ const indexable=official&&response.status===200&&!['/404.html','/celular/','/evento/','/politica-de-privacidade/','/politica-de-cookies/','/termos-de-uso/'].includes(url.pathname);
  if(indexable)headers.delete('X-Robots-Tag');else headers.set('X-Robots-Tag','noindex, nofollow');
  let body:BodyInit|null=response.body;
  if(headers.get('Content-Type')?.includes('text/html')&&context.request.method!=='HEAD'){
@@ -26,7 +27,7 @@ async function handle(context:Context):Promise<Response>{
  const headers=new Headers({'Cache-Control':'no-store'});
  if(url.hostname!=='cafecomletras.com.br')headers.set('X-Robots-Tag','noindex, nofollow');
  const response=(text:string,status:number)=>new Response(text,{status,headers:new Headers([...headers,['Content-Type','text/plain; charset=utf-8']])});
- const redirect=(target:string,status=301,unit?:string)=>{const h=new Headers(headers);h.set('Location',target);if(unit)h.append('Set-Cookie',`unity=${unit}; Path=/; Max-Age=604800; SameSite=Lax${url.protocol==='https:'?'; Secure':''}`);return new Response(null,{status,headers:h});};
+ const redirect=(target:string,status=301,unit?:string)=>{const h=new Headers(headers);h.set('Location',target);if(unit&&url.searchParams.has('unity'))h.append('Set-Cookie',`unity=${unit}; Path=/; Max-Age=604800; SameSite=Lax${url.protocol==='https:'?'; Secure':''}`);return new Response(null,{status,headers:h});};
  if(url.hostname==='cafecomletras.com.br'&&url.protocol==='http:')return redirect(CANONICAL+p+url.search);
  if(url.hostname==='cafe-com-letras-pages.pages.dev')return redirect(CANONICAL+p+url.search);
  if(url.hostname==='www.cafecomletras.com.br')return redirect(CANONICAL+p+url.search);
@@ -35,6 +36,7 @@ async function handle(context:Context):Promise<Response>{
  let decoded:string;try{decoded=decodeURIComponent(p);}catch{return response('Endereço inválido.',400);}
  if(/[\u0000-\u001f\\]/.test(decoded)||decoded.split('/').some(x=>x==='..'))return response('Endereço inválido.',400);
  if(/^\/(admin|system|novostalentos|concurso-[^/]+)(\/|$)/i.test(decoded)||/\.(sql|ini|config|bak|ps1)$/i.test(decoded)){headers.set('X-Robots-Tag','noindex');return response('Não encontrado.',404);}
+ if(url.hostname==='cafecomletras.com.br'&&!legalReview.approved&&/^\/(politica-de-privacidade|politica-de-cookies|termos-de-uso)(?:\/|\.html|$)/i.test(decoded))return response('Documento em revisão; publicação ainda não autorizada.',404);
  if(!['GET','HEAD'].includes(request.method))return response('Este envio depende de um serviço ainda não habilitado.',503);
  const cookie=/(?:^|;\s*)unity=(Savassi|Liberdade)(?:;|$)/.exec(request.headers.get('cookie')||'')?.[1];
  const requested=url.searchParams.get('unity');if(requested&&!units.includes(requested))return response('Unidade inválida.',400);

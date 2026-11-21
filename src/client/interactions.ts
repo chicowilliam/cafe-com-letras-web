@@ -78,6 +78,7 @@ document.addEventListener('click',event=>{
  if(demo){event.preventDefault();showFeedback(demo,demo.dataset.demo||'Recurso indisponível nesta prévia.');}
 });
 document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',event=>{
+ if(form.method==='dialog')return;
  event.preventDefault();showFeedback(form.querySelector<HTMLElement>('button')||form,'Formulário demonstrativo: nenhum dado é enviado.');
 }));
 

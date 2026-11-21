@@ -1,6 +1,10 @@
 ---
+import {legalReview} from '../config/institutional';
 import {pages,production} from '../lib/data';
 import {seoFor} from '../lib/seo';
+import InstitutionalSupport from '../components/InstitutionalSupport.astro';
+import FAQ from '../components/FAQ.astro';
+import '../styles/institutional.css';
 import {whatsapp} from '../config/whatsapp';
 import '../styles/site.css';
 import home from '../design/claude/index.html?raw';
@@ -12,20 +16,20 @@ import casa from '../design/claude/casa.html?raw';
 import celular from '../design/claude/celular.html?raw';
 // custom: página gerada a partir dos dados (ex.: /artistas/<slug>/), com o mesmo cabeçalho, estilos e scripts.
 interface Custom {key:string;title:string;description:string;path:string;html:string}
-interface Props {name?:string;custom?:Custom}
-const {name='index',custom}=Astro.props;
+interface Props {name?:string;custom?:Custom;documentTitle?:string}
+const {name='index',custom,documentTitle}=Astro.props;
 const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const titles:Record<string,string>={index:'Home',gastronomia:'Gastronomia',programacao:'Programação',evento:'Evento',livraria:'Livraria',casa:'A Casa',celular:'Home no celular'};
 const descriptions:Record<string,string>={index:'Café com Letras Savassi, em Belo Horizonte. Restaurante, café, jazz club e livraria. Cardápio, programação e informações da casa.',gastronomia:'Gastronomia do Café com Letras Savassi: cardápio, almoço executivo, sugestões do chef, bar e vinhos.',programacao:'Programação cultural do Café com Letras Savassi: música, jazz, DJs, livros e exposições em Belo Horizonte.',evento:'Nova Onda: Matheus Avelar Quarteto no Café com Letras Savassi. Informações do modelo de evento da proposta visual.',livraria:'Livraria do Café com Letras Savassi: lançamentos, encontros e clubes de leitura.',casa:'Conheça o Café com Letras Savassi: história, endereço, horários de visita e eventos privados.',celular:'Café com Letras Savassi: gastronomia, programação cultural e informações da casa no celular.'};
-const title='Café com Letras · '+(custom?.title??titles[name]);
-const description=custom?.description??descriptions[name];
+const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
+const description=documentTitle??custom?.description??descriptions[name];
 const canonical='https://cafecomletras.com.br'+(custom?custom.path:['index','celular'].includes(name)?'/':'/'+name+'/');
 const base=pages.find(p=>p.key==='savassi-desktop')!;
 // Somente entidades institucionais verificadas; não gerar Event para o modelo estático.
 const graph=seoFor(base).schema['@graph'].filter(x=>x['@type']!=='Event'&&x['@type']!=='WebPage');
 graph.push({'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,inLanguage:'pt-BR',isPartOf:{'@id':'https://cafecomletras.com.br/#website'}});
 const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
-const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`);
+const adapt=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -34,7 +38,7 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="robots" content={production&&!['celular','evento'].includes(name)?'index, follow, max-image-preview:large':'noindex, nofollow'} />
+  <meta name="robots" content={production&&!documentTitle&&!['celular','evento'].includes(name)?'index, follow, max-image-preview:large':'noindex, nofollow'} />
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content="Café com Letras" />
   <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
@@ -44,7 +48,11 @@ const adapt=(html:string)=>html.replaceAll('__WHATSAPP__',`https://wa.me/${whats
   <script type="application/ld+json" set:html={schema} />
  </head>
  <body class="w-full min-w-0" data-design="claude" data-page={custom?.key??name}>
-  {custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
+  <a href="#conteudo" class="skip-content" data-skip-content>Pular para o conteúdo</a>
+  {documentTitle?<><Fragment set:html={adapt(home.split('<main>')[0] ?? '')}/><main id="conteudo"><slot/></main><Fragment set:html={adapt(home.slice(home.indexOf('<footer')))}/></>:custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
+  {name==='casa'&&<FAQ/>}
+  <InstitutionalSupport/>
   <script>import '../client/interactions';</script>
  </body>
 </html>
+
