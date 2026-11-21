@@ -12,7 +12,7 @@ const artist=publicData.artists.find(a=>a.artist_id===profile.artistId)!;
 const name=escapeHTML(artist.artist_name);
 const events=upcomingEvents(profile.artistId,contentDay);
 const next=events[0];
-const day=(d:string)=>`${weekday(d)}, ${d.slice(6,8)}/${d.slice(4,6)}`;
+const day=(d:string)=>`${weekday(d)}, ${d.slice(6,8)}/${d.slice(4,6)}/${d.slice(0,4)}`;
 const price=(p:string)=>escapeHTML(p.replace(/\s+por pessoa$/i,''));
 const photo=profile.photo;
 
@@ -25,11 +25,11 @@ const when=next?`<div class="gap-[20px]" style="background:var(--color-palco);co
    <div><div class="tag" style="opacity:.75">Horário</div><div class="mt-[6px]" style="font-weight:700;font-size:20px">${shortTime(next.calendar_time)}</div></div>
    <div><div class="tag" style="opacity:.75">Couvert</div><div class="mt-[6px]" style="font-weight:700;font-size:20px">${price(next.calendar_price)}</div></div>
   </div>
-  <div class="acts"><a class="btn palco" href="https://usetag.me/cafecomletras">Reservar mesa para esta noite</a><a class="btn" href="/programacao/">Ver a programação</a></div>`
+  <div class="acts"><a class="btn palco" href="https://usetag.me/cafecomletras">Reservar mesa</a><a class="btn" href="/programacao/">Ver a programação</a></div>`
  :`<div style="border:1.5px solid var(--color-palco);padding:18px 20px"><strong>Sem datas marcadas no momento.</strong><br><span style="font-size:14px;color:var(--color-text-muted)">Acompanhe a programação do Café com Letras.</span></div>
   <div class="acts"><a class="btn palco" href="/programacao/">Ver a programação</a></div>`;
 
-const more=events.length>1?`<div><div class="tag" style="margin-bottom:6px">Próximas datas</div>${events.map(e=>`<div class="row"><div><div class="n">${day(e.calendar_date)}</div><div class="d">${shortTime(e.calendar_time)}</div></div><div class="pr">${price(e.calendar_price)}</div></div>`).join('')}</div>`:'';
+const more=events.length>1?`<div><div class="tag" style="margin-bottom:6px">Datas a partir de ${day(contentDay)}</div>${events.map(e=>`<div class="row"><div><div class="n">${day(e.calendar_date)}</div><div class="d">${shortTime(e.calendar_time)}</div></div><div class="pr">${price(e.calendar_price)}</div></div>`).join('')}</div>`:'';
 
 const main=`<main>
 <div class="wrap" style="padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--color-text-muted)"><a href="/programacao/">Programação</a> / ${escapeHTML(profile.kind)} / ${name}</div>
@@ -37,6 +37,7 @@ const main=`<main>
  <img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width:900px) 100vw, 640px" width="${photo.width}" height="${photo.height}" alt="${escapeHTML(photo.alt)}" decoding="async" fetchpriority="high" style="display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:${photo.position};background:var(--color-palco-photo)">
  <div class="flex flex-col gap-[28px]">
   <div><div class="tag" style="color:var(--color-palco)">${escapeHTML(profile.kind)} · ${escapeHTML(profile.genres)}</div><h1 class="disp" style="font-size:84px;margin-top:14px">${name}</h1></div>
+  <p class="p" style="font-size:14px">Agenda consultada em ${day(contentDay)}.</p>
   ${when}
   <div><div class="tag" style="margin-bottom:10px">Sobre</div><div class="p">${artist.artist_release}</div></div>
   ${more}
@@ -44,6 +45,6 @@ const main=`<main>
 </section>
 </main>`;
 const html=template.slice(0,start)+main+template.slice(end+'</main>'.length);
-const description=`${artist.artist_name} no Café com Letras Savassi: ${profile.genres}.${next?` Próxima apresentação: ${day(next.calendar_date)}, ${shortTime(next.calendar_time)}.`:''}`;
+const description=`${artist.artist_name} no Café com Letras Savassi: ${profile.genres}.${next?` Agenda consultada em ${day(contentDay)}. Apresentação: ${day(next.calendar_date)}, ${shortTime(next.calendar_time)}.`:''}`;
 ---
 <ClaudeLayout custom={{key:'artista',title:artist.artist_name,description,path:`/artistas/${profile.slug}/`,html}} />
