@@ -19,12 +19,12 @@
     "kind": "Fotografia",
     "genres": "Fotografia de rua",
     "photo": {
-      "src": "/img/destaques/vini-souza-549.webp",
+      "src": "/img/destaques/vini-souza-800.webp",
       "small": "/img/destaques/vini-souza-440.webp",
-      "width": 549,
-      "height": 759,
+      "width": 800,
+      "height": 1200,
       "alt": "Fotografia em preto e branco de Vini Souza: um vendedor com o rosto escondido atrás de um cacho de balões metalizados, diante de uma grade no centro de Belo Horizonte",
-      "position": "50% 45%"
+      "position": "50% 40%"
     }
   }
 ]
