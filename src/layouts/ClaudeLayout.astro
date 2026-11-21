@@ -3,7 +3,6 @@ import {legalReview} from '../config/institutional';
 import {pages,production,publicData} from '../lib/data';
 import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature} from '../lib/home-stage';
 import {seoFor} from '../lib/seo';
-import {renderWineMenu} from '../lib/presentation';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
 import '../styles/institutional.css';
@@ -32,9 +31,7 @@ const homeSig=homeSignature(homeState);
 const dynamicHome=(html:string)=>html.replace(/<!--home:(\w+)-->[\s\S]*?<!--\/home:\1-->/g,(match,key:string)=>homeSlots[key]?.()??match).replace(/data-home="(\w+)"/g,`data-home="$1" data-home-sig="${homeSig}"`);
 const home=dynamicHome(homeRaw);
 const celular=dynamicHome(celularRaw);
-// Carta de vinhos: gerada de src/data/carta-de-vinhos.json, no mesmo padrão do cardápio.
-const gastronomiaPage=gastronomia.replace(/<!--vinhos:carta-->[\s\S]*?<!--\/vinhos:carta-->/,()=>renderWineMenu());
-const content:Record<string,string>={index:home,gastronomia:gastronomiaPage,programacao,evento,livraria,casa,celular};
+const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
 const description=documentTitle??custom?.description??descriptions[name];
 const canonical='https://cafecomletras.com.br'+(custom?custom.path:['index','celular'].includes(name)?'/':'/'+name+'/');
