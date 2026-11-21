@@ -85,3 +85,17 @@ ou deixou de estar "Confirmado" — cancelar só se a data for futura).
   publica. Se não houver nada novo, não faça commit.
 - Depois de ~4 minutos, confira no domínio oficial a página de cada artista novo/atualizado e a
   Programação. Se o build falhar, o site continua na versão anterior: corrija ou reverta o commit.
+
+## Destaques "Em cartaz" da home
+
+Todo destaque da seção "Em cartaz" da home leva a uma página sobre o próprio
+conteúdo do destaque, nunca à Programação geral:
+
+- show de um artista → página do artista (`/artistas/<slug>/`, o mesmo link da linha na Programação);
+- festival ou série com vários artistas → página do festival (`/festivais/<slug>/`), que reúne
+  todos os artistas com foto, data, horário, couvert e link para a página de cada um.
+  Para criar uma, acrescente o festival em `src/data/festivals.json` (título, chamada,
+  texto de abertura tirado do release revisado e os `artistIds`).
+
+O teste `tests/home-destaques.mjs` (no `npm run build`) falha se algum destaque
+apontar para `/programacao/` ou para uma página diferente da do seu conteúdo.
