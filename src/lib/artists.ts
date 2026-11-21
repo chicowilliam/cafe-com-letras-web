@@ -10,12 +10,16 @@ export interface ArtistProfile {
   kind: string;
   genres: string;
   photo?: { src: string; small: string; width: number; height: number; alt: string; position: string };
+  /** Exposição nas paredes do Café: some da página depois de `end` (AAAAMMDD). */
+  exhibition?: { title: string; start: string; end: string };
 }
 
 export const artistProfiles = rawProfiles as ArtistProfile[];
 
 for (const profile of artistProfiles) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(profile.slug)) throw new Error(`Slug de artista inválido: ${profile.slug}`);
+  const ex = profile.exhibition;
+  if (ex && (!/^\d{8}$/.test(ex.start) || !/^\d{8}$/.test(ex.end) || ex.start > ex.end)) throw new Error(`Período de exposição inválido: ${profile.slug}`);
   if (!publicData.artists.some(a => a.artist_id === profile.artistId)) throw new Error(`Artista ${profile.artistId} não existe em public-source.json.`);
 }
 if (new Set(artistProfiles.map(p => p.slug)).size !== artistProfiles.length) throw new Error('Slug de artista duplicado.');
