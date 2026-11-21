@@ -40,7 +40,7 @@ function category(event: StageEvent, name: string) {
   const hl = highlights[String(event.calendar_artist)];
   if (hl?.tags) return hl.tags;
   const profile = profiles.get(event.calendar_artist);
-  if (profile) return profile.kind;
+  if (profile) return profile.genres.length <= 32 ? `${profile.kind} · ${profile.genres}` : profile.kind;
   if (/^Lançamento/i.test(name)) return 'Livro';
   if (/Piano Bar/i.test(name)) return 'Piano';
   if (/^Festival/i.test(name)) return 'Festival';
@@ -128,6 +128,7 @@ export function renderMobileStage(state: HomeState, artists: Map<number, StageAr
   const hl = highlights[String(e.calendar_artist)];
   const profile = profiles.get(e.calendar_artist);
   let text = hl?.genres ?? profile?.genres ?? summary(e, artist);
+  text = text.charAt(0).toUpperCase() + text.slice(1);
   if (text && !/[.!?…]$/.test(text)) text += '.';
   if (hasPrice(e.calendar_price)) text += ` ${couvert(e.calendar_price).replace(/\s+por pessoa$/i, '')}.`;
   const photo = profile?.photo;

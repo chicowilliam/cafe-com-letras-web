@@ -26,5 +26,215 @@
       "alt": "Fotografia em preto e branco de Vini Souza: um vendedor com o rosto escondido atrás de um cacho de balões metalizados, diante de uma grade no centro de Belo Horizonte",
       "position": "50% 40%"
     }
+  },
+  {
+    "artistId": 1436,
+    "slug": "dj-xoxottini",
+    "kind": "DJ",
+    "genres": "indie dance, EBM, trance, techno, house e electro",
+    "photo": {
+      "src": "/img/destaques/dj-xoxottini-757.webp",
+      "small": "/img/destaques/dj-xoxottini-440.webp",
+      "width": 757,
+      "height": 946,
+      "alt": "DJ Xoxottini de fones de ouvido, sob luz alaranjada",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 863,
+    "slug": "luciana-alvarenga",
+    "kind": "Piano Bar",
+    "genres": "piano, choro e música brasileira",
+    "photo": {
+      "src": "/img/destaques/luciana-alvarenga-800.webp",
+      "small": "/img/destaques/luciana-alvarenga-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Luciana Alvarenga sorrindo, com montanhas ao fundo",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1524,
+    "slug": "barbara-andrade",
+    "kind": "Livro",
+    "genres": "lançamento de “A Conta do Crescimento”",
+    "photo": {
+      "src": "/img/destaques/barbara-andrade-263.webp",
+      "small": "/img/destaques/barbara-andrade-263.webp",
+      "width": 263,
+      "height": 329,
+      "alt": "Capa do livro “A Conta do Crescimento”, de Bárbara Andrade",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1518,
+    "slug": "matheus-avelar-quarteto",
+    "kind": "Jazz",
+    "genres": "jazz contemporâneo autoral",
+    "photo": {
+      "src": "/img/destaques/matheus-avelar-quarteto-325.webp",
+      "small": "/img/destaques/matheus-avelar-quarteto-325.webp",
+      "width": 325,
+      "height": 406,
+      "alt": "Matheus Avelar sentado num banco ao ar livre",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1530,
+    "slug": "dj-bob-g",
+    "kind": "DJ",
+    "genres": "vinil, música brasileira e cultura do sampling",
+    "photo": {
+      "src": "/img/destaques/dj-bob-g-800.webp",
+      "small": "/img/destaques/dj-bob-g-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "DJ Bob G de boné e óculos escuros diante de uma porta grafitada",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1531,
+    "slug": "rafa-jazz",
+    "kind": "DJ",
+    "genres": "funk, disco, boogie, jazz, house e música brasileira",
+    "photo": {
+      "src": "/img/destaques/rafa-jazz-800.webp",
+      "small": "/img/destaques/rafa-jazz-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Rafa Jazz discotecando num terraço, com prédios de São Paulo ao fundo",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1528,
+    "slug": "vinicius-mendes-e-rodrigo-torino-quarteto",
+    "kind": "Bossa Nova",
+    "genres": "Os Afro-Sambas na íntegra",
+    "photo": {
+      "src": "/img/destaques/vinicius-mendes-e-rodrigo-torino-quarteto-800.webp",
+      "small": "/img/destaques/vinicius-mendes-e-rodrigo-torino-quarteto-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Vinicius Mendes com saxofone tenor",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1532,
+    "slug": "dj-pedro-paiva",
+    "kind": "DJ",
+    "genres": "discotecagem só com vinil",
+    "photo": {
+      "src": "/img/destaques/dj-pedro-paiva-800.webp",
+      "small": "/img/destaques/dj-pedro-paiva-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "DJ Pedro Paiva com fones no pescoço, atrás das pick-ups",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 828,
+    "slug": "gabruga",
+    "kind": "Piano Bar",
+    "genres": "piano e música popular brasileira",
+    "photo": {
+      "src": "/img/destaques/gabruga-479.webp",
+      "small": "/img/destaques/gabruga-440.webp",
+      "width": 479,
+      "height": 599,
+      "alt": "Retrato de Gabruga",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1519,
+    "slug": "michael-eckroth-quarteto",
+    "kind": "Jazz",
+    "genres": "piano jazz",
+    "photo": {
+      "src": "/img/destaques/michael-eckroth-quarteto-546.webp",
+      "small": "/img/destaques/michael-eckroth-quarteto-440.webp",
+      "width": 546,
+      "height": 682,
+      "alt": "Mike Eckroth ao piano",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1477,
+    "slug": "dj-melloow",
+    "kind": "DJ",
+    "genres": "música brasileira, tropicália, R&B, anos 80 e new wave",
+    "photo": {
+      "src": "/img/destaques/dj-melloow-800.webp",
+      "small": "/img/destaques/dj-melloow-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "DJ Melloow posando diante de uma parede iluminada de verde",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1482,
+    "slug": "marilton-borges-e-clube-da-bossa-nova",
+    "kind": "Bossa Nova",
+    "genres": "Clube da Esquina, bossa nova e MPB",
+    "photo": {
+      "src": "/img/destaques/marilton-borges-e-clube-da-bossa-nova-757.webp",
+      "small": "/img/destaques/marilton-borges-e-clube-da-bossa-nova-440.webp",
+      "width": 757,
+      "height": 946,
+      "alt": "Marilton Borges, de chapéu, com integrantes do Clube da Bossa Nova",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 47,
+    "slug": "dj-pied-de-poule",
+    "kind": "DJ",
+    "genres": "vozes femininas, baladinhas, jazz e pop",
+    "photo": {
+      "src": "/img/destaques/dj-pied-de-poule-642.webp",
+      "small": "/img/destaques/dj-pied-de-poule-440.webp",
+      "width": 642,
+      "height": 802,
+      "alt": "Retrato de Uiara Azevedo, a DJ Pied-de-Poule",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 25,
+    "slug": "palomita-dj",
+    "kind": "DJ",
+    "genres": "música brasileira e paisagens sonoras",
+    "photo": {
+      "src": "/img/destaques/palomita-dj-800.webp",
+      "small": "/img/destaques/palomita-dj-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Palomita de óculos escuros e jaqueta jeans diante de um muro",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 107,
+    "slug": "djs-safa",
+    "kind": "DJ",
+    "genres": "soul, funk, house e música brasileira",
+    "photo": {
+      "src": "/img/destaques/djs-safa-800.webp",
+      "small": "/img/destaques/djs-safa-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Sandra e Fausto, a dupla DJs SaFa, em foto preto e branco",
+      "position": "50% 30%"
+    }
   }
 ]

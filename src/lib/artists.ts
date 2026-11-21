@@ -9,7 +9,7 @@ export interface ArtistProfile {
   slug: string;
   kind: string;
   genres: string;
-  photo: { src: string; small: string; width: number; height: number; alt: string; position: string };
+  photo?: { src: string; small: string; width: number; height: number; alt: string; position: string };
 }
 
 export const artistProfiles = rawProfiles as ArtistProfile[];
