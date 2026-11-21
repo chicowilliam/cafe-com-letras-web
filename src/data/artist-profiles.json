@@ -12,5 +12,19 @@
       "alt": "DJ Poetry (Rafael Augusto)",
       "position": "50% 22%"
     }
+  },
+  {
+    "artistId": 1533,
+    "slug": "vini-souza",
+    "kind": "Fotografia",
+    "genres": "Fotografia de rua",
+    "photo": {
+      "src": "/img/destaques/vini-souza-549.webp",
+      "small": "/img/destaques/vini-souza-440.webp",
+      "width": 549,
+      "height": 759,
+      "alt": "Fotografia em preto e branco de Vini Souza: um vendedor com o rosto escondido atrás de um cacho de balões metalizados, diante de uma grade no centro de Belo Horizonte",
+      "position": "50% 45%"
+    }
   }
 ]
