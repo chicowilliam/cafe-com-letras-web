@@ -52,13 +52,21 @@ function desktopSlider(selector:string,number:number,autoplay=false){
  const items=Array.from(list.children).filter((x):x is HTMLLIElement=>x instanceof HTMLLIElement);
  const controls=$$<HTMLAnchorElement>(`#slider-controls-${number} a`);
  const actual=items.filter(li=>!li.style.marginLeft.startsWith('-'));
+ // The old loop clone uses a desktop-only negative margin. Native controls
+ // already wrap the index, so exclude that clone from the responsive track.
+ for(const item of items)if(!actual.includes(item))item.style.display='none';
+ list.style.display='flex';list.style.width='max-content';list.style.maxWidth='none';
+ box.style.overflow='hidden';
  const count=controls.length||actual.length;if(!count)return;
- const width=box.clientWidth;let index=0;
+ let width=box.clientWidth;let index=0;
+ const sizeSlides=()=>{width=box.clientWidth;for(const item of actual){item.style.width=`${width}px`;item.style.flex=`0 0 ${width}px`;}};
+ sizeSlides();
  const show=(value:number)=>{index=(value+count)%count;list.style.transition=reduce?'none':'margin-left 250ms';list.style.marginLeft=`-${index*width}px`;controls.forEach((a,i)=>a.parentElement?.classList.toggle('current',i===index));};
  controls.forEach((a,i)=>a.addEventListener('click',event=>{event.preventDefault();show(i);}));
  for(const [suffix,offset] of [['previous',-1],['next',1]] as const)$(`#slider-${suffix}-${number} a`)?.addEventListener('click',event=>{event.preventDefault();show(index+offset);});
  // Initial snapshots start at the first original item; duplicate loop items remain outside the clipping box.
  show(0);
+ if('ResizeObserver' in window)new ResizeObserver(()=>{sizeSlides();show(index);}).observe(box);
  if(autoplay&&!reduce&&count>1)window.setInterval(()=>{if(!document.hidden)show(index+1);},7000);
 }
 if(['desktop','digital'].includes(kind)){desktopSlider('.highlight',1,true);desktopSlider('.news',2);}
@@ -100,10 +108,12 @@ async function refreshMenu(date:string){
 const days=$('.menu-navigation ul');
 if(days){
  if(body.dataset.contentDay!==today)days.innerHTML=renderDays(today);
- let week=10;const width=$('.menu-navigation')?.clientWidth||760;
+ let week=10;let width=$('.menu-navigation')?.clientWidth||760;
  function show(){days!.style.transition=reduce?'none':'margin-left 500ms';days!.style.marginLeft=`-${week*width}px`;}
  $('#slider-previous-3 a')?.addEventListener('click',event=>{event.preventDefault();week=Math.max(0,week-1);show();});
  $('#slider-next-3 a')?.addEventListener('click',event=>{event.preventDefault();week=Math.min(20,week+1);show();});show();
+ const viewport=$('.menu-navigation');
+ if(viewport&&'ResizeObserver' in window)new ResizeObserver(()=>{width=viewport.clientWidth;show();}).observe(viewport);
  days.addEventListener('click',event=>{const el=event.target instanceof Element?event.target.closest<HTMLElement>('.day'):null;if(el)void refreshMenu(el.getAttribute('date')||'');});
 }
 

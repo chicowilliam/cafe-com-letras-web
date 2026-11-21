@@ -2,11 +2,11 @@ import assert from 'node:assert/strict';
 import {readFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 import {pagePath} from '../src/lib/routes.ts';
-import {whatsapp,whatsappUrl} from '../src/config/whatsapp.ts';
+import {whatsapp,whatsappUrl,whatsappContexts,whatsappMessage} from '../src/config/whatsapp.ts';
 
 const officialNumber=whatsapp.number;
 const expectedMessage=whatsapp.message;
-const contextualMessages=new Set([expectedMessage,'Olá! Gostaria de informações sobre um evento privado no Café com Letras.','Olá! Gostaria de informações sobre privacidade no site do Café com Letras.']);
+const contextualMessages=new Set([expectedMessage,...whatsappContexts.map(context=>whatsappMessage(context)),'Olá! Gostaria de informações sobre um evento privado no Café com Letras.','Olá! Gostaria de informações sobre privacidade no site do Café com Letras.']);
 const eventShare='Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/';
 assert.match(officialNumber,/^\d{10,15}$/);
 assert.ok(expectedMessage.trim(),'Configured WhatsApp message must not be empty');

@@ -2,6 +2,10 @@ const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
 function routeLegacySection(){const target=legacySections[location.hash];if(location.pathname==='/'&&target)location.replace(target);}
 routeLegacySection();
+for(const nav of document.querySelectorAll('nav')){
+ const first=nav.querySelector('[data-section-link]');
+ if(first&&!nav.querySelector('[data-section-link][aria-current]'))first.setAttribute('aria-current','location');
+}
 addEventListener('hashchange',routeLegacySection);
 document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
 document.addEventListener('pointerdown',()=>{delete document.body.dataset.input;},{passive:true});
@@ -38,7 +42,7 @@ for(const button of document.querySelectorAll<HTMLButtonElement>('[data-mobile-m
  nav.addEventListener('focusout',()=>queueMicrotask(()=>{
   if(open&&!nav.contains(document.activeElement)&&document.activeElement!==button)setOpen(false,true);
  }));
- matchMedia('(max-width:600px)').addEventListener('change',()=>setOpen(false,true));
+ matchMedia('(max-width:900px)').addEventListener('change',()=>setOpen(false,true));
  reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)setOpen(open,true);});
 }
 
@@ -67,6 +71,10 @@ function showFeedback(trigger:HTMLElement,message:string){
 }
 document.addEventListener('click',event=>{
  const target=event.target instanceof Element?event.target:null;
+ if(target?.closest('[data-skip-content]')){
+  const content=[...document.querySelectorAll<HTMLElement>('main, .home-mobile section, body[data-page="celular"] section')].find(element=>element.getClientRects().length>0);
+  if(content){event.preventDefault();content.tabIndex=-1;content.focus({preventScroll:true});content.scrollIntoView({block:'start',behavior:'instant'});}
+ }
  const sectionLink=target?.closest<HTMLElement>('[data-section-link]');
  if(sectionLink)for(const link of sectionLink.parentElement?.querySelectorAll('[data-section-link]')||[]){
   link.classList.toggle('on',link===sectionLink);
@@ -99,5 +107,31 @@ if('IntersectionObserver' in window&&!reducedMotion.matches){
  // Focus, fragments and print must never land on visually hidden content.
  document.addEventListener('focusin',event=>{if(event.target instanceof Element)event.target.closest('[data-scroll-reveal]')?.classList.remove('reveal-pending');});
  addEventListener('beforeprint',revealAll);
+}
+const menuItems=document.querySelector<HTMLElement>('#menu-items');
+if(menuItems){
+ const filters=document.querySelectorAll<HTMLButtonElement>('[data-menu-filter]');
+ const status=document.querySelector('#menu-filter-status');
+ for(const button of filters){
+  button.addEventListener('click',()=>{
+   const filter=button.dataset.menuFilter;
+   let count=0;
+   for(const group of menuItems.querySelectorAll<HTMLElement>('[data-menu-group]')){
+    let visible=0;
+    for(const row of group.querySelectorAll<HTMLElement>('.row')){
+     row.hidden=filter==='vegan' ? !row.querySelector('[aria-label="vegano"]')
+      : filter==='share' && group.dataset.menuGroup!=='share';
+     if(!row.hidden)visible++;
+    }
+    group.hidden=visible===0;
+    count+=visible;
+   }
+   for(const control of filters){
+    control.classList.toggle('on',control===button);
+    control.setAttribute('aria-pressed',String(control===button));
+   }
+   if(status)status.textContent=`${count} itens exibidos.`;
+  });
+ }
 }
 if(document.querySelector('[data-agenda]'))import('./agenda').then(module=>module.initAgenda());

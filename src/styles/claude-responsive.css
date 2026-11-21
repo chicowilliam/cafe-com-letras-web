@@ -1,3 +1,6 @@
+/* Oculta somente Savassi, preservando os pixels e as dimensões da marca. */
+body[data-design="claude"] img[src="/claude/assets/logo-ink.png"],
+body[data-design="claude"] img[src="/claude/assets/logo-white.png"]{clip-path:polygon(0 0,100% 0,100% 89.2562%,60% 89.2562%,60% 100%,0 100%)}
 /* Somente adaptações abaixo dos breakpoints. O CSS desktop original é intocado. */
 html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
 .home-mobile{display:none}
