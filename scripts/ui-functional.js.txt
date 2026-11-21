@@ -62,7 +62,10 @@ async () => {
  report.sectionNavigation=page.url().endsWith('/gastronomia/#bar');report.sectionCurrent=await page.locator('[data-section-link][href="#bar"]').getAttribute('aria-current');
  await page.setViewportSize({width:1440,height:900});await page.goto(base+'/');await page.locator('.home-desktop [data-agenda-intent="dj"]').click();await page.waitForFunction(()=>document.querySelector('[data-agenda]')?.dataset.activeFilter==='dj');
  report.homeFilterIntent=await page.locator('[data-event-row]:not([hidden])').count();
+ const touchContext=await page.context().browser().newContext({viewport:{width:390,height:900},hasTouch:true,isMobile:true});
+ const touch=await touchContext.newPage();await touch.goto(base+'/');await touch.getByRole('button',{name:'Abrir menu',exact:true}).tap();await touch.waitForTimeout(250);
+ report.touchMenu=await touch.locator('.home-mobile #mobile-navigation').isVisible();report.touchHoverDisabled=await touch.evaluate(()=>!matchMedia('(hover: hover) and (pointer: fine)').matches);await touch.getByRole('button',{name:'Fechar menu',exact:true}).tap();await touch.waitForTimeout(180);report.touchClosed=await touch.locator('.home-mobile #mobile-navigation').isHidden();await touchContext.close();
  report.passed=report.filters.every(f=>f.visible===f.expected&&!f.wrong&&!f.monthMismatch&&f.pressed==='true'&&f.focus===f.category)&&report.keyboardFilter==='jazz'&&report.enterFilter==='all'&&report.keyboardFilterAnimations===0&&report.keyboardMenu&&report.keyboardMenuAnimations===0&&report.firstLinkFocused&&report.escapeClosed&&report.focusRestored&&report.rapidRetoggle&&report.menuLayoutShift===0&&report.outsideClosed&&report.menuNavigation&&report.demoFeedback&&report.feedbackEscapeClosed&&report.revealPending>0&&report.scrollRevealed&&report.reducedPending===0&&report.reducedMenuAnimations===0&&report.nojsRows===expected.all&&report.nojsHidden===0&&report.nojsOpacity==='1'&&!report.errors.length&&!report.requests.length;
- report.passed=report.passed&&report.sectionNavigation&&report.sectionCurrent==='location'&&report.homeFilterIntent===expected.dj;
+ report.passed=report.passed&&report.sectionNavigation&&report.sectionCurrent==='location'&&report.homeFilterIntent===expected.dj&&report.touchMenu&&report.touchHoverDisabled&&report.touchClosed;
  return report;
 }

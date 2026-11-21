@@ -1,0 +1,18 @@
+async () => {
+ await page.setViewportSize({width:390,height:900});await page.emulateMedia({reducedMotion:'reduce'});
+ const results=[];
+ for(const base of [__BASELINE__,__CANDIDATE__]){
+  await page.goto(base+'/celular/');await page.evaluate(()=>document.fonts.ready);await page.mouse.move(0,0);await page.waitForTimeout(400);
+  results.push(await page.evaluate(()=>{
+   const result=[];const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
+   const properties=['fontFamily','fontWeight','fontSize','fontFeatureSettings','fontVariationSettings','fontOpticalSizing','fontKerning','fontSynthesis','lineHeight','letterSpacing','wordSpacing','color','opacity','textTransform','textRendering','webkitFontSmoothing'];
+   while(node=walker.nextNode()){
+    const element=node.parentElement;if(!node.textContent.trim()||!element||element.matches('script,style'))continue;
+    const rect=element.getBoundingClientRect();if(!rect.width||!rect.height)continue;
+    const computed=getComputedStyle(element),style={};for(const key of properties)style[key]=computed[key];
+    result.push({text:node.textContent.trim(),tag:element.tagName,rect:[rect.x,rect.y,rect.width,rect.height],style});
+   }return result;
+  }));
+ }
+ const [before,after]=results;return {count:[before.length,after.length],differences:before.flatMap((a,i)=>{const b=after[i];if(JSON.stringify(a)!==JSON.stringify(b))return [{before:a,after:b}];return [];})};
+}

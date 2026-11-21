@@ -1,7 +1,9 @@
 async () => {
- page.setDefaultNavigationTimeout(90000);
+
  const report={before:__BASELINE__,after:__CANDIDATE__,method:'Chrome, CPU 4x; 1.6Mbps down, 750Kbps up, 150ms latency; warm cache; 3 alternating samples per viewport; lab measurements, not field p75.',samples:[]};
- const context=page.context();
+ const context=await page.context().browser().newContext();
+ const probe=await context.newPage();
+ probe.setDefaultNavigationTimeout(90000);
  await context.addInitScript(()=>{
   window.__uiPerf={lcp:0,cls:0,longTasks:0,events:[]};
   let session=0,first=0,last=0;
@@ -10,26 +12,26 @@ async () => {
   new PerformanceObserver(list=>{for(const e of list.getEntries())window.__uiPerf.longTasks+=Math.max(0,e.duration-50);}).observe({type:'longtask',buffered:true});
   new PerformanceObserver(list=>{for(const e of list.getEntries())if(e.interactionId)window.__uiPerf.events.push({id:e.interactionId,duration:e.duration});}).observe({type:'event',buffered:true,durationThreshold:16});
  });
- const cdp=await context.newCDPSession(page);
+ const cdp=await context.newCDPSession(probe);
  await cdp.send('Network.enable');
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
  await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:150,downloadThroughput:1600000/8,uploadThroughput:750000/8});
- await page.emulateMedia({reducedMotion:'no-preference'});
+ await probe.emulateMedia({reducedMotion:'no-preference'});
  for(const width of [390,1440]){
-  await page.setViewportSize({width,height:900});
+  await probe.setViewportSize({width,height:900});
   // Prime fonts/assets for both origins before paired warm-cache measurements.
-  for(const base of [report.before,report.after]){await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);}
+  for(const base of [report.before,report.after]){await probe.goto(base+'/');await probe.evaluate(()=>document.fonts.ready);}
   for(let run=0;run<3;run++){
    const order=run%2?[['after',report.after],['before',report.before]]:[['before',report.before],['after',report.after]];
    for(const [version,base] of order){
-    await page.goto(base+'/');await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(700);
+    await probe.goto(base+'/');await probe.evaluate(()=>document.fonts.ready);await probe.waitForTimeout(700);
     // Stop measuring load LCP before menu interactions or scroll candidates.
-    const load=await page.evaluate(()=>({...window.__uiPerf,events:undefined}));
+    const load=await probe.evaluate(()=>({...window.__uiPerf,events:undefined}));
     if(width===390){
-     await page.getByRole('button',{name:'Abrir menu',exact:true}).click();await page.waitForTimeout(260);
-     const close=page.getByRole('button',{name:/^(Abrir|Fechar) menu$/});await close.click();await page.waitForTimeout(240);
-    }else{await page.locator('.home-desktop .hdr a[href="/gastronomia/"]').focus();}
-    const metrics=await page.evaluate(()=>{
+     await probe.getByRole('button',{name:'Abrir menu',exact:true}).click();await probe.waitForTimeout(260);
+     const close=page.getByRole('button',{name:/^(Abrir|Fechar) menu$/});await close.click();await probe.waitForTimeout(240);
+    }else{await probe.locator('.home-desktop .hdr a[href="/gastronomia/"]').focus();}
+    const metrics=await probe.evaluate(()=>{
      const p=window.__uiPerf;
      return {...p,interactionMs:p.events.length?Math.max(...p.events.map(e=>e.duration)):null,
       jsInlineBytes:[...document.scripts].filter(s=>!s.src&&s.type!=='application/ld+json').reduce((n,s)=>n+new TextEncoder().encode(s.textContent).length,0),
@@ -41,5 +43,6 @@ async () => {
   }
  }
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:1});await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:0,downloadThroughput:-1,uploadThroughput:-1});await cdp.detach();
+ await context.close();
  return report;
 }

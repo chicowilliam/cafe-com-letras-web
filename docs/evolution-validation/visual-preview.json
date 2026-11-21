@@ -1,0 +1,241 @@
+{
+  "before": "https://2cdec9c2.cafe-com-letras-pages.pages.dev",
+  "after": "https://62aa643a.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "name": "index",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "gastronomia",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "programacao",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "evento",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "livraria",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "casa",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "celular",
+      "width": 1440,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "index",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "gastronomia",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "programacao",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "evento",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "livraria",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "casa",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "celular",
+      "width": 768,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "index",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "gastronomia",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "programacao",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "evento",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "livraria",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "casa",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    },
+    {
+      "name": "celular",
+      "width": 390,
+      "status": 200,
+      "overflow": 0,
+      "brokenImages": [],
+      "contentUnchanged": true,
+      "seoUnchanged": true,
+      "typographyUnchanged": true,
+      "urlsUnchanged": true
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "resources": [],
+  "passed": true
+}

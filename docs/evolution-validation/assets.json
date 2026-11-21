@@ -1,0 +1,175 @@
+{
+  "before": "https://2cdec9c2.cafe-com-letras-pages.pages.dev",
+  "after": "https://62aa643a.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "version": "before",
+      "name": "index",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "gastronomia",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "programacao",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "evento",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "livraria",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "casa",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "before",
+      "name": "celular",
+      "jsRaw": 774,
+      "jsGzip": 460,
+      "jsCombinedGzip": 460,
+      "jsRequests": 0,
+      "jsUrls": [],
+      "cssRaw": 5769,
+      "cssGzip": 1690
+    },
+    {
+      "version": "after",
+      "name": "index",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "gastronomia",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "programacao",
+      "jsRaw": 7453,
+      "jsGzip": 3267,
+      "jsCombinedGzip": 2992,
+      "jsRequests": 2,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js",
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/agenda.BWWtrEc6.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "evento",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "livraria",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "casa",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    },
+    {
+      "version": "after",
+      "name": "celular",
+      "jsRaw": 6088,
+      "jsGzip": 2563,
+      "jsCombinedGzip": 2563,
+      "jsRequests": 1,
+      "jsUrls": [
+        "https://62aa643a.cafe-com-letras-pages.pages.dev/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js"
+      ],
+      "cssRaw": 14513,
+      "cssGzip": 3738
+    }
+  ]
+}

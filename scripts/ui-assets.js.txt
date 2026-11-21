@@ -13,7 +13,7 @@ async () => {
    const scripts=sources.join('\n');
    const styles=[...document.querySelectorAll('style')].map(s=>s.textContent);
    for(const link of document.querySelectorAll('link[rel=stylesheet]'))if(new URL(link.href).origin===location.origin)styles.push(await (await fetch(link.href)).text());
-   return {jsRaw:new TextEncoder().encode(scripts).length,jsGzip:await gzip(scripts),jsRequests:urls.length,jsUrls:urls,cssRaw:new TextEncoder().encode(styles.join('\n')).length,cssGzip:await gzip(styles.join('\n'))};
+   return {jsRaw:new TextEncoder().encode(scripts).length,jsGzip:(await Promise.all(sources.map(gzip))).reduce((a,b)=>a+b,0),jsCombinedGzip:await gzip(scripts),jsRequests:urls.length,jsUrls:urls,cssRaw:new TextEncoder().encode(styles.join('\n')).length,cssGzip:await gzip(styles.join('\n'))};
   });
   report.pages.push({version,name,...data});
  }

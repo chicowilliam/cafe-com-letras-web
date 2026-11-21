@@ -1,0 +1,359 @@
+[
+  {
+    "name": "index",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      4785
+    ],
+    "afterSize": [
+      1440,
+      4785
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "index",
+    "width": 768,
+    "beforeSize": [
+      768,
+      9514
+    ],
+    "afterSize": [
+      768,
+      9514
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "index",
+    "width": 390,
+    "beforeSize": [
+      390,
+      3038
+    ],
+    "afterSize": [
+      390,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "gastronomia",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      6706
+    ],
+    "afterSize": [
+      1440,
+      6706
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "gastronomia",
+    "width": 768,
+    "beforeSize": [
+      768,
+      10923
+    ],
+    "afterSize": [
+      768,
+      10923
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 24,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 1,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "gastronomia",
+    "width": 390,
+    "beforeSize": [
+      390,
+      14675
+    ],
+    "afterSize": [
+      390,
+      14675
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "programacao",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      4230
+    ],
+    "afterSize": [
+      1440,
+      4230
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "programacao",
+    "width": 768,
+    "beforeSize": [
+      768,
+      10578
+    ],
+    "afterSize": [
+      768,
+      10578
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "programacao",
+    "width": 390,
+    "beforeSize": [
+      390,
+      11665
+    ],
+    "afterSize": [
+      390,
+      11665
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "evento",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      2867
+    ],
+    "afterSize": [
+      1440,
+      2867
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "evento",
+    "width": 768,
+    "beforeSize": [
+      768,
+      5811
+    ],
+    "afterSize": [
+      768,
+      5811
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "evento",
+    "width": 390,
+    "beforeSize": [
+      390,
+      6133
+    ],
+    "afterSize": [
+      390,
+      6133
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "livraria",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      4106
+    ],
+    "afterSize": [
+      1440,
+      4106
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "livraria",
+    "width": 768,
+    "beforeSize": [
+      768,
+      6105
+    ],
+    "afterSize": [
+      768,
+      6105
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "livraria",
+    "width": 390,
+    "beforeSize": [
+      390,
+      6915
+    ],
+    "afterSize": [
+      390,
+      6915
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "casa",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      3862
+    ],
+    "afterSize": [
+      1440,
+      3862
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 57,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 2,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "casa",
+    "width": 768,
+    "beforeSize": [
+      768,
+      6372
+    ],
+    "afterSize": [
+      768,
+      6372
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "casa",
+    "width": 390,
+    "beforeSize": [
+      390,
+      7154
+    ],
+    "afterSize": [
+      390,
+      7154
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "celular",
+    "width": 1440,
+    "beforeSize": [
+      1440,
+      3038
+    ],
+    "afterSize": [
+      1440,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "celular",
+    "width": 768,
+    "beforeSize": [
+      768,
+      3038
+    ],
+    "afterSize": [
+      768,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  },
+  {
+    "name": "celular",
+    "width": 390,
+    "beforeSize": [
+      390,
+      3038
+    ],
+    "afterSize": [
+      390,
+      3038
+    ],
+    "sameSize": true,
+    "strictChangedPixels": 0,
+    "pixelsOver8": 0,
+    "maxChannelDelta": 0,
+    "changedPercent": 0.0
+  }
+]
