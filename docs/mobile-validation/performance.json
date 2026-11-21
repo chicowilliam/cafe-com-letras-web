@@ -1,0 +1,51 @@
+{
+  "method": "Chromium 390x844, CPU 4x, 1.6Mbps, 150ms latency, warm cache, 3 alternating samples; laboratory only",
+  "samples": [
+    {
+      "version": "before",
+      "run": 0,
+      "lcp": 608,
+      "cls": 0
+    },
+    {
+      "version": "after",
+      "run": 0,
+      "lcp": 464,
+      "cls": 0
+    },
+    {
+      "version": "after",
+      "run": 1,
+      "lcp": 608,
+      "cls": 0
+    },
+    {
+      "version": "before",
+      "run": 1,
+      "lcp": 708,
+      "cls": 0
+    },
+    {
+      "version": "before",
+      "run": 2,
+      "lcp": 464,
+      "cls": 0
+    },
+    {
+      "version": "after",
+      "run": 2,
+      "lcp": 592,
+      "cls": 0
+    }
+  ],
+  "medians": {
+    "before": {
+      "lcp": 608,
+      "cls": 0
+    },
+    "after": {
+      "lcp": 592,
+      "cls": 0
+    }
+  }
+}

@@ -1,0 +1,567 @@
+{
+  "base": "https://2a7421bc.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "name": "index",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "gastronomia",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 320,
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "root": {
+        "width": 320,
+        "right": 320
+      },
+      "bad": []
+    },
+    {
+      "name": "index",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "gastronomia",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 375,
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "root": {
+        "width": 375,
+        "right": 375
+      },
+      "bad": []
+    },
+    {
+      "name": "index",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "gastronomia",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 390,
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "index",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "gastronomia",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 414,
+        "right": 414
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 414,
+        "right": 414
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 414,
+        "right": 414
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 414,
+        "right": 414
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 414,
+        "right": 414
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 414,
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "index",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": [
+        {
+          "tag": "LABEL",
+          "class": "",
+          "text": "Seu e-mail",
+          "width": 81,
+          "right": -9918
+        }
+      ]
+    },
+    {
+      "name": "gastronomia",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 768,
+        "right": 768
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 768,
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    },
+    {
+      "name": "index",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": [
+        {
+          "tag": "LABEL",
+          "class": "",
+          "text": "Seu e-mail",
+          "width": 81,
+          "right": -9918
+        }
+      ]
+    },
+    {
+      "name": "gastronomia",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": []
+    },
+    {
+      "name": "programacao",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": []
+    },
+    {
+      "name": "evento",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": []
+    },
+    {
+      "name": "livraria",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": []
+    },
+    {
+      "name": "casa",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 1440,
+        "right": 1440
+      },
+      "bad": []
+    },
+    {
+      "name": "celular",
+      "width": 1440,
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "root": {
+        "width": 390,
+        "right": 390
+      },
+      "bad": []
+    }
+  ]
+}

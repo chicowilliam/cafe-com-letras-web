@@ -1,0 +1,20 @@
+async () => {
+ const report={base:__CANDIDATE__,pages:[]};
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [320,375,390,414,768,1440]){
+  await page.setViewportSize({width,height:844});
+  for(const name of ['index','gastronomia','programacao','evento','livraria','casa','celular']){
+   await page.goto(report.base+(name==='index'?'/':'/'+name+'/'));await page.evaluate(()=>document.fonts.ready);
+   const result=await page.evaluate(()=>{
+    const viewport=document.documentElement.clientWidth;
+    const root=document.querySelector('.home-mobile')?.getBoundingClientRect().width?document.querySelector('.home-mobile > div'):document.body.children[0];
+    const rect=root?.getBoundingClientRect();
+    const bad=[...document.body.querySelectorAll('*')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&(r.right>viewport+1||r.left < -1)&&getComputedStyle(e).position!=='fixed';}).slice(0,16).map(e=>({tag:e.tagName,class:e.className,text:e.textContent.trim().slice(0,65),width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right}));
+    return {viewport,inner:innerWidth,document:document.documentElement.scrollWidth,body:document.body.getBoundingClientRect().width,root:rect?{width:rect.width,right:rect.right}:null,bad};
+   });
+   report.pages.push({name,width,...result});
+   if(['index','celular'].includes(name)&&[320,390,414].includes(width))await page.screenshot({path:`output/playwright/mobile-fix/before-${name}-${width}.png`,fullPage:true});
+  }
+ }
+ return report;
+}

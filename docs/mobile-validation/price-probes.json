@@ -1,0 +1,146 @@
+[
+  {
+    "engine": "chromium",
+    "width": 320,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 320,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 414,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "chromium",
+    "width": 414,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 48,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 375,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 375,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 414,
+    "name": "index",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  },
+  {
+    "engine": "webkit",
+    "width": 414,
+    "name": "celular",
+    "lines": 1,
+    "textWidth": 47.999969482421875,
+    "textHeight": 20,
+    "nowrap": "nowrap"
+  }
+]

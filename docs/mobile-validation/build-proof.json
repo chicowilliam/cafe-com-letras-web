@@ -1,0 +1,43 @@
+{
+  "deployment": "f300350b-f8c5-430d-a338-df3652e402de",
+  "commit": "7a5aa13",
+  "url": "https://f300350b.cafe-com-letras-pages.pages.dev",
+  "logs": [
+    {
+      "time": "2026-11-21T00:28:39.798907Z",
+      "line": "Result (25 files): "
+    },
+    {
+      "time": "2026-11-21T00:28:39.799197Z",
+      "line": "- 0 errors"
+    },
+    {
+      "time": "2026-11-21T00:28:39.799248Z",
+      "line": "- 0 warnings"
+    },
+    {
+      "time": "2026-11-21T00:28:40.370063Z",
+      "line": "{\"passed\":true,\"fictionalTests\":\"OS temporary directory only\",\"sandbox\":\"/tmp/cafe-programacao-test-nY5TZ3\",\"realEventsPreserved\":3611,\"productionDataUnchanged\":true}"
+    },
+    {
+      "time": "2026-11-21T00:28:42.598562Z",
+      "line": "\u001b[2m00:28:42\u001b[22m \u001b[34m[build]\u001b[39m 21 page(s) built in \u001b[1m1.57s\u001b[22m"
+    },
+    {
+      "time": "2026-11-21T00:28:42.598616Z",
+      "line": "\u001b[2m00:28:42\u001b[22m \u001b[34m[build]\u001b[39m \u001b[1mComplete!\u001b[22m"
+    },
+    {
+      "time": "2026-11-21T00:28:42.933594Z",
+      "line": "{\"whatsapp\":\"passed\",\"pages\":13,\"existingLinks\":28,\"number\":\"5531984244285\",\"message\":\"Olá! ☕ Vim pelo site do Café com Letras e gostaria de saber mais informações. 😊\"}"
+    },
+    {
+      "time": "2026-11-21T00:28:43.040026Z",
+      "line": "{\"passed\":true,\"mode\":\"preview\",\"pages\":20,\"sitemap\":16,\"redirectTests\":17,\"files\":1617,\"schemaEvents\":23}"
+    },
+    {
+      "time": "2026-11-21T00:28:43.048057Z",
+      "line": "Artefatos Pages: preview; 214 meses de agenda; somente conteúdo público; TypeScript e artefatos validados."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "engine": "chromium",
+    "gastronomiaTab": true,
+    "programacaoTab": true,
+    "jazz": 3,
+    "all": 21,
+    "chegar": true
+  },
+  {
+    "engine": "webkit",
+    "gastronomiaTab": true,
+    "programacaoTab": true,
+    "jazz": 3,
+    "all": 21,
+    "chegar": true
+  }
+]

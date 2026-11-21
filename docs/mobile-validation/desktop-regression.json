@@ -1,0 +1,107 @@
+[
+  {
+    "name": "index",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      4785
+    ],
+    "afterSize": [
+      1440,
+      4785
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "gastronomia",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      6706
+    ],
+    "afterSize": [
+      1440,
+      6706
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "programacao",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      4230
+    ],
+    "afterSize": [
+      1440,
+      4230
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "evento",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      2867
+    ],
+    "afterSize": [
+      1440,
+      2867
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "livraria",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      4106
+    ],
+    "afterSize": [
+      1440,
+      4106
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "casa",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      3862
+    ],
+    "afterSize": [
+      1440,
+      3862
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 117,
+    "maxDelta": 2
+  },
+  {
+    "name": "celular",
+    "sameSize": true,
+    "beforeSize": [
+      1440,
+      3038
+    ],
+    "afterSize": [
+      1440,
+      3038
+    ],
+    "pixelsOver8": 0,
+    "strictPixels": 0,
+    "maxDelta": 0
+  }
+]

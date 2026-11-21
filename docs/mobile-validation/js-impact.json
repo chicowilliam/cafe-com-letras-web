@@ -1,0 +1,22 @@
+[
+  {
+    "base": "https://2a7421bc.cafe-com-letras-pages.pages.dev",
+    "scripts": [
+      {
+        "path": "/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js",
+        "bytes": 6088,
+        "sha256": "30871df4b480fb89401a1084d43ad79f4809e485edcc7e706118f3d803ff0d18"
+      }
+    ]
+  },
+  {
+    "base": "https://f300350b.cafe-com-letras-pages.pages.dev",
+    "scripts": [
+      {
+        "path": "/_astro/ClaudeLayout.astro_astro_type_script_index_0_lang.i1_oEvP4.js",
+        "bytes": 6088,
+        "sha256": "30871df4b480fb89401a1084d43ad79f4809e485edcc7e706118f3d803ff0d18"
+      }
+    ]
+  }
+]

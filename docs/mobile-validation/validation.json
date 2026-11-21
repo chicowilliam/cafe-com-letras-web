@@ -1,0 +1,2348 @@
+{
+  "base": "https://f300350b.cafe-com-letras-pages.pages.dev",
+  "pages": [
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": 320,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": 320,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": 375,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": 375,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": 414,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": 414,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 48,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "normal"
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "sticky"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "index",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "gastronomia",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "programacao",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "evento",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "livraria",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "casa",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "normal"
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "sticky"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "chromium",
+      "name": "celular",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": 320,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 320,
+      "inner": 320,
+      "document": 320,
+      "body": 320,
+      "visualViewport": 320,
+      "canvas": 320,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 320,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": 375,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 375,
+      "inner": 375,
+      "document": 375,
+      "body": 375,
+      "visualViewport": 375,
+      "canvas": 375,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 375,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 390,
+      "inner": 390,
+      "document": 390,
+      "body": 390,
+      "visualViewport": 390,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 390,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": 414,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 414,
+      "inner": 414,
+      "document": 414,
+      "body": 414,
+      "visualViewport": 414,
+      "canvas": 414,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "nowrap",
+        "lines": 1,
+        "textWidth": 47.999969482421875,
+        "textHeight": 20
+      },
+      "bar": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 414,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 768,
+      "inner": 768,
+      "document": 768,
+      "body": 768,
+      "visualViewport": 768,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "normal"
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "sticky"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 768,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "index",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "gastronomia",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "programacao",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "evento",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "livraria",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": null,
+      "outside": [],
+      "brokenImages": [],
+      "price": null,
+      "bar": null,
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "casa",
+      "width": 1440,
+      "status": 200
+    },
+    {
+      "viewport": 1440,
+      "inner": 1440,
+      "document": 1440,
+      "body": 1440,
+      "visualViewport": 1440,
+      "canvas": 390,
+      "outside": [],
+      "brokenImages": [],
+      "price": {
+        "text": "R$ 70",
+        "height": 43.1875,
+        "font": 16,
+        "nowrap": "normal"
+      },
+      "bar": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "sticky"
+      },
+      "viewportMeta": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "robots": "noindex, nofollow",
+      "engine": "webkit",
+      "name": "celular",
+      "width": 1440,
+      "status": 200
+    }
+  ],
+  "interactions": [
+    {
+      "engine": "chromium",
+      "name": "index",
+      "width": 320,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 73,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "celular",
+      "width": 320,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 73,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "index",
+      "width": 375,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 86.75,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "celular",
+      "width": 375,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 86.75,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "index",
+      "width": 390,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 90.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "celular",
+      "width": 390,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 90.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "index",
+      "width": 414,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 96.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "celular",
+      "width": 414,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 96.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "index",
+      "width": 320,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 73,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "celular",
+      "width": 320,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 320,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 73,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 73,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "index",
+      "width": 375,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 86.75,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "celular",
+      "width": 375,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 375,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 86.75,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 86.75,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "index",
+      "width": 390,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 90.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "celular",
+      "width": 390,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 390,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 90.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 90.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "index",
+      "width": 414,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 96.5,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "name": "celular",
+      "width": 414,
+      "menuOpen": true,
+      "menuClose": true,
+      "bottom": {
+        "left": 0,
+        "right": 414,
+        "bottom": 844,
+        "position": "fixed"
+      },
+      "safePadding34": 46,
+      "links": [
+        {
+          "href": "https://usetag.me/cafecomletras",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/delivery/",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "https://wa.me/5531984244285?text=Ol%C3%A1!%20%E2%98%95%20Vim%20pelo%20site%20do%20Caf%C3%A9%20com%20Letras%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es.%20%F0%9F%98%8A",
+          "width": 96.5,
+          "height": 52
+        },
+        {
+          "href": "/casa/#visite",
+          "width": 96.5,
+          "height": 52
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "resources": [],
+  "passed": true,
+  "chromiumVersion": "158.0.8127.36",
+  "webkitVersion": "26.5"
+}
