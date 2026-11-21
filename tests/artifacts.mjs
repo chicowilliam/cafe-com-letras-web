@@ -35,7 +35,7 @@ for(const file of pages){
 }
 report.privateFiles=files.filter(f=>/\.(asp|sql|ps1|ini|bak|config)$/i.test(f)||/[\\/](admin|system|novostalentos|node_modules)[\\/]/i.test(f));
 assert.equal(report.privateFiles.length,0);assert.equal(report.missingResources.length,0,JSON.stringify(report.missingResources));
-const sitemap=await readFile('dist/sitemap-0.xml','utf8');const locations=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(locations.length,16);assert.equal(new Set(locations).size,16);
+const sitemap=await readFile('dist/sitemap-0.xml','utf8');const locations=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);assert.equal(locations.length,17);assert.equal(new Set(locations).size,17);
 for(const location of locations){assert.ok(location.startsWith(origin));assert.ok(!new URL(location).pathname.startsWith('/m/'));assert.ok(await exists(new URL(location)));}
 const robots=await readFile('dist/robots.txt','utf8');assert.equal(robots.includes('Allow: /'),production);assert.equal(robots.includes('Disallow: /\n'),!production);
 const cases=[
