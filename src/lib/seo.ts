@@ -21,7 +21,7 @@ export function seoFor(page:PageSnapshot){
   const closed=/n[aã]o.*funcionando/i.test(config.config_time_1);
   if(closed)restaurant.additionalProperty={'@type':'PropertyValue',name:'Situação informada no cadastro recuperado',value:plain(config.config_time_1)};
   const time=config.config_time_1.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  if(!closed&&/domingo.*quinta.*12h.*22h.*sexta.*sabado.*12h.*23h/i.test(time))restaurant.openingHoursSpecification=[{'@type':'OpeningHoursSpecification',dayOfWeek:['Sunday','Monday','Tuesday','Wednesday','Thursday'],opens:'12:00',closes:'22:00'},{'@type':'OpeningHoursSpecification',dayOfWeek:['Friday','Saturday'],opens:'12:00',closes:'23:00'}];
+  if(!closed&&/domingo.*terca.*12h.*22h.*quarta.*sabado.*12h.*23h/i.test(time))restaurant.openingHoursSpecification=[{'@type':'OpeningHoursSpecification',dayOfWeek:['Sunday','Monday','Tuesday'],opens:'12:00',closes:'22:00'},{'@type':'OpeningHoursSpecification',dayOfWeek:['Wednesday','Thursday','Friday','Saturday'],opens:'12:00',closes:'23:00'}];
   graph.push(restaurant);
   if(!closed&&['desktop','mobile','digital'].includes(page.kind)){
    const max=page.kind==='mobile'?'99991231':shiftDate(contentDay,7);
