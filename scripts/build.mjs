@@ -10,6 +10,10 @@ if(process.env.WORKERS_CI==='1'||process.env.WORKERS_CI_BUILD_UUID){
  process.exit(1);
 }
 
+// Required validation also runs in the clean Pages build, before creating a preview.
+const typecheck=spawnSync(process.execPath,['node_modules/astro/bin/astro.mjs','check'],{stdio:'inherit',env:{...process.env,ASTRO_TELEMETRY_DISABLED:'1'}});
+if(typecheck.status!==0)process.exit(typecheck.status||1);
+
 // Agenda regression tests write fictional records only to the OS temporary directory.
 const agendaTests=spawnSync(process.execPath,['tests/programacao.mjs'],{stdio:'inherit'});
 if(agendaTests.status!==0)process.exit(agendaTests.status||1);
@@ -45,4 +49,6 @@ await writeFile('dist/_routes.json',JSON.stringify({version:1,include:['/*'],exc
 const tooLarge=[];for(const file of files)if((await stat(file)).size>25*1024*1024)tooLarge.push(file);
 if(tooLarge.length)throw new Error('Asset excede o limite de 25 MiB do Pages.');
 await writeFile('dist/build-info.json',JSON.stringify({mode,builtAt:new Date().toISOString(),sourceExportedAt:data.exportedAt,calendarChunks:chunks,dataSHA256:createHash('sha256').update(await readFile('src/data/public-source.json')).digest('hex')},null,2));
-console.log(`Artefatos Pages: ${mode}; ${chunks} meses de agenda; somente conteúdo público.`);
+const artifactTests=spawnSync(process.execPath,['tests/artifacts.mjs'],{stdio:'inherit'});
+if(artifactTests.status!==0)process.exit(artifactTests.status||1);
+console.log(`Artefatos Pages: ${mode}; ${chunks} meses de agenda; somente conteúdo público; TypeScript e artefatos validados.`);
