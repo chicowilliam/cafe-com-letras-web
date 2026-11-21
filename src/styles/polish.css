@@ -1,0 +1,24 @@
+/* Refinamentos locais: sem alterar tokens, fundos ou tipografia. */
+body[data-design='claude'] .skip-link { position:fixed;top:12px;left:12px;z-index:40;padding:12px 18px;border:2px solid var(--color-ink);border-radius:12px;background:var(--color-paper);color:var(--color-ink);transform:translateY(-160%); }
+body[data-design='claude'] .skip-link:focus { transform:translateY(0); }
+.skip-mobile { display:none; }
+body[data-design='claude'] .newsletter-form { display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;min-width:0; }
+body[data-design='claude'] .newsletter-form input { flex:1 1 220px;min-width:0!important;width:100%;font-family:inherit; }
+body[data-design='claude'] .newsletter-form .btn { min-height:48px; }
+body[data-design='claude'] .form-status { flex-basis:100%;margin:0;font-size:14px;line-height:1.5;color:var(--color-text-muted); }
+body[data-design='claude'] .social-link { display:inline-flex;align-items:center;gap:8px;min-height:44px;vertical-align:middle; }
+body[data-design='claude'] .social-link svg { flex:none; }
+body[data-design='claude'] .mobile-socials { display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px; }
+body[data-design='claude'] .foot a { text-underline-offset:4px; }
+@media (hover:hover) and (pointer:fine) { body[data-design='claude'] .foot a:hover,body[data-design='claude'] .social-link:hover { text-decoration:underline; } }
+@media(max-width:600px) {
+ .skip-mobile { display:block; }.skip-desktop { display:none; }
+ body[data-design='claude'] #mobile-navigation { max-height:calc(100dvh - 194px - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain; }
+ body[data-design='claude'] #mobile-navigation:not([hidden]) { gap:4px; }
+ body[data-design='claude'] #mobile-navigation a { display:flex;align-items:center;min-height:44px; }
+ body[data-design='claude'] .chip { min-height:44px; }
+ body[data-design='claude'] .foot a { display:inline-flex;align-items:center;min-height:44px; }
+ body[data-design='claude'] .newsletter-form .btn { flex:1 1 100%; }
+ body[data-design='claude'] .mobile-actions a { border-radius:12px; }
+}
+@media(prefers-reduced-motion:reduce) { body[data-design='claude'] .skip-link { transition:none; } }

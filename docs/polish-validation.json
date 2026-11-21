@@ -1,0 +1,152 @@
+{
+  "baseline": "9a18755",
+  "reference": "c2619b9",
+  "browser": {
+    "passed": true,
+    "cases": 32,
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "overflowCases": 0,
+    "brokenImageCases": 0,
+    "errors": [],
+    "interactions": {
+      "shortScreenMenuClearOfActions": true,
+      "menuOpen": true,
+      "touchTargets": true,
+      "escapeFocus": true,
+      "navigation": true,
+      "noFakeSuccess": true,
+      "noPopover": true,
+      "skipFocus": true
+    },
+    "officialFontsLoaded": true,
+    "artistMainCount": [
+      {
+        "width": 320,
+        "count": 1
+      },
+      {
+        "width": 390,
+        "count": 1
+      },
+      {
+        "width": 768,
+        "count": 1
+      },
+      {
+        "width": 1440,
+        "count": 1
+      }
+    ]
+  },
+  "visual": [
+    {
+      "page": "index",
+      "width": 390,
+      "heroFirst700pxIdentical": true,
+      "backgroundsUnchanged": true,
+      "fontFamilyUnchanged": true
+    },
+    {
+      "page": "gastronomia",
+      "width": 390,
+      "heroFirst700pxIdentical": true,
+      "backgroundsUnchanged": true,
+      "fontFamilyUnchanged": true
+    },
+    {
+      "page": "index",
+      "width": 1440,
+      "heroFirst700pxIdentical": true,
+      "backgroundsUnchanged": true,
+      "fontFamilyUnchanged": true
+    },
+    {
+      "page": "gastronomia",
+      "width": 1440,
+      "heroFirst700pxIdentical": true,
+      "backgroundsUnchanged": true,
+      "fontFamilyUnchanged": true
+    }
+  ],
+  "preservation": {
+    "tokensUnchanged": true,
+    "pages": [
+      {
+        "name": "index",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "gastronomia",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "programacao",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "evento",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "livraria",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "casa",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      },
+      {
+        "name": "celular",
+        "allOriginalDestinationsPreserved": true,
+        "tagmeUnchanged": true,
+        "sectionCountUnchanged": true
+      }
+    ],
+    "securityPolicyDirectivesUnchanged": true,
+    "buildConfigurationAndDependenciesUnchanged": true
+  },
+  "build": {
+    "typecheck": "passed: 27 files, 0 errors, 0 warnings",
+    "agenda": "passed: 3611 real events preserved",
+    "static": "passed: Astro native build, 22 pages, temporary validation config",
+    "assets": "native filesystem copy with timestamps preserved; 1373 public files",
+    "artifacts": "passed: preview, 21 checked pages, 17 sitemap URLs, 17 redirect tests, 1620 files, 23 schema events",
+    "migration": "passed",
+    "preproduction": "passed: 34 policy/route cases",
+    "whatsapp": "passed: 14 pages and 30 existing links",
+    "standardBuildLimitation": "npm run build was attempted but was stopped while Astro compared all public assets for timestamp preservation. Equivalent static build completed with a temporary Vite config disabling duplicate public copying; public files then copied natively. Project build config and dependencies unchanged."
+  },
+  "limits": [
+    "No real-device Core Web Vitals measured",
+    "Official fonts fetched from Google and served from local test cache for stable screenshots",
+    "No deployment or push performed"
+  ],
+  "releaseIntegration": {
+    "base": "cd2ccfa9f5821960c7a9b921b0f76f3ae970013e",
+    "preserved": [
+      "legal draft production exclusion",
+      "cookie preference dialog",
+      "disabled newsletter",
+      "institutional support",
+      "event date states"
+    ],
+    "note": "Initial visual evidence precedes this integration; integrated release is checked by CI and Cloudflare production build."
+  }
+}

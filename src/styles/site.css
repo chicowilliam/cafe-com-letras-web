@@ -9,3 +9,5 @@
 @source '../design/claude';
 @source '../layouts';
 @source '../client';
+
+@import './polish.css';

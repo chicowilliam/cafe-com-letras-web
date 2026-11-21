@@ -75,11 +75,11 @@ document.addEventListener('click',event=>{
  const intent=target?.closest<HTMLElement>('[data-agenda-intent]')?.dataset.agendaIntent;
  if(intent){try{sessionStorage.setItem('cafe-agenda-filter',intent);}catch{/* Navigation remains available. */}}
  const demo=target?.closest<HTMLElement>('[data-demo]');
- if(demo){event.preventDefault();showFeedback(demo,demo.dataset.demo||'Recurso indisponível nesta prévia.');}
+ if(demo){event.preventDefault();const status=demo.closest('form')?.querySelector<HTMLElement>('.form-status');if(status){status.textContent='Inscrições por e-mail indisponíveis no momento. Nenhum dado é enviado.';}else showFeedback(demo,demo.dataset.demo||'Recurso indisponível nesta prévia.');}
 });
-document.querySelectorAll('form').forEach(form=>form.addEventListener('submit',event=>{
+document.querySelectorAll<HTMLFormElement>('form[data-demo-form]').forEach(form=>form.addEventListener('submit',event=>{
  if(form.method==='dialog')return;
- event.preventDefault();showFeedback(form.querySelector<HTMLElement>('button')||form,'Formulário demonstrativo: nenhum dado é enviado.');
+ event.preventDefault();const status=form.querySelector<HTMLElement>('.form-status');if(status)status.textContent='Inscrições por e-mail indisponíveis no momento. Nenhum dado é enviado.';else showFeedback(form.querySelector<HTMLElement>('button')||form,'Formulário demonstrativo: nenhum dado é enviado.');
 }));
 
 // Apenas elementos abaixo da dobra: nunca adiar o hero ou o candidato a LCP.
