@@ -55,7 +55,7 @@
  .home-mobile .editorial-panel-mesa > .flex > div .tag{font-size:9px}
  .home-mobile .editorial-panel-mesa > .flex > div .mt-\\[8px\\],.home-mobile .editorial-panel-mesa > .flex > div .flex.justify-between{font-size:14px!important;line-height:1.35}
  .home-mobile .editorial-panel-mesa > .flex > div .mono{font-size:12px!important}
- .home-mobile .editorial-panel .btn{margin-top:0!important;width:auto!important;max-width:none!important;min-height:42px;font-size:12px;white-space:normal;padding:8px 10px}
+ body[data-design="claude"] .home-mobile .editorial-panel .btn{margin-top:0!important;width:auto!important;max-width:none!important;min-height:42px;font-size:12px;white-space:normal;padding:8px 10px}
  .home-mobile .editorial-mobile-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
  .home-mobile .editorial-panel .acts{margin-top:10px}
  .home-mobile .editorial-panel .acts .btn{flex:1 1 130px}
