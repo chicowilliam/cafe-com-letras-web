@@ -241,5 +241,101 @@
       "alt": "Sandra e Fausto, a dupla DJs SaFa, em foto preto e branco",
       "position": "50% 30%"
     }
+  },
+  {
+    "artistId": 1257,
+    "slug": "hugo-bizzotto",
+    "kind": "Piano Bar",
+    "genres": "piano e teclados",
+    "photo": {
+      "src": "/img/destaques/hugo-bizzotto-800.webp",
+      "small": "/img/destaques/hugo-bizzotto-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Retrato de Hugo Bizzotto, de camisa preta",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1244,
+    "slug": "emilio-castilho",
+    "kind": "Piano Bar",
+    "genres": "piano e jazz",
+    "photo": {
+      "src": "/img/destaques/emilio-castilho-720.webp",
+      "small": "/img/destaques/emilio-castilho-440.webp",
+      "width": 720,
+      "height": 900,
+      "alt": "Emílio Castilho ao piano no Café com Letras",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1430,
+    "slug": "dj-leo-oliveira",
+    "kind": "DJ",
+    "genres": "jazz e música eletrônica",
+    "photo": {
+      "src": "/img/destaques/dj-leo-oliveira-800.webp",
+      "small": "/img/destaques/dj-leo-oliveira-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Leo Oliveira sorrindo, de braços cruzados, em foto preto e branco",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1534,
+    "slug": "dj-amy-b",
+    "kind": "DJ",
+    "genres": "música brasileira",
+    "photo": {
+      "src": "/img/destaques/dj-amy-b-800.webp",
+      "small": "/img/destaques/dj-amy-b-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Âmy B. de óculos escuros e fones no pescoço, mixando",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1535,
+    "slug": "jazz-de-natal-com-izza",
+    "kind": "Jazz",
+    "genres": "canções de Natal em jazz",
+    "photo": {
+      "src": "/img/destaques/jazz-de-natal-com-izza-800.webp",
+      "small": "/img/destaques/jazz-de-natal-com-izza-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Izza cantando ao microfone, sorrindo, em foto preto e branco",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1536,
+    "slug": "vinicius-mendes-e-rodrigo-torino-quarteto-toca-marcos-valle",
+    "kind": "Bossa Nova",
+    "genres": "repertório de Marcos Valle",
+    "photo": {
+      "src": "/img/destaques/vinicius-mendes-e-rodrigo-torino-quarteto-800.webp",
+      "small": "/img/destaques/vinicius-mendes-e-rodrigo-torino-quarteto-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Vinicius Mendes com saxofone tenor",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1537,
+    "slug": "luiz-belem",
+    "kind": "Livro",
+    "genres": "lançamento de “O muro caiu, Helena”"
+  },
+  {
+    "artistId": 1538,
+    "slug": "tayna",
+    "kind": "Livro",
+    "genres": "lançamento de “Pra te lembrar da vida”"
   }
 ]
