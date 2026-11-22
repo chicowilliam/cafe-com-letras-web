@@ -5,8 +5,6 @@ import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek
 import {seoFor} from '../lib/seo';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
-import Newsletter from '../components/Newsletter.astro';
-import SiteFooter from '../components/SiteFooter.astro';
 import '../styles/institutional.css';
 import {whatsapp,whatsappMessage,type WhatsAppContext} from '../config/whatsapp';
 import MobileHeader from '../components/MobileHeader.astro';
@@ -31,7 +29,7 @@ const homeArtists=new Map(publicData.artists.map(a=>[a.artist_id,a]));
 const homeSlots:Record<string,()=>string>={stage:()=>renderStage(homeState,homeArtists),week:()=>renderWeek(homeState,homeArtists),mstage:()=>renderMobileStage(homeState,homeArtists),mweek:()=>renderMobileWeek(homeState,homeArtists)};
 const homeSig=homeSignature(homeState);
 const dynamicHome=(html:string)=>html.replace(/<!--home:(\w+)-->[\s\S]*?<!--\/home:\1-->/g,(match,key:string)=>homeSlots[key]?.()??match).replace(/data-home="(\w+)"/g,`data-home="$1" data-home-sig="${homeSig}"`);
-const home=dynamicHome(homeRaw).replace(/<section class="wrap" style="padding-top:80px;padding-bottom:80px;display:grid;grid-template-columns:[^"]+" data-responsive-grid>[\s\S]*?<\/section>/,'');
+const home=dynamicHome(homeRaw);
 const celular=dynamicHome(celularRaw);
 const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
@@ -48,7 +46,7 @@ const instituteDescription='Instituto que realiza o Savassi Festival.';
 const instituteLink=`<a href="${instituteUrl}" target="_blank" rel="noopener noreferrer">${instituteName}</a>`;
 const instituteFooter=`${instituteLink}<br><span>${instituteDescription}</span>`;
 const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__INSTITUTE_URL__',instituteUrl).replaceAll('__INSTITUTE_NAME__',instituteName).replaceAll('__INSTITUTE_DESCRIPTION__',instituteDescription).replaceAll('__INSTITUTE_FOOTER__',instituteFooter).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
-const adapt=(html:string)=>adaptBase(html).replace(/<footer class="foot">[\s\S]*?<\/footer>/g,'').replace(/<section class="mobile-footer"[\s\S]*?<\/section>/g,'').replace(/<span><a href="#pt"[^>]*>PT<\/a>\s*\/\s*<a href="#en"[^>]*>EN<\/a><\/span>/g,'').replace(/<a\b[^>]*href="(#trabalhe|#imprensa)"[^>]*>/g,(tag,destination)=>{
+const adapt=(html:string)=>adaptBase(html).replace(/<span><a href="#pt"[^>]*>PT<\/a>\s*\/\s*<a href="#en"[^>]*>EN<\/a><\/span>/g,'').replace(/<a\b[^>]*href="(#trabalhe|#imprensa)"[^>]*>/g,(tag,destination)=>{
  const context=destination==='#trabalhe'?'Trabalhe conosco':'Imprensa';
  return tag.replace(/href="[^"]*"/,`href="https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsappMessage(context))}"`).replace(/ (?:data-demo|aria-disabled|title)="[^"]*"/g,'');
 }).replace('<main>','<main id="main-content" tabindex="-1">').replace(/<nav class="nav"[^>]*>[\s\S]*?<\/nav>/g,nav=>nav.replace(/(<a\b[^>]*class="[^" ]*\bon\b[^"]*")/g,'$1 aria-current="page"'));
@@ -78,8 +76,6 @@ const adapt=(html:string)=>adaptBase(html).replace(/<footer class="foot">[\s\S]*
   <MobileHeader page={custom?.key??(name==='celular'?'index':name)} />
   {documentTitle?<><Fragment set:html={adapt(home.split('<main>')[0] ?? '')}/><main id="conteudo"><slot/></main><Fragment set:html={adapt(home.slice(home.indexOf('<footer')))}/></>:custom?<Fragment set:html={adapt(custom.html)} />:name==='index'?<><div class="home-desktop" set:html={adapt(home)} /><div class="home-mobile w-full min-w-0" set:html={adapt(celular)} /></>:<Fragment set:html={adapt(content[name] ?? home)} />}
   {name==='casa'&&<FAQ/>}
-  {(name==='index'||name==='casa')&&!custom&&!documentTitle&&<Newsletter/>}
-  <SiteFooter/>
   <InstitutionalSupport/>
   <WhatsAppContact context={custom||documentTitle?undefined:titles[name]} />
   <script>import '../client/interactions';</script>
