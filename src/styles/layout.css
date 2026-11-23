@@ -28,6 +28,25 @@ html.mobile-menu-open { overflow: hidden; }
 }
 .site-header:has(:focus-visible) { transition: none; }
 
+body[data-design='claude'] .desktop-navigation .nav a:is(:hover, :focus-visible) {
+  color: var(--color-palco);
+  border-bottom-color: var(--color-mesa);
+  opacity: 1;
+  text-decoration: none;
+}
+body[data-design='claude'] .desktop-navigation .acts .btn:is(:hover, :focus-visible) {
+  background: var(--color-palco-soft);
+  color: var(--color-palco);
+  border-color: var(--color-palco);
+}
+body[data-design='claude'] .desktop-navigation .acts .btn.ink:is(:hover, :focus-visible) {
+  background: var(--color-palco);
+  color: var(--color-paper);
+}
+body[data-design='claude'] .desktop-navigation :is(.nav a, .acts .btn):focus-visible {
+  outline-color: var(--color-mesa);
+}
+
 .visit, .faq { padding-block: clamp(36px, 5.5vw, 72px); }
 .visit .h2 { margin-block: 8px 12px; }
 .visit-grid {
@@ -104,6 +123,9 @@ html.mobile-menu-open { overflow: hidden; }
 
 .home-quick-links { border-bottom: 1px solid var(--color-line-deep); }
 .home-quick-links .wrap { display: grid; grid-template-columns: 1.12fr 1fr 1fr; gap: 6px 12px; padding-block: 8px; }
+@media (width > 900px) {
+  .home-quick-links { display: none; }
+}
 .visit-contact a {
   display: inline-flex;
   min-height: 44px;

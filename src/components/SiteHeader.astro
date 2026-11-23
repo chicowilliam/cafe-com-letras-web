@@ -1,8 +1,6 @@
 ---
 import {reservationUrl} from '../config/visit';
-import {whatsapp} from '../config/whatsapp';
 
-const whatsappLink = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`;
 interface Props { page: string }
 const {page}=Astro.props;
 const activePage=['evento','festival'].includes(page)||page.startsWith('artista')?'programacao':page;
@@ -26,7 +24,6 @@ const links=[
    <div class="acts">
     <a class="btn ink" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar</a>
     <a class="btn" href="https://www.ifood.com.br/delivery/belo-horizonte-mg/cafe-com-letras-savassi/b53324c0-32a8-4278-b229-4b362b7847cc" target="_blank" rel="noopener noreferrer">Delivery</a>
-    <a class="btn" href={whatsappLink}><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true" />WhatsApp</a>
    </div>
   </div></header>
  </div>
