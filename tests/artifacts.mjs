@@ -44,6 +44,25 @@ const cases=[
 for(const [route,status,location] of cases){const r=await onRequest({request:new Request(origin+route),env:{DEPLOY_ENV:'production'},next:async()=>new Response('static')});assert.equal(r.status,status,route);assert.equal(r.headers.get('location'),location,route);report.redirects.push({route,status,location});}
 const mobile=await onRequest({request:new Request(origin+'/',{headers:{'User-Agent':'iPhone Mobile'}}),next:async()=>new Response('static')});assert.equal(mobile.status,200);assert.equal(mobile.headers.get('location'),null);
 assert.equal(mobile.headers.get('vary'),'User-Agent');
+const document = await onRequest({
+ request: new Request(origin, {method: 'HEAD'}),
+ next: async () => new Response(null, {headers: {'Content-Type': 'text/html; charset=utf-8'}}),
+});
+const securityHeaders = {
+ 'X-Content-Type-Options': 'nosniff',
+ 'X-Frame-Options': 'DENY',
+ 'Referrer-Policy': 'strict-origin-when-cross-origin',
+ 'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+};
+for (const [name, value] of Object.entries(securityHeaders)) {
+ assert.equal(document.headers.get(name), value);
+ assert.ok(headers.includes(`  ${name}: ${value}\n`));
+}
+const enforcedPolicy = document.headers.get('Content-Security-Policy');
+assert.ok(enforcedPolicy.includes("object-src 'self'"));
+assert.equal(document.headers.get('Content-Security-Policy-Report-Only'),
+ enforcedPolicy.replace("object-src 'self'", "object-src 'none'"));
+assert.equal(mobile.headers.get('Content-Security-Policy-Report-Only'), null);
 assert.equal((await onRequest({request:new Request(origin+'/talk-to-us.asp',{method:'POST'}),next:async()=>new Response('static')})).status,503);
 assert.ok(headers.includes("connect-src 'self'"));assert.ok(!headers.includes("script-src 'self' 'unsafe-inline'"));
 for(const file of files)assert.ok((await stat(file)).size<=25*1024*1024,'Pages asset limit');

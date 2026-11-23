@@ -4,6 +4,7 @@ import {contentSecurityPolicy} from '../shared/security-policy.ts';
 interface Context { request:Request;env?:{DEPLOY_ENV?:string};next:()=>Promise<Response> }
 const CANONICAL='https://cafecomletras.com.br';
 const units=['Savassi','Liberdade'];
+const reportOnlyPolicy = contentSecurityPolicy.replace("object-src 'self'", "object-src 'none'");
 export async function onRequest(context:Context):Promise<Response>{
  const url=new URL(context.request.url);
  const official=url.hostname==='cafecomletras.com.br'&&url.protocol==='https:';
@@ -12,10 +13,13 @@ export async function onRequest(context:Context):Promise<Response>{
   : await handle(context);const headers=new Headers(response.headers);
  if(['/','/liberdade/','/index.asp'].includes(new URL(context.request.url).pathname))headers.append('Vary','User-Agent');
  headers.set('Content-Security-Policy',contentSecurityPolicy);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','strict-origin-when-cross-origin');
+ headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
  const indexable=official&&response.status===200&&!['/404.html','/celular/','/evento/','/politica-de-privacidade/','/politica-de-cookies/','/termos-de-uso/'].includes(url.pathname);
  if(indexable)headers.delete('X-Robots-Tag');else headers.set('X-Robots-Tag','noindex, nofollow');
  let body:BodyInit|null=response.body;
- if(headers.get('Content-Type')?.includes('text/html')&&context.request.method!=='HEAD'){
+ const isHtml = headers.get('Content-Type')?.includes('text/html');
+ if (isHtml) headers.set('Content-Security-Policy-Report-Only', reportOnlyPolicy);
+ if(isHtml&&context.request.method!=='HEAD'){
   body=(await response.text()).replace(/(<meta\s+name="robots"\s+content=")[^"]*(")/i,`$1${indexable?'index, follow, max-image-preview:large':'noindex, nofollow'}$2`)
    .replace(/data-production="(?:true|false)"/,`data-production="${official?'true':'false'}"`);
   headers.delete('Content-Length');headers.delete('ETag');
