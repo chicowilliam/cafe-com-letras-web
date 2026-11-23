@@ -31,13 +31,15 @@ const links=[
  <header class="compact-header">
   <a href="/" aria-label="Café com Letras, página inicial"><img src="/claude/assets/logo-ink.png" alt="Café com Letras" width="373" height="121" /></a>
   <span class="mobile-hours">A partir das 12h</span>
-  <button type="button" class="mobile-menu-toggle" data-mobile-menu aria-expanded="false" aria-haspopup="dialog" aria-controls="page-navigation" aria-label="Abrir menu"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 14h14"/></svg></button>
+  <button type="button" class="mobile-menu-toggle" data-mobile-menu aria-expanded="false" aria-haspopup="dialog" aria-controls="page-navigation" aria-label="Abrir menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
  </header>
+ </div>
+</div>
  <dialog id="page-navigation" class="mobile-navigation" aria-labelledby="mobile-navigation-title">
   <div class="mobile-panel">
    <div class="mobile-panel-heading">
     <h2 id="mobile-navigation-title" class="h3">Menu</h2>
-    <button type="button" class="mobile-menu-toggle" data-close-mobile-menu autofocus aria-label="Fechar menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+    <button type="button" class="mobile-menu-toggle" data-close-mobile-menu autofocus aria-label="Fechar menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
    </div>
    <nav class="mobile-panel-links" aria-label="Principal">
     {links.map(([href,label,key])=><a href={href} aria-current={activePage===key?'page':undefined}>{label}</a>)}
@@ -49,5 +51,3 @@ const links=[
    </nav>
   </div>
  </dialog>
-</div>
-</div>

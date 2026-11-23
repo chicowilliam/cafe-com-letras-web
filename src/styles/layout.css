@@ -18,12 +18,14 @@ html.mobile-menu-open { overflow: hidden; }
   position: fixed;
   top: calc(-1 * var(--menu-scroll-top));
   left: 0;
-  width: var(--menu-locked-width);
+  right: var(--menu-scrollbar-width, 0px);
 }
 .mobile-menu-open .site-header {
   position: relative;
   top: var(--menu-scroll-top);
 }
+.site-header:has(:focus-visible), .mobile-menu-open .site-header { transition: none; }
+.mobile-menu-open .site-header[data-hidden] { transform: none; pointer-events: auto; }
 
 .visit, .faq { padding-block: clamp(36px, 5.5vw, 72px); }
 .visit .h2 { margin-block: 8px 12px; }
@@ -51,12 +53,33 @@ html.mobile-menu-open { overflow: hidden; }
 .faq { border-top: 1px solid var(--color-photo); }
 .faq .h2 { margin-bottom: 16px; }
 .faq details { padding: 0; }
-.faq summary { padding-block: 12px; }
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 12px;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.faq summary:active { color: var(--color-mesa); }
+.faq details[open] > summary::after { transform: translateY(2px) rotate(225deg); }
 .faq details p { margin-block: 0 16px; }
 @media (prefers-reduced-motion: no-preference) {
-  .faq details[open] p { animation: faq-answer 180ms ease-out; }
+  body:not([data-input='keyboard']) .faq summary::after { transition: transform var(--motion-feedback) var(--ease-ui); }
+  body:not([data-input='keyboard']) .faq details[open] p { animation: disclosure-enter var(--motion-feedback) ease-out; }
 }
-@keyframes faq-answer { from { opacity: 0; } }
+
 
 body[data-design='claude'] .site-footer > .wrap {
   padding-block: clamp(28px, 4vw, 52px) calc(78px + env(safe-area-inset-bottom));

@@ -100,6 +100,9 @@
 @media (prefers-reduced-motion: no-preference) {
   .dining-filters .chip, #menu-items summary { transition: background-color var(--motion-feedback); }
   #menu-items summary::after { transition: transform var(--motion-feedback) var(--ease-ui); }
+  body:not([data-input='keyboard']) #menu-items details[open] > .menu-category-content {
+    animation: disclosure-enter var(--motion-feedback) ease-out;
+  }
 }
 @media (max-width: 900px) {
   .dining-overview { grid-template-columns: minmax(0, 1fr); }
