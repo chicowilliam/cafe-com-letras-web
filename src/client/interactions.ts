@@ -13,17 +13,14 @@ document.addEventListener('pointerdown',()=>{delete document.body.dataset.input;
 const header=document.querySelector<HTMLElement>('[data-site-header]');
 const menuButton=document.querySelector<HTMLButtonElement>('[data-mobile-menu]');
 const menu=document.querySelector<HTMLDialogElement>('#page-navigation');
+const menuPanel=menu?.querySelector<HTMLElement>('.mobile-panel');
 const root=document.documentElement;
 const scrollPosition=()=>Math.max(0,Math.min(window.scrollY,root.scrollHeight-root.clientHeight));
-let lastScroll=scrollPosition();
-let direction=0;
-let distance=0;
+let scrollAnchor=scrollPosition();
 
 const revealHeader=(scroll=scrollPosition())=>{
  header?.removeAttribute('data-hidden');
- lastScroll=scroll;
- direction=0;
- distance=0;
+ scrollAnchor=scroll;
 };
 
 if(header){
@@ -40,15 +37,16 @@ if(header){
   ticking=false;
   if(menu?.open)return;
   const scroll=scrollPosition();
-  const delta=scroll-lastScroll;
   if(scroll<=headerHeight){revealHeader(scroll);return;}
-  if(Math.abs(delta)<1)return;
-  lastScroll=scroll;
-  if(Math.sign(delta)!==direction){direction=Math.sign(delta);distance=0;}
-  const threshold=direction>0?24:14;
-  if(distance<threshold){
-   distance+=Math.abs(delta);
-   if(distance>=threshold)header.toggleAttribute('data-hidden',direction>0);
+  if(header.hasAttribute('data-hidden')){
+   scrollAnchor=Math.max(scrollAnchor,scroll);
+   if(scrollAnchor-scroll>=12)revealHeader(scroll);
+  }else{
+   scrollAnchor=Math.max(headerHeight,Math.min(scrollAnchor,scroll));
+   if(scroll-scrollAnchor>=24&&!header.querySelector(':focus-visible')){
+    header.setAttribute('data-hidden','');
+    scrollAnchor=scroll;
+   }
   }
  };
  addEventListener('scroll',()=>{
@@ -61,18 +59,16 @@ if(header){
  });
 }
 
-if(menuButton&&menu){
+if(menuButton&&menu&&menuPanel){
  const mobile=matchMedia('(max-width:900px)');
  const controls=Array.from(menu.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]'));
  let scrollTop=0;
- let animation:Animation|undefined;
- let closing=false;
+ let closing:Animation|undefined;
  let pressedOutside=false;
 
  const unlock=()=>{
-  animation?.cancel();
-  animation=undefined;
-  closing=false;
+  closing=undefined;
+  menu.removeAttribute('data-visible');
   pressedOutside=false;
   root.classList.remove('mobile-menu-open');
   root.style.removeProperty('--menu-scroll-top');
@@ -84,17 +80,20 @@ if(menuButton&&menu){
 
  const closeMenu=(instant=false,restoreFocus=true)=>{
   if(!menu.open||(closing&&!instant))return;
-  closing=true;
   const finish=()=>{
    menu.close();
    unlock();
    if(restoreFocus&&mobile.matches)menuButton.focus({preventScroll:true});
   };
   if(instant||reducedMotion.matches||document.body.dataset.input==='keyboard'){finish();return;}
-  const opacity=getComputedStyle(menu).opacity;
-  animation?.cancel();
-  animation=menu.animate([{opacity},{opacity:0}],{duration:130,easing:'ease-in',fill:'forwards'});
-  void animation.finished.then(finish,()=>{});
+  menu.removeAttribute('data-visible');
+  const slide=menuPanel.getAnimations().find(animation=>
+   animation instanceof CSSTransition&&animation.transitionProperty==='transform',
+  );
+  if(!slide){finish();return;}
+  closing=slide;
+  const finishClosing=()=>{if(closing===slide)finish();};
+  void slide.finished.then(finishClosing,finishClosing);
  };
 
  menuButton.addEventListener('click',()=>{
@@ -104,11 +103,15 @@ if(menuButton&&menu){
   root.style.setProperty('--menu-scrollbar-width',`${window.innerWidth-root.clientWidth}px`);
   root.style.setProperty('--menu-scroll-top',`${scrollTop}px`);
   root.classList.add('mobile-menu-open');
+  const animate=!reducedMotion.matches&&document.body.dataset.input!=='keyboard';
+  menu.toggleAttribute('data-instant',!animate);
   menu.showModal();
   menuButton.setAttribute('aria-expanded','true');
-  if(!reducedMotion.matches&&document.body.dataset.input!=='keyboard'){
-   animation=menu.animate([{opacity:0},{opacity:1}],{duration:160,easing:'ease-out'});
+  if(animate){
+   // Resolve the off-screen position while the dialog is already in the top layer.
+   getComputedStyle(menuPanel).transform;
   }
+  menu.setAttribute('data-visible','');
  });
  menu.addEventListener('close',()=>{
   if(!menu.open&&root.classList.contains('mobile-menu-open'))unlock();
@@ -134,11 +137,6 @@ if(menuButton&&menu){
   else if(target?.closest('a[href]'))closeMenu(true);
  });
  mobile.addEventListener('change',()=>closeMenu(true,false));
- reducedMotion.addEventListener('change',()=>{
-  if(!reducedMotion.matches)return;
-  if(closing)closeMenu(true);
-  else animation?.cancel();
- });
  addEventListener('pagehide',()=>closeMenu(true,false));
 }
 
