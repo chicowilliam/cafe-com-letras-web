@@ -2,9 +2,19 @@ const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const legacySections:Record<string,string>={'#part1':'/gastronomia/#cardapio','#part2':'/programacao/#agenda','#part3':'/casa/#visite','#part4':'/livraria/','#part5':'/casa/#visite'};
 function routeLegacySection(){const target=legacySections[location.hash];if(location.pathname==='/'&&target)location.replace(target);}
 routeLegacySection();
-for(const nav of document.querySelectorAll('nav')){
- const first=nav.querySelector('[data-section-link]');
- if(first&&!nav.querySelector('[data-section-link][aria-current]'))first.setAttribute('aria-current','location');
+const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav [data-section-link]'));
+if (sectionLinks.length) {
+ const syncSection = () => {
+  const target = sectionLinks.find(link => link.hash === location.hash);
+  const current = target ?? sectionLinks[0];
+  for (const link of sectionLinks) {
+   link.classList.toggle('on', link === target);
+   if (link === current) link.setAttribute('aria-current', 'location');
+   else link.removeAttribute('aria-current');
+  }
+ };
+ syncSection();
+ addEventListener('hashchange', syncSection);
 }
 addEventListener('hashchange',routeLegacySection);
 document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
@@ -169,11 +179,6 @@ document.addEventListener('click',event=>{
  if(skip){
   const content=document.getElementById(skip.hash.slice(1));
   if(content){event.preventDefault();content.tabIndex=-1;content.focus({preventScroll:true});content.scrollIntoView({block:'start',behavior:'instant'});}
- }
- const sectionLink=target?.closest<HTMLElement>('[data-section-link]');
- if(sectionLink)for(const link of sectionLink.parentElement?.querySelectorAll('[data-section-link]')||[]){
-  link.classList.toggle('on',link===sectionLink);
-  if(link===sectionLink)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
  }
  const intent=target?.closest<HTMLElement>('[data-agenda-intent]')?.dataset.agendaIntent;
  if(intent){try{sessionStorage.setItem('cafe-agenda-filter',intent);}catch{/* Navigation remains available. */}}
