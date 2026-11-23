@@ -130,5 +130,5 @@ if(menuItems){
  }
 }
 if(document.querySelector('[data-home]'))void import('./home').then(module=>module.initHome());
-if(document.querySelector('[data-almoco]'))void import('./almoco').then(module=>module.initAlmoco());
+if(document.querySelector('[data-almoco],[data-sugestao]'))void import('./almoco').then(module=>module.initAlmoco());
 if(document.querySelector('[data-agenda]'))import('./agenda').then(module=>module.initAgenda());

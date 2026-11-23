@@ -1,6 +1,7 @@
 // Almoço executivo: dados válidos e escolha do dia pela hora de Belo Horizonte.
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {sugestaoVigente,renderSugestaoSecao,renderSugestaoHome,ORDEM} from '../src/lib/sugestao.ts';
 import {pickAlmoco,almocoStatus,renderAlmocoSemana,renderAlmocoHome,renderAlmocoMobile} from '../src/lib/almoco.ts';
 
 const data=JSON.parse(await readFile(new URL('../src/data/almoco-executivo.json',import.meta.url),'utf8'));
@@ -57,3 +58,20 @@ const mobile=renderAlmocoMobile(at('20261123',12));
 for(const text of ['Menu do Dia','P0','R$ 60','X0','R$ 44','V0','R$ 49']) assert.ok(mobile.includes(text),`home no celular sem "${text}"`);
 
 console.log(`almoco: ${data.dias.length} dia(s) de cardápio válidos; regras de horário, fim de semana e feriado ok`);
+
+// Sugestão do chef: dados válidos, etapas na ordem e validade por período.
+const sug=JSON.parse(await readFile(new URL('../src/data/sugestao-do-chef.json',import.meta.url),'utf8'));
+assert.ok(sug.nome?.trim(),'sugestão sem nome');
+assert.match(sug.inicio,/^\d{4}-\d{2}-\d{2}$/); assert.match(sug.fim,/^\d{4}-\d{2}-\d{2}$/); assert.ok(sug.inicio<=sug.fim);
+for(const key of Object.keys(sug.etapas)) assert.ok(ORDEM.some(([k])=>k===key),`etapa desconhecida: ${key}`);
+const day=d=>d.replaceAll('-','');
+assert.equal(sugestaoVigente(sug,day(sug.inicio))?.nome,sug.nome);
+assert.equal(sugestaoVigente(sug,day(sug.fim))?.nome,sug.nome);
+const after=new Date(`${sug.fim}T12:00:00Z`); after.setUTCDate(after.getUTCDate()+1);
+const expired=sugestaoVigente(sug,day(after.toISOString().slice(0,10)));
+assert.equal(expired,undefined,'sugestão vencida continua no ar');
+assert.match(renderSugestaoSecao(expired),/em breve/); assert.equal(renderSugestaoHome(expired),'');
+const secao=renderSugestaoSecao(sugestaoVigente({nome:'T',inicio:'2026-01-01',fim:'2026-12-31',etapas:{sobremesa:'S',compartilhar:'C',principal:'P',entrada:'E'}},'20260601'));
+assert.ok(secao.indexOf('Para compartilhar')<secao.indexOf('>Entrada<')&&secao.indexOf('>Entrada<')<secao.indexOf('Prato principal')&&secao.indexOf('Prato principal')<secao.indexOf('>Sobremesa<'),'etapas fora de ordem');
+assert.match(secao,/class="grid4"/);
+console.log(`sugestao: "${sug.nome}" de ${sug.inicio} a ${sug.fim}; validade e ordem das etapas ok`);

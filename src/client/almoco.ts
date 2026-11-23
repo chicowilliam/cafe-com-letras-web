@@ -1,12 +1,25 @@
 // Almoço executivo: recalcula o dia mostrado pela hora de Belo Horizonte (fim do serviço às 15h,
 // virada do dia, fim de semana) sem novo deploy, e controla as abas dos dias na Gastronomia.
 import data from '../data/almoco-executivo.json';
+import sugestaoData from '../data/sugestao-do-chef.json';
+import {renderSugestaoHome,renderSugestaoSecao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
 import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,type AlmocoData,type AlmocoState} from '../lib/almoco';
 
 const renderers:Record<string,(state:AlmocoState)=>string>={home:renderAlmocoHome,mobile:renderAlmocoMobile,semana:renderAlmocoSemana};
 
+const sugestaoRenderers:Record<string,(s?:Sugestao)=>string>={secao:renderSugestaoSecao,home:s=>renderSugestaoHome(s),mobile:s=>renderSugestaoHome(s,true)};
+
 function refresh(){
- const state=pickAlmoco(data as AlmocoData,agoraBH());
+ const now=agoraBH();
+ const sugestao=sugestaoVigente(sugestaoData as Sugestao,now.day);
+ const ssig=sugestaoSignature(sugestao);
+ for(const element of document.querySelectorAll<HTMLElement>('[data-sugestao]')){
+  const render=sugestaoRenderers[element.dataset.sugestao??''];
+  if(!render||element.dataset.sugestaoSig===ssig)continue;
+  element.innerHTML=render(sugestao);
+  element.dataset.sugestaoSig=ssig;
+ }
+ const state=pickAlmoco(data as AlmocoData,now);
  const sig=almocoSignature(state);
  for(const element of document.querySelectorAll<HTMLElement>('[data-almoco]')){
   const render=renderers[element.dataset.almoco??''];

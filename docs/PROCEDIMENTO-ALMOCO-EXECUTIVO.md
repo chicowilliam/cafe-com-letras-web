@@ -40,3 +40,16 @@ cardápio ainda não foi publicado — nunca mostra cardápio vencido.
 6. Commit e push na `main`; confira em https://cafecomletras.com.br/gastronomia/#executivo.
 
 Código: `src/lib/almoco.ts` (regras e HTML), `src/client/almoco.ts` (atualização no navegador e abas).
+
+# Sugestão do chef
+
+Um menu por temporada, com até quatro etapas, sempre nesta ordem:
+**Para compartilhar → Entrada → Prato principal → Sobremesa** (normalmente as quatro).
+
+- Dados: `src/data/sugestao-do-chef.json` (nome, contexto, descrição, vegano, preço, `inicio`, `fim`, `etapas`).
+- Aparece em `/gastronomia/#chef` e na home (computador e celular), abaixo do almoço executivo.
+- Só fica no ar entre `inicio` e `fim`. Depois disso a home deixa de mostrar a sugestão e a seção diz
+  "Nova sugestão do chef em breve" (recalculado também no navegador, sem novo deploy).
+- Para trocar: substitua o conteúdo do arquivo pela nova sugestão (etapas ausentes são simplesmente omitidas).
+- Não citar nomes de cozinheiros no texto (orientação do responsável).
+- Código: `src/lib/sugestao.ts`; testes em `tests/almoco.mjs`.

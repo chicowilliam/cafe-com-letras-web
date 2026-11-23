@@ -4,6 +4,8 @@ import {pages,production,publicData} from '../lib/data';
 import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature} from '../lib/home-stage';
 import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,type AlmocoData} from '../lib/almoco';
 import almocoData from '../data/almoco-executivo.json';
+import {renderSugestaoHome,renderSugestaoSecao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
+import sugestaoData from '../data/sugestao-do-chef.json';
 import {seoFor} from '../lib/seo';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
@@ -36,9 +38,15 @@ const almocoState=pickAlmoco(almocoData as AlmocoData,process.env.CONTENT_DATE?{
 const almocoSlots:Record<string,()=>string>={home:()=>renderAlmocoHome(almocoState),mobile:()=>renderAlmocoMobile(almocoState),semana:()=>renderAlmocoSemana(almocoState)};
 const almocoSig=almocoSignature(almocoState);
 const dynamicAlmoco=(html:string)=>html.replace(/<!--almoco:(\w+)-->[\s\S]*?<!--\/almoco:\1-->/g,(match,key:string)=>almocoSlots[key]?.()??match).replace(/data-almoco="(\w+)"/g,`data-almoco="$1" data-almoco-sig="${almocoSig}"`);
-const home=dynamicAlmoco(dynamicHome(homeRaw));
-const celular=dynamicAlmoco(dynamicHome(celularRaw));
-const gastronomiaPage=dynamicAlmoco(gastronomia);
+// Sugestão do chef: só aparece no período de validade; o navegador a retira quando vence (src/client/almoco.ts).
+const sugestao=sugestaoVigente(sugestaoData as Sugestao,process.env.CONTENT_DATE??agoraBH().day);
+const sugestaoSlots:Record<string,()=>string>={secao:()=>renderSugestaoSecao(sugestao),home:()=>renderSugestaoHome(sugestao),mobile:()=>renderSugestaoHome(sugestao,true)};
+const sugestaoSig=sugestaoSignature(sugestao);
+const dynamicSugestao=(html:string)=>html.replace(/<!--sugestao:(\w+)-->[\s\S]*?<!--\/sugestao:\1-->/g,(match,key:string)=>sugestaoSlots[key]?.()??match).replace(/data-sugestao="(\w+)"/g,`data-sugestao="$1" data-sugestao-sig="${sugestaoSig}"`);
+const mesa=(html:string)=>dynamicSugestao(dynamicAlmoco(html));
+const home=mesa(dynamicHome(homeRaw));
+const celular=mesa(dynamicHome(celularRaw));
+const gastronomiaPage=mesa(gastronomia);
 const content:Record<string,string>={index:home,gastronomia:gastronomiaPage,programacao,evento,livraria,casa,celular};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
 const description=documentTitle??custom?.description??descriptions[name];
