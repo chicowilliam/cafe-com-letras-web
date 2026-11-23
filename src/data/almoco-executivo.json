@@ -1,0 +1,60 @@
+{
+  "_como_atualizar": "Toda semana: acrescente os 5 dias (segunda a sexta) copiando o PDF do cardápio. Dia de feriado: {\"data\": \"AAAA-MM-DD\", \"feriado\": \"Nome do feriado\"}. Passo a passo: docs/PROCEDIMENTO-ALMOCO-EXECUTIVO.md",
+  "dias": [
+    {
+      "data": "2026-11-23",
+      "menuDoDia": {
+        "preco": 69,
+        "entrada": "Bruschetta de abobrinha com catupiry",
+        "principal": "Ancho ao próprio molho com baião de dois e ceviche de banana-da-terra",
+        "sobremesa": "Banoffee"
+      },
+      "executivo": { "prato": "Lombo suíno empanado ao molho de mostarda amarela acompanhado de salada de batatas com repolho, maçã verde, maionese e salsinha", "preco": 44 },
+      "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
+    },
+    {
+      "data": "2026-11-24",
+      "menuDoDia": {
+        "preco": 67,
+        "entrada": "Salada de pera com redução de balsâmico",
+        "principal": "Polpetone recheado com requeijão de raspa ao molho pomodoro e gnocchi na manteiga de sálvia",
+        "sobremesa": "Morango ao mel com queijo coalho"
+      },
+      "executivo": { "prato": "Tilápia empanada com arroz branco, feijão e salada russa", "preco": 44 },
+      "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
+    },
+    {
+      "data": "2026-11-25",
+      "menuDoDia": {
+        "preco": 64,
+        "entrada": "Tomate à pizzaiolo",
+        "principal": "Medalhão suíno ao molho de jabuticaba com purê de batata, farofa de cebola crocante e salada",
+        "sobremesa": "Arroz doce moreno cremoso"
+      },
+      "executivo": { "prato": "Parmegiana de frango com purê de batata e salada", "preco": 44 },
+      "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
+    },
+    {
+      "data": "2026-11-26",
+      "menuDoDia": {
+        "preco": 65,
+        "entrada": "Salada mix de repolho com bacon",
+        "principal": "Coxa e sobrecoxa ao molho de cerveja e mostarda l’ancienne acompanhadas de arroz com jardineira de legumes e batatas douradas",
+        "sobremesa": "Nuvem de morango (morango e chantilly)"
+      },
+      "executivo": { "prato": "Costelinha ao molho barbecue com purê de mandioquinha, coleslaw e farofa crocante", "preco": 44 },
+      "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
+    },
+    {
+      "data": "2026-11-27",
+      "menuDoDia": {
+        "preco": 71,
+        "entrada": "Salada picles (cebola, pepino, cenoura e tomate)",
+        "principal": "Tilápia crocante com fettuccine Alfredo",
+        "sobremesa": "Mousse de limão"
+      },
+      "executivo": { "prato": "Feijoada magra com arroz, farofa de limão, couve refogada, vinagrete e laranja", "preco": 44 },
+      "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
+    }
+  ]
+}

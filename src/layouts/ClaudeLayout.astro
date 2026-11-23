@@ -2,6 +2,8 @@
 import {legalReview} from '../config/institutional';
 import {pages,production,publicData} from '../lib/data';
 import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature} from '../lib/home-stage';
+import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,type AlmocoData} from '../lib/almoco';
+import almocoData from '../data/almoco-executivo.json';
 import {seoFor} from '../lib/seo';
 import InstitutionalSupport from '../components/InstitutionalSupport.astro';
 import FAQ from '../components/FAQ.astro';
@@ -29,9 +31,15 @@ const homeArtists=new Map(publicData.artists.map(a=>[a.artist_id,a]));
 const homeSlots:Record<string,()=>string>={stage:()=>renderStage(homeState,homeArtists),week:()=>renderWeek(homeState,homeArtists),mstage:()=>renderMobileStage(homeState,homeArtists),mweek:()=>renderMobileWeek(homeState,homeArtists)};
 const homeSig=homeSignature(homeState);
 const dynamicHome=(html:string)=>html.replace(/<!--home:(\w+)-->[\s\S]*?<!--\/home:\1-->/g,(match,key:string)=>homeSlots[key]?.()??match).replace(/data-home="(\w+)"/g,`data-home="$1" data-home-sig="${homeSig}"`);
-const home=dynamicHome(homeRaw);
-const celular=dynamicHome(celularRaw);
-const content:Record<string,string>={index:home,gastronomia,programacao,evento,livraria,casa,celular};
+// Almoço executivo: dia de serviço calculado no build; o navegador recalcula às 15h e na virada do dia (src/client/almoco.ts).
+const almocoState=pickAlmoco(almocoData as AlmocoData,process.env.CONTENT_DATE?{day:process.env.CONTENT_DATE,minutes:0}:agoraBH());
+const almocoSlots:Record<string,()=>string>={home:()=>renderAlmocoHome(almocoState),mobile:()=>renderAlmocoMobile(almocoState),semana:()=>renderAlmocoSemana(almocoState)};
+const almocoSig=almocoSignature(almocoState);
+const dynamicAlmoco=(html:string)=>html.replace(/<!--almoco:(\w+)-->[\s\S]*?<!--\/almoco:\1-->/g,(match,key:string)=>almocoSlots[key]?.()??match).replace(/data-almoco="(\w+)"/g,`data-almoco="$1" data-almoco-sig="${almocoSig}"`);
+const home=dynamicAlmoco(dynamicHome(homeRaw));
+const celular=dynamicAlmoco(dynamicHome(celularRaw));
+const gastronomiaPage=dynamicAlmoco(gastronomia);
+const content:Record<string,string>={index:home,gastronomia:gastronomiaPage,programacao,evento,livraria,casa,celular};
 const title='Café com Letras · '+(documentTitle??custom?.title??titles[name]);
 const description=documentTitle??custom?.description??descriptions[name];
 const canonical='https://cafecomletras.com.br'+(custom?custom.path:['index','celular'].includes(name)?'/':'/'+name+'/');

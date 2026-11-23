@@ -41,3 +41,10 @@ body[data-design='claude'] :is(.btn,.chip):focus-visible{outline:3px solid curre
  body[data-design='claude'] .photo[style*='height:520px'],body[data-design='claude'] .photo[style*='height:460px'],body[data-design='claude'] .photo[style*='height:420px']{height:280px!important}
  body[data-design='claude'] .acts{gap:10px}
 }
+
+/* Almoço executivo: abas dos dias sobre o fundo vermelho da seção */
+body[data-design='claude'] [data-almoco-tab]{border-color:#fff;color:#fff;background:transparent}
+body[data-design='claude'] [data-almoco-tab][aria-selected='true']{background:#fff;color:var(--color-ink)}
+body[data-design='claude'] [data-almoco-tab][data-feriado]{opacity:.7}
+body[data-design='claude'] [data-almoco] .v{margin-left:8px;box-shadow:0 0 0 1.5px #fff}
+body[data-design='claude'] [data-almoco] [role='tabpanel']:focus-visible{outline:2px solid #fff;outline-offset:6px}

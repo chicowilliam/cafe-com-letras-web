@@ -1,0 +1,59 @@
+// Almoço executivo: dados válidos e escolha do dia pela hora de Belo Horizonte.
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {pickAlmoco,almocoStatus,renderAlmocoSemana,renderAlmocoHome,renderAlmocoMobile} from '../src/lib/almoco.ts';
+
+const data=JSON.parse(await readFile(new URL('../src/data/almoco-executivo.json',import.meta.url),'utf8'));
+const seen=new Set();
+for(const d of data.dias){
+ assert.match(d.data,/^\d{4}-\d{2}-\d{2}$/,`data inválida: ${d.data}`);
+ assert.ok(!seen.has(d.data),`dia repetido: ${d.data}`);
+ seen.add(d.data);
+ const wd=new Date(`${d.data}T12:00:00Z`).getUTCDay();
+ assert.ok(wd>=1&&wd<=5,`${d.data} não é dia útil (o almoço executivo é de segunda a sexta)`);
+ if(d.feriado){assert.equal(typeof d.feriado,'string');continue;}
+ for(const key of ['menuDoDia','executivo','vegano']) assert.ok(d[key],`${d.data}: falta ${key}`);
+ for(const key of ['entrada','principal','sobremesa']) assert.ok(d.menuDoDia[key]?.trim(),`${d.data}: Menu do Dia sem ${key}`);
+ for(const p of [d.menuDoDia,d.executivo,d.vegano]) assert.ok(typeof p.preco==='number'&&p.preco>0,`${d.data}: preço inválido`);
+ assert.ok(d.executivo.prato.trim()&&d.vegano.prato.trim(),`${d.data}: prato vazio`);
+}
+
+const fixture={dias:[
+ ...['2026-11-23','2026-11-24','2026-11-25','2026-11-26','2026-11-27'].map((data,i)=>({data,menuDoDia:{preco:60+i,entrada:'E'+i,principal:'P'+i,sobremesa:'S'+i},executivo:{prato:'X'+i,preco:44},vegano:{prato:'V'+i,preco:49}})),
+ {data:'2026-12-07',menuDoDia:{preco:70,entrada:'e',principal:'p',sobremesa:'s'},executivo:{prato:'x',preco:44},vegano:{prato:'v',preco:49}},
+ {data:'2026-12-08',feriado:'Imaculada Conceição'},
+ {data:'2026-12-09',menuDoDia:{preco:70,entrada:'e',principal:'p9',sobremesa:'s'},executivo:{prato:'x',preco:44},vegano:{prato:'v',preco:49}},
+]};
+const at=(day,h,m=0)=>pickAlmoco(fixture,{day,minutes:h*60+m});
+
+// Segunda de manhã: hoje, antes de abrir.
+let s=at('20261123',10);
+assert.equal(s.date,'2026-11-23'); assert.equal(almocoStatus(s),'Hoje, a partir das 12h'); assert.equal(s.week.length,5);
+// Durante o serviço.
+assert.equal(almocoStatus(at('20261123',13)),'Servido agora, até as 15h');
+// Depois das 15h: passa para amanhã.
+s=at('20261123',15);
+assert.equal(s.date,'2026-11-24'); assert.equal(almocoStatus(s),'Amanhã (terça), 24/11, das 12h às 15h');
+// Sexta depois das 15h e fim de semana, sem a semana seguinte cadastrada: "em breve", nunca cardápio vencido.
+for(const [day,h] of [['20261127',16],['20261128',12],['20261129',20]]){
+ s=at(day,h);
+ assert.equal(s.date,'2026-11-30'); assert.equal(s.dia,undefined); assert.equal(s.week.length,0);
+ assert.match(renderAlmocoSemana(s),/ainda não foi publicado/);
+ assert.match(renderAlmocoHome(s),/ainda não foi publicado/);
+}
+// Domingo com a semana seguinte cadastrada: mostra segunda.
+s=at('20261206',11);
+assert.equal(s.date,'2026-12-07'); assert.equal(almocoStatus(s),'Amanhã (segunda), 07/12, das 12h às 15h');
+// Feriado: pula para o próximo dia útil e aparece como feriado nas abas.
+s=at('20261207',15,30);
+assert.equal(s.date,'2026-12-09'); assert.match(renderAlmocoSemana(s),/Feriado \(Imaculada Conceição\)/);
+// Abas: só o dia de serviço visível.
+const html=renderAlmocoSemana(at('20261125',9));
+assert.equal((html.match(/role="tabpanel"/g)??[]).length,5);
+assert.equal((html.match(/role="tabpanel"[^>]*hidden/g)??[]).length,4);
+assert.match(html,/aria-selected="true"[^>]*data-almoco-tab="2026-11-25"/);
+// Destaque da home traz as três opções com preço.
+const mobile=renderAlmocoMobile(at('20261123',12));
+for(const text of ['Menu do Dia','P0','R$ 60','X0','R$ 44','V0','R$ 49']) assert.ok(mobile.includes(text),`home no celular sem "${text}"`);
+
+console.log(`almoco: ${data.dias.length} dia(s) de cardápio válidos; regras de horário, fim de semana e feriado ok`);
