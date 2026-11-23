@@ -5,8 +5,12 @@ import WhatsAppContact from '../components/WhatsAppContact.astro';
 import {bodyFor,getUnitId,contentDay,production,publicData} from '../lib/data';
 import {seoFor} from '../lib/seo';
 import {unitPath} from '../lib/routes';
+import imageManifest from '../data/image-manifest.json';
 interface Props { page:PageSnapshot }
 const {page}=Astro.props;const seo=seoFor(page);const body=bodyFor(page);const unitId=getUnitId(page.unit);
+const liberdadeHero = page.unit === 'Liberdade' && ['desktop', 'mobile'].includes(page.kind)
+ ? imageManifest['/img/bg/bg-cafecomletras-liberdade.png'].src
+ : undefined;
 const schema=JSON.stringify(seo.schema).replace(/</g,'\\u003c');
 const gallery=publicData.photos.filter(p=>p.photo_unity===unitId).sort((a,b)=>b.photo_id-a.photo_id).map(p=>p.photo_id);
 ---
@@ -22,6 +26,7 @@ const gallery=publicData.photos.filter(p=>p.photo_unity===unitId).sort((a,b)=>b.
   <meta property="og:title" content={seo.title} /><meta property="og:description" content={seo.description} /><meta property="og:url" content={seo.canonical} /><meta property="og:image" content="https://cafecomletras.com.br/img/share/cafe-com-letras.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/img/common/favicon.ico" />
+  {liberdadeHero && <link rel="preload" as="image" href={liberdadeHero} fetchpriority="high" />}
   <link rel="preload" href="/css/fonts/96bbdb37b0db8ffc.woff2" as="font" type="font/woff2" crossorigin />
   {page.css.map(href=><link rel="stylesheet" href={href} />)}
   <script type="application/ld+json" set:html={schema} />
