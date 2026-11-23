@@ -8,8 +8,8 @@
 @import './interactions.css';
 @import './refinements.css';
 @import './mobile.css';
+@import './polish.css';
+@import './layout.css';
 @source '../design/claude';
 @source '../layouts';
 @source '../client';
-
-@import './polish.css';

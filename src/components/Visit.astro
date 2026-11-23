@@ -1,0 +1,50 @@
+---
+import {mapsUrl, reservationUrl} from '../config/visit';
+import {whatsapp} from '../config/whatsapp';
+
+const whatsappLink = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`;
+---
+<section id="visite" class="wrap visit" aria-labelledby="visit-title">
+ <div class="tag">Visite</div>
+ <h2 class="h2" id="visit-title">Onde nos encontrar</h2>
+ <p class="lead">Entre livros, boa comida e música, um endereço para fazer parte da sua história na Savassi.</p>
+ <div class="visit-grid">
+  <div class="visit-info">
+   <div>
+    <div class="tag">Endereço</div>
+    <p class="h3">Rua Antônio de Albuquerque, 781<br />Savassi · Belo Horizonte · MG</p>
+    <a class="btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a>
+   </div>
+   <div>
+    <div class="tag">Horários</div>
+    <div class="row"><span class="n">Domingo a terça</span><span class="pr">12h às 22h</span></div>
+    <div class="row"><span class="n">Quarta a sábado</span><span class="pr">12h às 23h</span></div>
+    <div class="row"><div><div class="n">Delivery (iFood)</div><div class="d">todos os dias</div></div><span class="pr">11h às 21h30</span></div>
+   </div>
+   <div class="acts">
+    <a class="btn ink" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
+    <a class="btn" href={whatsappLink}>WhatsApp (31) 98424-4285</a>
+   </div>
+  </div>
+  <div id="mapa" class="visit-map" data-visit-map>
+   <button type="button" class="btn" data-load-map hidden>Carregar mapa</button>
+   <noscript><a class="btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">Ver mapa</a></noscript>
+   <template><iframe src="https://www.google.com/maps?q=Caf%C3%A9%20com%20Letras%2C%20Rua%20Ant%C3%B4nio%20de%20Albuquerque%2C%20781%2C%20Savassi%2C%20Belo%20Horizonte%20-%20MG&amp;hl=pt-BR&amp;z=17&amp;output=embed" title="Mapa do Google: Café com Letras, Rua Antônio de Albuquerque, 781, Savassi, Belo Horizonte"  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></template>
+  </div>
+ </div>
+</section>
+<script>
+ const map = document.querySelector('[data-visit-map]');
+ const button = map?.querySelector('button');
+ const template = map?.querySelector('template');
+
+ if (button && template) {
+  button.hidden = false;
+  button.addEventListener('click', () => {
+   const frame = template.content.querySelector('iframe');
+   if (!frame) return;
+   button.replaceWith(frame);
+   frame.focus({preventScroll: true});
+  }, {once: true});
+ }
+</script>

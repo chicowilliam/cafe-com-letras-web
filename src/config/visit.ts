@@ -1,0 +1,2 @@
+export const reservationUrl = 'https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg';
+export const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Rua%20Ant%C3%B4nio%20de%20Albuquerque%20781%20Savassi%20Belo%20Horizonte';

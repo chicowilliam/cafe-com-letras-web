@@ -10,29 +10,95 @@ addEventListener('hashchange',routeLegacySection);
 document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
 document.addEventListener('pointerdown',()=>{delete document.body.dataset.input;},{passive:true});
 
+const header=document.querySelector<HTMLElement>('[data-site-header]');
 const menuButton=document.querySelector<HTMLButtonElement>('[data-mobile-menu]');
 const menu=document.querySelector<HTMLDialogElement>('#page-navigation');
+const root=document.documentElement;
+const scrollPosition=()=>Math.max(0,Math.min(window.scrollY,root.scrollHeight-root.clientHeight));
+let lastScroll=scrollPosition();
+let direction=0;
+let distance=0;
+
+const revealHeader=()=>{
+ header?.removeAttribute('data-hidden');
+ lastScroll=scrollPosition();
+ distance=0;
+};
+
+if(header){
+ const updateOffset=()=>root.style.setProperty('--site-header-height',`${header.offsetHeight}px`);
+ updateOffset();
+ new ResizeObserver(updateOffset).observe(header);
+
+ let ticking=false;
+ const updateHeader=()=>{
+  ticking=false;
+  if(menu?.open)return;
+  const scroll=scrollPosition();
+  const delta=scroll-lastScroll;
+  if(scroll<=header.offsetHeight){revealHeader();return;}
+  if(!delta)return;
+  lastScroll=scroll;
+  if(Math.sign(delta)!==direction){direction=Math.sign(delta);distance=0;}
+  distance+=Math.abs(delta);
+  if(distance>=(direction>0?16:10))header.toggleAttribute('data-hidden',direction>0);
+ };
+ addEventListener('scroll',()=>{
+  if(!ticking){ticking=true;requestAnimationFrame(updateHeader);}
+ },{passive:true});
+ addEventListener('hashchange',revealHeader);
+ addEventListener('pageshow',event=>{if(event.persisted)revealHeader();});
+ header.addEventListener('focusin',()=>{
+  if(header.querySelector(':focus-visible'))revealHeader();
+ });
+}
+
 if(menuButton&&menu){
- const panel=menu.querySelector<HTMLElement>('.mobile-panel');
+ let scrollTop=0;
  let animation:Animation|undefined;
+ let closing=false;
  const closeMenu=(instant=false,restoreFocus=true)=>{
-  if(!menu.open)return;
-  animation?.cancel();
-  const close=()=>{
+  if(!menu.open||(closing&&!instant))return;
+  closing=true;
+  const finish=()=>{
    menu.close();
+   animation?.cancel();
+   animation=undefined;
+   closing=false;
+   root.classList.remove('mobile-menu-open');
+   document.body.style.removeProperty('--menu-scroll-top');
+   document.body.style.removeProperty('--menu-locked-width');
+   window.scrollTo({top:scrollTop,behavior:'instant'});
+   revealHeader();
    menuButton.setAttribute('aria-expanded','false');
    if(restoreFocus&&menuButton.getClientRects().length)menuButton.focus({preventScroll:true});
   };
-  if(instant||reducedMotion.matches||!panel){close();return;}
-  animation=panel.animate([{transform:'translateX(0)'},{transform:'translateX(100%)'}],{duration:160,easing:'ease-in',fill:'forwards'});
-  void animation.finished.then(()=>{close();animation?.cancel();},()=>{});
+  if(instant||reducedMotion.matches){finish();return;}
+  const opacity=getComputedStyle(menu).opacity;
+  animation?.cancel();
+  animation=menu.animate([{opacity},{opacity:0}],{duration:150,easing:'ease-in',fill:'forwards'});
+  void animation.finished.then(finish,()=>{});
  };
  menuButton.addEventListener('click',()=>{
   if(menu.open)return;
+  revealHeader();
+  scrollTop=window.scrollY;
+  document.body.style.setProperty('--menu-locked-width',`${root.clientWidth}px`);
+  document.body.style.setProperty('--menu-scroll-top',`${scrollTop}px`);
+  root.classList.add('mobile-menu-open');
   menu.showModal();
   menuButton.setAttribute('aria-expanded','true');
+  if(!reducedMotion.matches)animation=menu.animate([{opacity:0},{opacity:1}],{duration:180,easing:'ease-out'});
  });
  menu.addEventListener('cancel',event=>{event.preventDefault();closeMenu();});
+ menu.addEventListener('keydown',event=>{
+  if(event.key!=='Tab'||event.altKey||event.ctrlKey||event.metaKey)return;
+  const controls=Array.from(menu.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]'));
+  const current=controls.findIndex(control=>control===document.activeElement);
+  const next=event.shiftKey?(current>0?current-1:controls.length-1):(current+1)%controls.length;
+  event.preventDefault();
+  controls[next]?.focus();
+ });
  menu.addEventListener('click',event=>{
   if(event.target===menu||(event.target instanceof Element&&event.target.closest('[data-close-mobile-menu]')))closeMenu();
   else if(event.target instanceof Element&&event.target.closest('a[href]'))closeMenu(true);

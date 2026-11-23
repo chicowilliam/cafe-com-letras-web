@@ -1,6 +1,4 @@
 /* Refinamentos editoriais: preserva a composição Mesa / Palco e sua paleta. */
-html{scroll-padding-top:24px}
-body[data-design='claude'] .foot .wrap{padding-bottom:112px}
 body[data-design='claude'] :is(h1,h2,h3,.h2,.h3){text-wrap:balance}
 body[data-design='claude'] :is(.p,.lead){text-wrap:pretty;max-width:65ch}
 body[data-design='claude'] .h2{line-height:1.04}
@@ -14,7 +12,7 @@ body[data-design='claude'] .chip{min-height:44px}
 body[data-design='claude'] .chip[data-section-link][aria-current='location']{background:var(--color-paper)!important;color:var(--color-ink)!important}
 body[data-design='claude'] .chip[data-section-link]:not([aria-current]){background:transparent!important;color:inherit!important}
 body[data-design='claude'] :is(.btn,.chip):focus-visible{outline:3px solid currentColor;outline-offset:4px}
-.institutional-footer{padding-bottom:112px}
+.institutional-footer:not(.institutional-footer-embedded){padding-bottom:112px}
 .skip-mobile{display:none}
 .skip-link{position:fixed;top:12px;left:20px;z-index:50;padding:12px 18px;background:var(--color-paper);color:var(--color-ink);border:2px solid currentColor;border-radius:12px;transform:translateY(-180%)}
 .skip-link:focus{transform:translateY(0)}
@@ -30,13 +28,11 @@ body[data-design='claude'] :is(.btn,.chip):focus-visible{outline:3px solid curre
  body[data-design='claude'] [style*='width:390px']{width:100%!important;max-width:100%}
  body[data-design='claude'] :is(.grid2,.grid3,.grid4){gap:32px!important}
  body[data-design='claude'] .h2{font-size:clamp(36px,6vw,48px)}
- body[data-design='claude'] .foot .wrap{padding-block:48px 112px}
- body[data-design='claude'] .foot [data-responsive-grid]{gap:28px!important}
  .home-mobile .mobile-canvas{max-width:100%}
 }
 @media(max-width:600px){
  body[data-design='claude'] main>section[style*='padding:96px 0'],body[data-design='claude'] main>section[style*='padding:80px 0']{padding-block:48px!important}
- body[data-design='claude'] main>section.wrap,body[data-design='claude'] main>section>.wrap[style*='padding-top']{padding-top:48px!important;padding-bottom:40px!important}
+ body[data-design='claude'] main>section.wrap:not(.house-history),body[data-design='claude'] main>section>.wrap[style*='padding-top']{padding-top:40px!important;padding-bottom:36px!important}
  body[data-design='claude'] .lead[style*='font-size:2']{font-size:19px!important;line-height:1.6}
  body[data-design='claude'] .photo[style*='height:520px'],body[data-design='claude'] .photo[style*='height:460px'],body[data-design='claude'] .photo[style*='height:420px']{height:280px!important}
  body[data-design='claude'] .acts{gap:10px}

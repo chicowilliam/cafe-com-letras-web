@@ -1,14 +1,33 @@
 ---
+import {reservationUrl} from '../config/visit';
+import {whatsapp} from '../config/whatsapp';
+
+const whatsappLink = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`;
 interface Props { page: string }
 const {page}=Astro.props;
-const activePage=page==='evento'||page.startsWith('artista')?'programacao':page;
+const activePage=['evento','festival'].includes(page)||page.startsWith('artista')?'programacao':page;
 const links=[
  ['/','Início','index'],['/gastronomia/','Gastronomia','gastronomia'],
  ['/programacao/','Programação','programacao'],['/livraria/','Livraria','livraria'],
  ['/programacao/#em-cartaz','Exposições',''],['/casa/','A Casa','casa'],
 ] as const;
 ---
-<div class="compact-navigation">
+<div class="site-header" data-site-header>
+ <div class="desktop-navigation">
+  <div class="util"><div class="wrap"><span><strong>Horários da casa</strong> · a partir das 12h</span><span>Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte</span></div></div>
+  <header class="hdr"><div class="wrap">
+   <a href="/" class="site-logo" aria-label="Café com Letras, página inicial"><img src="/claude/assets/logo-ink.png" width="373" height="121" alt="Café com Letras" /></a>
+   <nav class="nav" aria-label="Principal">
+    {links.slice(1).map(([href,label,key])=><a href={href} class:list={{on:activePage===key}} aria-current={activePage===key?'page':undefined}>{label}</a>)}
+   </nav>
+   <div class="acts">
+    <a class="btn ink" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar</a>
+    <a class="btn" href="/delivery/">Delivery</a>
+    <a class="btn" href={whatsappLink}><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true" />WhatsApp</a>
+   </div>
+  </div></header>
+ </div>
+ <div class="compact-navigation">
  <header class="compact-header">
   <a href="/" aria-label="Café com Letras, página inicial"><img src="/claude/assets/logo-ink.png" alt="Café com Letras" width="373" height="121" /></a>
   <span class="mobile-hours">A partir das 12h</span>
@@ -24,10 +43,11 @@ const links=[
     {links.map(([href,label,key])=><a href={href} aria-current={activePage===key?'page':undefined}>{label}</a>)}
    </nav>
    <nav class="mobile-panel-actions" aria-label="Visita e pedidos">
-    <a class="btn ink" href="https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg" target="_blank" rel="noopener noreferrer">Reservar</a>
+    <a class="btn ink" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar</a>
     <a class="btn" href="/delivery/">Delivery</a>
     <a class="mobile-directions" href="/casa/#visite">Como chegar</a>
    </nav>
   </div>
  </dialog>
+</div>
 </div>
