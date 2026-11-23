@@ -69,6 +69,9 @@ for (const category of ['all', 'dj', 'books']) {
 assert.ok(agenda.includes('id="agenda"'));
 assert.ok(casa.includes('id="visite"'));
 assert.match(casa, /<template>\s*<iframe src="https:\/\/www\.google\.com\/maps\?/);
+const {savassi: months} = JSON.parse(await readFile('src/data/calendar-months.json', 'utf8'));
+assert.deepEqual((await readdir(path.join(root, 'data/calendar/savassi'))).sort(),
+ months.map(month => `${month}.json`));
 const cases=[
  ['/index.asp',301,'/'],['/?unity=Liberdade',301,'/liberdade/'],['/?unity=Savassi',301,'/'],['/?section=menu&subsection=all',301,'/cardapio/'],['/?section=menu&subsection=wine&unity=Liberdade',301,'/liberdade/carta-de-vinhos/'],['/?section=menu&subsection=dessert',301,'/sobremesas/'],['/m/index.asp?unity=Liberdade',301,'/m/liberdade/'],['/index-cardapios.asp',301,'/cardapiodigital/'],['/ajax/menu-card.asp?date=20261119',301,'/?date=20261119#part1'],['/admin/login/',404,null],['/system/connection.asp',404,null],['/novostalentos/files/probe.pdf',404,null],['/?unity=%27%20OR%201%3D1',400,null],['/?section=menu&subsection=invalid',400,null],['/talk-to-us.asp',503,null]
 ];

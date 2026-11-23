@@ -1,10 +1,12 @@
 // Atualiza "No palco" e "Esta semana" da home pela data de Belo Horizonte,
 // para a virada da meia-noite não depender de um novo deploy.
 import {addDays,bhNow,homeSignature,pickHome,renderMobileStage,renderMobileWeek,renderStage,renderWeek,type HomeState,type StageArtist,type StageEvent} from '../lib/home-stage';
+import monthIndex from '../data/calendar-months.json';
 
 interface Chunk {events:StageEvent[];artists:StageArtist[]}
 const cache=new Map<string,Promise<Chunk|null>>();
 function month(key:string){
+ if(!monthIndex.savassi.includes(key))return Promise.resolve(null);
  let request=cache.get(key);
  if(!request){
   request=fetch(`/data/calendar/savassi/${key}.json`).then(r=>r.ok?r.json() as Promise<Chunk>:null).catch(()=>null);
