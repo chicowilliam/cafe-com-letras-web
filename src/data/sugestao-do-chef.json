@@ -1,5 +1,5 @@
 {
-  "_como_atualizar": "Etapas possíveis, nesta ordem: compartilhar, entrada, principal, sobremesa (normalmente as quatro). 'inicio' e 'fim' (AAAA-MM-DD) definem quando aparece no site; fora do período a seção avisa 'nova sugestão em breve'.",
+  "_como_atualizar": "Etapas possíveis, nesta ordem: compartilhar, entrada, principal, sobremesa (normalmente as quatro). 'inicio' e 'fim' (AAAA-MM-DD) definem quando aparece no site; fora do período a seção avisa 'nova sugestão em breve'. 'fotos' (opcional): uma foto por etapa e/ou 'menu' (todos os pratos juntos), com src em /img/gastronomia/... e alt; 'creditoFotos' aparece abaixo das fotos.",
   "nome": "Menu Pomar e Horta",
   "contexto": "Circuito Vegano BH 2026",
   "descricao": "Nosso menu no Circuito Gastronômico Vegano de Belo Horizonte: entrada, prato principal e sobremesa, 100% veganos.",
@@ -11,5 +11,32 @@
     "entrada": "Tapas de abóbora com crisps de couve e geleia de pimenta biquinho",
     "principal": "Penne com legumes, grão-de-bico, banana grelhada ao azeite de ervas e shiitake grelhado",
     "sobremesa": "Pera ao vinho com sorbet de manga ubá"
-  }
+  },
+  "fotos": {
+    "menu": {
+      "src": "/img/gastronomia/circuito-vegano-2026/menu.jpg",
+      "alt": "Os três pratos do Menu Pomar e Horta servidos juntos sobre a mesa de madeira",
+      "width": 900,
+      "height": 1348
+    },
+    "entrada": {
+      "src": "/img/gastronomia/circuito-vegano-2026/entrada.jpg",
+      "alt": "Tapas de abóbora com crisps de couve e geleia de pimenta biquinho em travessa branca",
+      "width": 900,
+      "height": 1348
+    },
+    "principal": {
+      "src": "/img/gastronomia/circuito-vegano-2026/principal.jpg",
+      "alt": "Penne com legumes, grão-de-bico, banana grelhada e shiitake",
+      "width": 900,
+      "height": 1348
+    },
+    "sobremesa": {
+      "src": "/img/gastronomia/circuito-vegano-2026/sobremesa.jpg",
+      "alt": "Pera ao vinho fatiada com sorbet de manga ubá",
+      "width": 900,
+      "height": 1348
+    }
+  },
+  "creditoFotos": "Fotos: @dan.alvarezzz"
 }

@@ -74,4 +74,12 @@ assert.match(renderSugestaoSecao(expired),/em breve/); assert.equal(renderSugest
 const secao=renderSugestaoSecao(sugestaoVigente({nome:'T',inicio:'2026-01-01',fim:'2026-12-31',etapas:{sobremesa:'S',compartilhar:'C',principal:'P',entrada:'E'}},'20260601'));
 assert.ok(secao.indexOf('Para compartilhar')<secao.indexOf('>Entrada<')&&secao.indexOf('>Entrada<')<secao.indexOf('Prato principal')&&secao.indexOf('Prato principal')<secao.indexOf('>Sobremesa<'),'etapas fora de ordem');
 assert.match(secao,/class="grid4"/);
+for(const [key,f] of Object.entries(sug.fotos??{})){
+ assert.ok(key==='menu'||ORDEM.some(([k])=>k===key),`foto de etapa desconhecida: ${key}`);
+ assert.ok(f.alt?.trim(),`foto ${key} sem texto alternativo`);
+ await readFile(new URL(`../public${f.src}`,import.meta.url));
+}
+const comFotos=renderSugestaoSecao(sugestaoVigente({nome:'T',inicio:'2026-01-01',fim:'2026-12-31',etapas:{entrada:'E',principal:'P',sobremesa:'S'},fotos:{menu:{src:'/m.jpg',alt:'M'},entrada:{src:'/e.jpg',alt:'E'}},creditoFotos:'Fotos: X'},'20260601'));
+assert.ok(comFotos.indexOf('O menu completo')<comFotos.indexOf('>Entrada<'),'foto do menu deve vir antes das etapas');
+assert.match(comFotos,/class="grid4"/); assert.match(comFotos,/src="\/e\.jpg" alt="E"/); assert.match(comFotos,/Fotos: X/);
 console.log(`sugestao: "${sug.nome}" de ${sug.inicio} a ${sug.fim}; validade e ordem das etapas ok`);

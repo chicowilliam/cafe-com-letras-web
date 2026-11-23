@@ -3,7 +3,8 @@
 // Dados: src/data/sugestao-do-chef.json. Só aparece entre "inicio" e "fim" (datas de Belo Horizonte).
 
 export type Etapa = 'compartilhar' | 'entrada' | 'principal' | 'sobremesa';
-export interface Sugestao { nome: string; contexto?: string; descricao?: string; vegano?: boolean; preco?: number; inicio: string; fim: string; etapas: Partial<Record<Etapa, string>> }
+export interface Foto { src: string; alt: string; width?: number; height?: number }
+export interface Sugestao { nome: string; contexto?: string; descricao?: string; vegano?: boolean; preco?: number; inicio: string; fim: string; etapas: Partial<Record<Etapa, string>>; fotos?: Partial<Record<Etapa | 'menu', Foto>>; creditoFotos?: string }
 
 export const ORDEM: [Etapa, string][] = [['compartilhar', 'Para compartilhar'], ['entrada', 'Entrada'], ['principal', 'Prato principal'], ['sobremesa', 'Sobremesa']];
 const esc = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -19,6 +20,13 @@ export function sugestaoVigente(data: Sugestao, day: string): Sugestao | undefin
 
 export const sugestaoSignature = (s?: Sugestao) => s ? `${s.nome}:${s.fim}` : 'nenhuma';
 
+/** Foto de uma etapa (ou do menu completo), em retrato 4:5. */
+function foto(f?: Foto) {
+  if (!f) return '';
+  const size = f.width && f.height ? ` width="${f.width}" height="${f.height}"` : '';
+  return `<img src="${esc(f.src)}" alt="${esc(f.alt)}"${size} loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;margin-bottom:16px;background:var(--color-mesa-soft)">`;
+}
+
 /** Lista curta das etapas presentes: "entrada, prato principal e sobremesa". */
 function etapasTexto(s: Sugestao) {
   const names = ORDEM.filter(([k]) => s.etapas[k]).map(([, label]) => label.toLowerCase());
@@ -30,9 +38,15 @@ export function renderSugestaoSecao(s?: Sugestao) {
   if (!s) return `<div><div class="tag" style="color:var(--color-mesa)">Sugestão do chef</div><h2 class="h2" style="margin-top:12px">Sugestão do chef</h2><p class="p" style="margin-top:16px;color:var(--color-text-muted)">Nova sugestão do chef em breve.</p></div>`;
   const tag = [s.contexto, `até ${dm(s.fim)}`].filter(Boolean).join(' · ');
   const head = `<div class="flex justify-between items-end gap-[24px] flex-wrap mb-[40px]"><div><div class="tag" style="color:var(--color-mesa)">${esc(tag)}</div><h2 class="h2" style="margin-top:12px">Sugestão do chef</h2></div><div style="max-width:460px"><div class="flex items-baseline gap-[16px] flex-wrap"><span class="h3" style="font-size:30px">${esc(s.nome)}${s.vegano ? vegan : ''}</span>${s.preco ? `<span class="mono" style="font-size:22px">${brl(s.preco)}</span>` : ''}</div>${s.descricao ? `<p class="p" style="margin-top:8px;color:var(--color-text-muted)">${esc(s.descricao)}</p>` : ''}</div></div>`;
-  const items = ORDEM.filter(([k]) => s.etapas[k]).map(([k, label]) => `<div style="border-top:3px solid var(--color-ink);padding-top:16px;min-width:0"><div class="tag" style="color:var(--color-mesa)">${label}</div><p class="h3" style="font-size:24px;margin-top:10px;line-height:1.25">${esc(s.etapas[k] ?? '')}</p></div>`);
+  const items = ORDEM.filter(([k]) => s.etapas[k]).map(([k, label]) => `<div style="border-top:3px solid var(--color-ink);padding-top:16px;min-width:0">${foto(s.fotos?.[k])}<div class="tag" style="color:var(--color-mesa)">${label}</div><p class="h3" style="font-size:24px;margin-top:10px;line-height:1.25">${esc(s.etapas[k] ?? '')}</p></div>`);
+  const menu = s.fotos?.menu;
+  if (menu) {
+    const texto = etapasTexto(s);
+    items.unshift(`<div style="border-top:3px solid var(--color-mesa);padding-top:16px;min-width:0">${foto(menu)}<div class="tag" style="color:var(--color-mesa)">O menu completo</div><p class="h3" style="font-size:24px;margin-top:10px;line-height:1.25">${esc(texto.charAt(0).toUpperCase() + texto.slice(1))}</p></div>`);
+  }
   const cols = items.length >= 4 ? 'grid4' : 'grid3';
-  return `${head}<div class="${cols}" data-responsive-grid>${items.join('')}</div>`;
+  const credito = s.creditoFotos ? `<p class="p" style="margin-top:20px;font-size:13px;color:var(--color-text-muted)">${esc(s.creditoFotos)}</p>` : '';
+  return `${head}<div class="${cols}" data-responsive-grid>${items.join('')}</div>${credito}`;
 }
 
 /** Linha "Sugestão do chef" do destaque "À mesa" da home (computador ou celular). */
