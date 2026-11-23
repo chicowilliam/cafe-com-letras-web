@@ -1,6 +1,7 @@
 // Pages Functions: URL compatibility only. No database, secrets or external requests.
 import {legalReview} from '../src/config/institutional.ts';
 import {contentSecurityPolicy} from '../shared/security-policy.ts';
+import { robotsResponse } from '../shared/robots.ts';
 interface Context { request:Request;env?:{DEPLOY_ENV?:string};next:()=>Promise<Response> }
 const CANONICAL='https://cafecomletras.com.br';
 const units=['Savassi','Liberdade'];
@@ -9,7 +10,7 @@ export async function onRequest(context:Context):Promise<Response>{
  const url=new URL(context.request.url);
  const official=url.hostname==='cafecomletras.com.br'&&url.protocol==='https:';
  const response=url.pathname==='/robots.txt'&&['GET','HEAD'].includes(context.request.method)
-  ? new Response(official?'User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /system/\nDisallow: /ajax/\nDisallow: /novostalentos/\nSitemap: https://cafecomletras.com.br/sitemap-index.xml\n':'User-agent: *\nDisallow: /\n',{headers:{'Content-Type':'text/plain; charset=utf-8'}})
+  ? robotsResponse(official)
   : await handle(context);const headers=new Headers(response.headers);
  if(['/','/liberdade/','/index.asp'].includes(new URL(context.request.url).pathname))headers.append('Vary','User-Agent');
  headers.set('Content-Security-Policy',contentSecurityPolicy);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','strict-origin-when-cross-origin');

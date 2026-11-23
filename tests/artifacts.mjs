@@ -38,6 +38,40 @@ assert.equal(report.privateFiles.length,0);assert.equal(report.missingResources.
 const sitemap=await readFile('dist/sitemap-0.xml','utf8');const locations=[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);const expectedLocations=16+JSON.parse(await readFile('src/data/artist-profiles.json','utf8')).length+JSON.parse(await readFile('src/data/festivals.json','utf8')).length;assert.equal(locations.length,expectedLocations);assert.equal(new Set(locations).size,expectedLocations);
 for(const location of locations){assert.ok(location.startsWith(origin));assert.ok(!new URL(location).pathname.startsWith('/m/'));assert.ok(await exists(new URL(location)));}
 const robots=await readFile('dist/robots.txt','utf8');assert.equal(robots.includes('Allow: /'),production);assert.equal(robots.includes('Disallow: /\n'),!production);
+const deployedRobots = await onRequest({
+ request: new Request(production ? origin + '/robots.txt' : 'https://preview.cafe-com-letras-pages.pages.dev/robots.txt'),
+ next: async () => new Response(null, {status: 404}),
+});
+assert.equal(await deployedRobots.text(), robots);
+if (production) {
+ assert.match(robots, /^Disallow: \/concurso-beatles-sinfonico-pitagoras\/$/m);
+ const sitemapIndex = /^Sitemap: (\S+)$/m.exec(robots)?.[1];
+ assert.equal(sitemapIndex, origin + '/sitemap-index.xml');
+ assert.ok(await exists(new URL(sitemapIndex)));
+}
+
+const [home, dining, agenda, casa] = await Promise.all(
+ ['index.html', 'gastronomia/index.html', 'programacao/index.html', 'casa/index.html']
+  .map(file => readFile(path.join(root, file), 'utf8')),
+);
+assert.match(home, /\bdata-mobile-menu(?:\s|=|>)/);
+assert.ok(home.includes('href="/gastronomia/#cardapio"'));
+assert.ok(home.includes('href="/programacao/"'));
+assert.ok(home.includes('href="https://reservation.getin.app/36qBovkN?'));
+assert.ok(home.includes('href="https://www.ifood.com.br/delivery/belo-horizonte-mg/cafe-com-letras-savassi/b53324c0-32a8-4278-b229-4b362b7847cc"'));
+for (const id of ['executivo', 'chef', 'cardapio', 'bar', 'vinhos']) {
+ assert.ok(dining.includes(`id="${id}"`), `Âncora de Gastronomia ausente: ${id}`);
+ assert.ok(dining.includes(`href="#${id}"`), `Link de seção ausente: ${id}`);
+}
+for (const category of ['all', 'dj', 'books']) {
+ assert.ok(agenda.includes(`data-agenda-filter="${category}"`));
+}
+assert.ok(agenda.includes('id="agenda"'));
+assert.ok(casa.includes('id="visite"'));
+assert.match(casa, /<template>\s*<iframe src="https:\/\/www\.google\.com\/maps\?/);
+const {savassi: months} = JSON.parse(await readFile('src/data/calendar-months.json', 'utf8'));
+assert.deepEqual((await readdir(path.join(root, 'data/calendar/savassi'))).sort(),
+ months.map(month => `${month}.json`));
 const cases=[
  ['/index.asp',301,'/'],['/?unity=Liberdade',301,'/liberdade/'],['/?unity=Savassi',301,'/'],['/?section=menu&subsection=all',301,'/cardapio/'],['/?section=menu&subsection=wine&unity=Liberdade',301,'/liberdade/carta-de-vinhos/'],['/?section=menu&subsection=dessert',301,'/sobremesas/'],['/m/index.asp?unity=Liberdade',301,'/m/liberdade/'],['/index-cardapios.asp',301,'/cardapiodigital/'],['/ajax/menu-card.asp?date=20261119',301,'/?date=20261119#part1'],['/admin/login/',404,null],['/system/connection.asp',404,null],['/novostalentos/files/probe.pdf',404,null],['/?unity=%27%20OR%201%3D1',400,null],['/?section=menu&subsection=invalid',400,null],['/talk-to-us.asp',503,null]
 ];
