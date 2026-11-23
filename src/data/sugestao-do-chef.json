@@ -14,28 +14,28 @@
   },
   "fotos": {
     "menu": {
-      "src": "/img/gastronomia/circuito-vegano-2026/menu.jpg",
+      "src": "/img/gastronomia/circuito-vegano-2026/menu.webp",
       "alt": "Os três pratos do Menu Pomar e Horta servidos juntos sobre a mesa de madeira",
-      "width": 900,
-      "height": 1348
+      "width": 800,
+      "height": 1198
     },
     "entrada": {
-      "src": "/img/gastronomia/circuito-vegano-2026/entrada.jpg",
+      "src": "/img/gastronomia/circuito-vegano-2026/entrada.webp",
       "alt": "Tapas de abóbora com crisps de couve e geleia de pimenta biquinho em travessa branca",
-      "width": 900,
-      "height": 1348
+      "width": 800,
+      "height": 1198
     },
     "principal": {
-      "src": "/img/gastronomia/circuito-vegano-2026/principal.jpg",
+      "src": "/img/gastronomia/circuito-vegano-2026/principal.webp",
       "alt": "Penne com legumes, grão-de-bico, banana grelhada e shiitake",
-      "width": 900,
-      "height": 1348
+      "width": 800,
+      "height": 1198
     },
     "sobremesa": {
-      "src": "/img/gastronomia/circuito-vegano-2026/sobremesa.jpg",
+      "src": "/img/gastronomia/circuito-vegano-2026/sobremesa.webp",
       "alt": "Pera ao vinho fatiada com sorbet de manga ubá",
-      "width": 900,
-      "height": 1348
+      "width": 800,
+      "height": 1198
     }
   },
   "creditoFotos": "Fotos: @dan.alvarezzz"
