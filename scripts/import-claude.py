@@ -25,7 +25,7 @@ for file in sorted((source / 'site').glob('*.html')):
         body = body.replace('href="#mapa"', 'href="/casa/#mapa"')
     body = body.replace('src="assets/', 'src="/claude/assets/')
     body = body.replace('https://reservation.getin.app/36qBovkN', 'https://usetag.me/cafecomletras')
-    body = body.replace('href="#delivery-ifood"', 'href="/delivery/"')
+    body = body.replace('href="#delivery-ifood"', 'href="https://www.ifood.com.br/delivery/belo-horizonte-mg/cafe-com-letras-savassi/b53324c0-32a8-4278-b229-4b362b7847cc" target="_blank" rel="noopener noreferrer"')
     # O WhatsApp é interpolado pelo componente a partir da configuração existente.
     body = body.replace('https://wa.me/5531984244285', '__WHATSAPP__')
     # Preservar a aparência, explicitar os controles demonstrativos ao foco/clique.
