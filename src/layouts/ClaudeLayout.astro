@@ -89,10 +89,9 @@ const adapt=(html:string)=>adaptBase(html).replace('<main>','<main id="main-cont
   {!documentTitle&&!custom&&['index','celular'].includes(name)&&
    <nav class="home-quick-links" aria-label="Planeje sua visita">
     <div class="wrap">
-     <a class="btn palco" href="/programacao/">Programação</a>
-     <a class="quick-link" href="/gastronomia/#cardapio">Cardápio</a>
-     <a class="quick-link" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
-     <a class="quick-link" href="#visite">Como chegar</a>
+     <a class="btn palco home-quick-primary" href="/programacao/">Programação</a>
+     <a class="btn home-quick-secondary" href="/gastronomia/#cardapio">Cardápio</a>
+     <a class="btn home-quick-secondary" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
     </div>
    </nav>
   }

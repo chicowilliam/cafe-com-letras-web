@@ -102,8 +102,8 @@ html.mobile-menu-open { overflow: hidden; }
 }
 
 .home-quick-links { border-bottom: 1px solid var(--color-line-deep); }
-.home-quick-links .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px 12px; padding-block: 8px; }
-.home-quick-links .quick-link, .visit-contact a {
+.home-quick-links .wrap { display: grid; grid-template-columns: 1.12fr 1fr 1fr; gap: 6px 12px; padding-block: 8px; }
+.visit-contact a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -113,11 +113,20 @@ html.mobile-menu-open { overflow: hidden; }
   font-size: 14px;
   font-weight: 600;
 }
-.home-quick-links .btn { padding-inline: 10px; }
+.home-quick-links .btn { min-width: 0; justify-content: center; padding: 6px 8px; text-align: center; line-height: 1.2; white-space: normal; }
+.home-quick-links .home-quick-secondary { border-color: var(--color-photo); background: var(--color-paper); }
+.home-quick-links .home-quick-secondary:active { background: var(--color-surface); }
+.home-quick-links .home-quick-primary:active { opacity: .9; }
+@media (hover: hover) and (pointer: fine) {
+  .home-quick-links .btn:hover { opacity: 1; }
+  body[data-design='claude'] .home-quick-links .home-quick-secondary:hover { background: var(--color-surface); border-color: var(--color-ink); }
+  body[data-design='claude'] .home-quick-links .home-quick-primary:hover { color: var(--color-palco); border-color: var(--color-palco); }
+}
 .visit-contact { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .visit-map { border-radius: var(--radius-action); overflow: hidden; }
 @media (max-width: 640px) {
-  .home-quick-links .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-quick-links .wrap { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr) minmax(0, 1fr); gap: 6px; }
+  .home-quick-links .btn { font-size: 13px; }
   .dining-mobile .dining-actions .dining-primary { grid-column: auto; }
 }
 
