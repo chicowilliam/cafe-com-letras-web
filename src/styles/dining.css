@@ -119,3 +119,6 @@
   .dining-filters .chip { padding-inline: 10px; font-size: 13px; }
   #menu-items summary, .menu-category-content { padding-inline: 8px; }
 }
+
+.veg-badge { background: transparent; color: var(--color-vegan); box-shadow: inset 0 0 0 1px var(--color-vegan); }
+.menu-note { margin-top: 18px; font-size: 14px; color: var(--color-text-muted); }
