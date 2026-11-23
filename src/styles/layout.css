@@ -50,16 +50,26 @@ html.mobile-menu-open { overflow: hidden; }
 .visit-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .visit-map button { background: var(--color-paper); }
 .visit-map [hidden] { display: none; }
-.faq { border-top: 1px solid var(--color-photo); }
-.faq .h2 { margin-bottom: 16px; }
-.faq details { padding: 0; }
+.faq {
+  display: grid;
+  grid-template-columns: minmax(200px, .7fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: clamp(16px, 4vw, 56px);
+  border-top: 1px solid var(--color-photo);
+}
+.faq-items { border-top: 2px solid var(--color-ink); }
+.faq details { border-bottom: 1px solid var(--color-photo); }
 .faq summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-block: 12px;
+  min-height: 52px;
+  padding: 12px 8px;
   list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.35;
 }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after {
@@ -72,14 +82,44 @@ html.mobile-menu-open { overflow: hidden; }
   border-bottom: 2px solid currentColor;
   transform: translateY(-2px) rotate(45deg);
 }
-.faq summary:active { color: var(--color-mesa); }
-.faq details[open] > summary::after { transform: translateY(2px) rotate(225deg); }
-.faq details p { margin-block: 0 16px; }
+.faq summary:focus-visible { outline-offset: -2px; }
+.faq details[open]:not([data-closing]) > summary {
+  color: var(--color-mesa);
+  background: var(--color-mesa-soft);
+}
+.faq details[open]:not([data-closing]) > summary::after { transform: translateY(2px) rotate(225deg); }
+.faq details[data-animating] .faq-answer { overflow: hidden; }
+.faq-answer p { max-width: 66ch; margin: 0; padding: 10px 8px 16px; line-height: 1.6; }
+.faq-answer a { text-underline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .faq details:not([open]) summary:hover { background: var(--color-surface); }
+}
 @media (prefers-reduced-motion: no-preference) {
-  body:not([data-input='keyboard']) .faq summary::after { transition: transform var(--motion-feedback) var(--ease-ui); }
-  body:not([data-input='keyboard']) .faq details[open] p { animation: disclosure-enter var(--motion-feedback) ease-out; }
+  .faq summary::after { transition: transform var(--motion-feedback) var(--ease-ui); }
+}
+@media (max-width: 760px) {
+  .faq { grid-template-columns: minmax(0, 1fr); }
 }
 
+.home-quick-links { border-bottom: 1px solid var(--color-line-deep); }
+.home-quick-links .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px 12px; padding-block: 8px; }
+.home-quick-links .quick-link, .visit-contact a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-underline-offset: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.home-quick-links .btn { padding-inline: 10px; }
+.visit-contact { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.visit-map { border-radius: var(--radius-action); overflow: hidden; }
+@media (max-width: 640px) {
+  .home-quick-links .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dining-mobile .dining-actions .dining-primary { grid-column: auto; }
+}
 
 body[data-design='claude'] .site-footer > .wrap {
   padding-block: clamp(28px, 4vw, 52px) calc(78px + env(safe-area-inset-bottom));
@@ -90,8 +130,8 @@ body[data-design='claude'] .site-footer > .wrap {
   gap: clamp(18px, 3vw, 36px);
   overflow-wrap: anywhere;
 }
-.footer-grid h2 { margin: 0 0 8px; color: var(--color-text-on-dark); }
-.footer-grid p { margin: 8px 0 0; }
+.footer-grid h2 { margin: 0 0 6px; color: var(--color-text-on-dark); }
+.footer-grid p { margin: 8px 0 0; max-width: 28ch; }
 .footer-grid ul { list-style: none; padding: 0; margin: 0; }
 .footer-grid li + li { margin-top: 4px; }
 .footer-brand img { display: block; height: 48px; width: auto; }
@@ -135,7 +175,7 @@ body[data-design='claude'] .site-footer > .wrap {
   .house-timeline > div + div { padding-inline-start: 0; border-inline-start: 0; border-top: 1px solid var(--color-photo); }
   .house-timeline > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 12px; align-items: center; }
   .house-timeline .p { margin-top: 0 !important; }
-  .footer-grid > :first-child { grid-column: 1 / -1; }
+  .footer-grid > :first-child { grid-column: 1 / -1; padding-bottom: 14px; border-bottom: 1px solid var(--color-line-deep); }
   .footer-grid li + li { margin-top: 0; }
   .footer-grid li:has(a) { line-height: 1.35; }
 }

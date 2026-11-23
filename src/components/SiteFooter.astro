@@ -3,6 +3,9 @@ import {mapsUrl, reservationUrl} from '../config/visit';
 import {whatsapp, whatsappMessage, type WhatsAppContext} from '../config/whatsapp';
 import InstitutionalSupport from './InstitutionalSupport.astro';
 
+interface Props { hasVisit: boolean }
+const { hasVisit } = Astro.props;
+
 const contact = (context?: WhatsAppContext) =>
  `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsappMessage(context))}`;
 ---
@@ -37,7 +40,7 @@ const contact = (context?: WhatsAppContext) =>
    <nav aria-label="Links úteis">
     <h2 class="tag">Links úteis</h2>
     <ul>
-     <li><a href="/casa/#visite">Endereço e horários</a></li>
+     <li><a href={hasVisit ? "#visite" : "/casa/#visite"}>Endereço e horários</a></li>
      <li><a href={mapsUrl} target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a></li>
      <li><a href="/casa/#eventos-privados">Eventos privados</a></li>
      <li><a href={contact('Trabalhe conosco')}>Trabalhe conosco</a></li>

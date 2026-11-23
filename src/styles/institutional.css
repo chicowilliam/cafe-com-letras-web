@@ -17,7 +17,6 @@ html:has(#cookie-preferences[open]){overflow:hidden}
 .legal-copy h1{font:800 clamp(36px,6vw,64px)/1.05 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;overflow-wrap:anywhere}
 .legal-copy h2{font-family:'Bricolage Grotesque',sans-serif;margin-top:32px}
 .review-notice{border-left:4px solid var(--color-mesa);padding:12px 20px;background:var(--color-surface)}
-.faq{padding-top:64px;padding-bottom:64px}.faq details{border-bottom:1px solid var(--color-ink);padding:16px 0}.faq summary{cursor:pointer;min-height:44px;font-weight:600;align-content:center}.faq p{max-width:70ch;line-height:1.6}
 .institutional-form-note{flex-basis:100%;font:14px/1.6 Inter,system-ui,sans-serif}.event-status{display:block;font:12px/1.6 'IBM Plex Mono',monospace;margin-top:8px}
 .skip-content{position:fixed;left:16px;top:-100px;z-index:100;background:var(--color-paper);color:var(--color-ink);padding:14px;border:2px solid currentColor}.skip-content:focus{top:16px}
 :focus-visible{outline:3px solid currentColor;outline-offset:4px}

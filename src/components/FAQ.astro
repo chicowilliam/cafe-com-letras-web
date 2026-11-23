@@ -1,7 +1,55 @@
-<section class="wrap faq" id="perguntas-frequentes" aria-labelledby="faq-title"><h2 class="h2" id="faq-title">Perguntas frequentes</h2>
-<details><summary>Como reservar uma mesa?</summary><p>Use <a href="https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg">Reservar no Get In</a>. A disponibilidade e a confirmação são apresentadas pelo sistema de reservas.</p></details>
-<details><summary>Como consultar a programação?</summary><p>Veja a <a href="/programacao/">Programação</a> e filtre por categoria. Confirme os detalhes com a casa antes da visita; horários e atrações podem mudar.</p></details>
-<details><summary>Onde fica o Café com Letras?</summary><p>Rua Antônio de Albuquerque, 781, Savassi, Belo Horizonte, MG. <a href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Ant%C3%B4nio%20de%20Albuquerque%20781%20Savassi%20Belo%20Horizonte">Abrir localização no Google Maps</a>.</p></details>
-<details><summary>Como funciona o couvert?</summary><p>Quando informado, o valor do couvert artístico aparece na programação e é por pessoa. Ausência de preço não significa entrada gratuita. Confirme valores e condições com a casa.</p></details>
-<details><summary>Como conversar sobre um evento privado?</summary><p>Entre em contato pelo <a href="https://wa.me/5531984244285?text=Ol%C3%A1%21%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20evento%20privado%20no%20Caf%C3%A9%20com%20Letras.">WhatsApp oficial</a>. O formulário demonstrativo do site não envia pedidos nem confirma disponibilidade.</p></details>
-<details><summary>Onde consultar os horários?</summary><p>Os horários informados pela casa estão na seção <a href="/casa/#visite">Visite</a>. Confirme alterações em feriados pelo WhatsApp.</p></details></section>
+<section class="wrap faq" data-faq id="perguntas-frequentes" aria-labelledby="faq-title"><h2 class="h2" id="faq-title">Perguntas frequentes</h2>
+<div class="faq-items">
+<details><summary>Como reservar uma mesa?</summary><div class="faq-answer"><p>Use <a href="https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg">Reservar no Get In</a>. A disponibilidade e a confirmação são apresentadas pelo sistema de reservas.</p></div></details>
+<details><summary>Como consultar a programação?</summary><div class="faq-answer"><p>Veja a <a href="/programacao/">Programação</a> e filtre por categoria. Confirme os detalhes com a casa antes da visita; horários e atrações podem mudar.</p></div></details>
+<details><summary>Onde fica o Café com Letras?</summary><div class="faq-answer"><p>Rua Antônio de Albuquerque, 781, Savassi, Belo Horizonte, MG. <a href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Ant%C3%B4nio%20de%20Albuquerque%20781%20Savassi%20Belo%20Horizonte">Abrir localização no Google Maps</a>.</p></div></details>
+<details><summary>Como funciona o couvert?</summary><div class="faq-answer"><p>Quando informado, o valor do couvert artístico aparece na programação e é por pessoa. Ausência de preço não significa entrada gratuita. Confirme valores e condições com a casa.</p></div></details>
+<details><summary>Como conversar sobre um evento privado?</summary><div class="faq-answer"><p>Entre em contato pelo <a href="https://wa.me/5531984244285?text=Ol%C3%A1%21%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20um%20evento%20privado%20no%20Caf%C3%A9%20com%20Letras.">WhatsApp oficial</a>. O formulário demonstrativo do site não envia pedidos nem confirma disponibilidade.</p></div></details>
+<details><summary>Onde consultar os horários?</summary><div class="faq-answer"><p>Os horários informados pela casa estão na seção <a href="/casa/#visite">Visite</a>. Confirme alterações em feriados pelo WhatsApp.</p></div></details>
+</div>
+</section>
+<script>
+ const motion = matchMedia('(prefers-reduced-motion: reduce)');
+
+ for (const details of document.querySelectorAll<HTMLDetailsElement>('[data-faq] details')) {
+  const summary = details.querySelector('summary');
+  const answer = details.querySelector<HTMLElement>('.faq-answer');
+  if (!summary || !answer) continue;
+
+  let animation: Animation | undefined;
+
+  summary.addEventListener('click', event => {
+   const expanded = !details.open || details.hasAttribute('data-closing');
+   if (motion.matches && !animation) return;
+
+   event.preventDefault();
+   const currentHeight = details.open ? answer.getBoundingClientRect().height : 0;
+   animation?.cancel();
+   details.open = true;
+   details.setAttribute('data-animating', '');
+   details.toggleAttribute('data-closing', !expanded);
+   answer.inert = !expanded;
+
+   const finish = () => {
+    details.open = expanded;
+    details.removeAttribute('data-closing');
+    details.removeAttribute('data-animating');
+    answer.inert = false;
+    animation?.cancel();
+    animation = undefined;
+   };
+
+   if (motion.matches) {
+    finish();
+    return;
+   }
+
+   animation = answer.animate(
+    [{ height: `${currentHeight}px` },
+     { height: `${expanded ? answer.scrollHeight : 0}px` }],
+    { duration: expanded ? 210 : 160, easing: 'cubic-bezier(.2,.65,.35,1)' },
+   );
+   animation.onfinish = finish;
+  });
+ }
+</script>
