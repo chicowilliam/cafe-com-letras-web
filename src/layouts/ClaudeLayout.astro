@@ -1,4 +1,5 @@
 ---
+import {reservationUrl} from '../config/visit';
 import {legalReview} from '../config/institutional';
 import {pages,production,publicData} from '../lib/data';
 import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature} from '../lib/home-stage';
@@ -60,7 +61,7 @@ const schema=JSON.stringify({'@context':'https://schema.org','@graph':graph}).re
 const instituteName='Instituto Cidades Criativas';
 const instituteUrl='http://cidadescriativas.org.br/site/';
 const instituteDescription='Instituto que realiza o Savassi Festival.';
-const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__INSTITUTE_URL__',instituteUrl).replaceAll('__INSTITUTE_NAME__',instituteName).replaceAll('__INSTITUTE_DESCRIPTION__',instituteDescription).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
+const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__INSTITUTE_URL__',instituteUrl).replaceAll('__INSTITUTE_NAME__',instituteName).replaceAll('__INSTITUTE_DESCRIPTION__',instituteDescription).replaceAll('__RESERVATION__',reservationUrl.replaceAll('&','&amp;')).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
 const adapt=(html:string)=>adaptBase(html).replace('<main>','<main id="main-content" tabindex="-1">');
 ---
 <!doctype html>

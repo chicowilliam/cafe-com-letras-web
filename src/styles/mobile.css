@@ -75,25 +75,8 @@
     aspect-ratio: 7 / 4;
     border-radius: 4px;
   }
-  body[data-design='claude'] .mobile-feature .btn {
+  body[data-design='claude'] .mobile-feature-palco .btn {
     margin-top: 20px !important;
     max-width: calc(100% - 56px);
   }
-}
-
-@media (max-width: 720px) {
-  #menu-items { column-count: 1 !important; }
-  #menu-items [data-menu-group] { margin-bottom: 32px; }
-  #menu-items .h3 { font-size: 27px !important; }
-  #menu-items .row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) max-content;
-    align-items: baseline;
-    gap: 8px 14px;
-    padding-block: 14px;
-  }
-  #menu-items .row .n { font-size: 16px; line-height: 1.35; }
-  #menu-items .row .d { font-size: 14px; line-height: 1.55; }
-  #menu-items .row .pr { font-size: 14px; font-variant-numeric: tabular-nums; text-align: end; }
-  #cardapio [data-menu-filter] { padding-inline: 11px; }
 }

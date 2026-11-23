@@ -10,6 +10,7 @@
 @import './mobile.css';
 @import './polish.css';
 @import './layout.css';
+@import './dining.css';
 @source '../design/claude';
 @source '../layouts';
 @source '../client';

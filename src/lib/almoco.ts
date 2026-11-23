@@ -85,11 +85,11 @@ const emBreve = (state: AlmocoState) => state.date
   ? `O cardápio de ${weekdays[weekday(state.date)]}, ${dm(state.date)}, ainda não foi publicado. Volte em breve.`
   : 'O cardápio da próxima semana ainda não foi publicado. Volte em breve.';
 
-const vegan = '<span class="v" role="img" aria-label="vegano" title="Vegano">V</span>';
+const vegan = '<span class="vegan-badge" data-vegan>Vegano</span>';
 
 /** Linhas compactas (nome do prato + preço) para os destaques da home. */
 function compactRows(dia: DiaAlmoco, size: number, mobile: boolean) {
-  const row = (label: string, text: string, price: number, extra = '') => `<div class="flex justify-between gap-[16px]" style="padding:${mobile ? 10 : 12}px 0;border-top:1px solid rgba(255,255,255,.35)"><span class="${mobile ? 'max-[601px]:min-w-0 max-[601px]:flex-1' : ''}"><span class="tag" style="display:block;opacity:.8;font-size:${mobile ? 11 : 12}px;margin-bottom:4px">${label}${extra}</span><span style="font-size:${size}px;font-weight:600;line-height:1.3">${esc(text)}</span></span><span class="mono${mobile ? ' max-[601px]:shrink-0 max-[601px]:whitespace-nowrap' : ''}" style="font-weight:500;white-space:nowrap;font-size:${size}px">${brl(price)}</span></div>`;
+  const row = (label: string, text: string, price: number, extra = '') => `<div class="dining-price-row flex justify-between gap-[16px]" style="padding:${mobile ? 10 : 12}px 0;border-top:1px solid rgba(255,255,255,.35)"><span class="${mobile ? 'max-[601px]:min-w-0 max-[601px]:flex-1' : ''}"><span class="tag" style="display:block;opacity:.8;font-size:${mobile ? 11 : 12}px;margin-bottom:4px">${label}${extra}</span><span style="font-size:${size}px;font-weight:600;line-height:1.3">${esc(text)}</span></span><span class="mono${mobile ? ' max-[601px]:shrink-0 max-[601px]:whitespace-nowrap' : ''}" style="font-weight:500;white-space:nowrap;font-size:${size}px">${brl(price)}</span></div>`;
   return [
     dia.menuDoDia ? row('Menu do Dia · entrada, principal e sobremesa', dia.menuDoDia.principal, dia.menuDoDia.preco) : '',
     dia.executivo ? row('Executivo', dia.executivo.prato, dia.executivo.preco) : '',
@@ -106,7 +106,7 @@ export function renderAlmocoHome(state: AlmocoState) {
 
 /** Destaque "Almoço executivo" da home no celular (sem o botão). */
 export function renderAlmocoMobile(state: AlmocoState) {
-  const head = `<div class="tag" style="opacity:.85;font-size:11px">À mesa · ${esc(almocoStatus(state))}</div><div class="disp" style="font-size:40px;margin-top:10px">Almoço executivo</div>`;
+  const head = `<div class="tag" style="opacity:.85;font-size:11px">À mesa · ${esc(almocoStatus(state))}</div><h2 class="disp dining-mobile-title">Almoço executivo</h2>`;
   if (!state.dia) return `${head}<p class="mt-[12px]" style="font-size:15px;line-height:1.4">${esc(emBreve(state))}</p>`;
   return `${head}<div class="mt-[12px]">${compactRows(state.dia, 15, true)}</div>`;
 }
@@ -116,7 +116,7 @@ function panel(dia: DiaAlmoco) {
     const reason = dia.feriado ? `Feriado (${esc(dia.feriado)}): não há almoço executivo neste dia.` : 'Cardápio deste dia ainda não publicado.';
     return `<p style="font-size:19px;font-weight:600;padding:24px 0;border-top:1.5px solid rgba(255,255,255,.55)">${reason}</p>`;
   }
-  const card = (title: string, price: number, body: string, sub = '', badge = '') => `<article style="border-top:1.5px solid rgba(255,255,255,.7);padding-top:16px;min-width:0"><div class="flex justify-between items-baseline gap-[12px]"><h3 class="h3" style="font-size:26px">${title}${badge}</h3><span class="mono" style="font-size:20px;white-space:nowrap">${brl(price)}</span></div>${sub ? `<p class="tag" style="opacity:.8;margin-top:6px">${sub}</p>` : ''}${body}</article>`;
+  const card = (title: string, price: number, body: string, sub = '', badge = '') => `<article style="border-top:1.5px solid rgba(255,255,255,.7);padding-top:16px;min-width:0"><div class="dining-price-row flex justify-between items-baseline gap-[12px]"><h3 class="h3" style="font-size:26px">${title}${badge}</h3><span class="mono" style="font-size:20px;white-space:nowrap">${brl(price)}</span></div>${sub ? `<p class="tag" style="opacity:.8;margin-top:6px">${sub}</p>` : ''}${body}</article>`;
   const text = (value: string) => `<p style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.4">${esc(value)}</p>`;
   const course = (label: string, value: string) => `<div style="padding:10px 0;border-top:1px solid rgba(255,255,255,.3)"><dt class="tag" style="opacity:.75">${label}</dt><dd style="margin:4px 0 0;font-size:17px;font-weight:600;line-height:1.35">${esc(value)}</dd></div>`;
   const m = dia.menuDoDia;

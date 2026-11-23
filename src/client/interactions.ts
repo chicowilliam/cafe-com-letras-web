@@ -169,29 +169,45 @@ if('IntersectionObserver' in window&&!reducedMotion.matches){
  document.addEventListener('focusin',event=>{if(event.target instanceof Element)event.target.closest('[data-scroll-reveal]')?.classList.remove('reveal-pending');});
  addEventListener('beforeprint',revealAll);
 }
-const menuItems=document.querySelector<HTMLElement>('#menu-items');
-if(menuItems){
- const filters=document.querySelectorAll<HTMLButtonElement>('[data-menu-filter]');
+const menuItems=document.querySelector('#menu-items');
+const menuFilters=document.querySelector<HTMLElement>('[data-menu-filters]');
+if(menuItems&&menuFilters){
+ const filters=menuFilters.querySelectorAll<HTMLButtonElement>('[data-menu-filter]');
+ const groups=Array.from(menuItems.querySelectorAll<HTMLDetailsElement>('[data-menu-group]'),element=>({
+  element,
+  count:element.querySelector('[data-menu-count]'),
+  rows:Array.from(element.querySelectorAll<HTMLElement>('.row')),
+ }));
  const status=document.querySelector('#menu-filter-status');
+ let activeFilter='all';
+ let expanded=new Set<HTMLDetailsElement>();
+
+ menuFilters.hidden=false;
  for(const button of filters){
   button.addEventListener('click',()=>{
    const filter=button.dataset.menuFilter;
+   if(!filter||filter===activeFilter)return;
+   if(activeFilter==='all')expanded=new Set(groups.map(group=>group.element).filter(group=>group.open));
+
    let count=0;
-   for(const group of menuItems.querySelectorAll<HTMLElement>('[data-menu-group]')){
+   for(const {element,count:label,rows} of groups){
     let visible=0;
-    for(const row of group.querySelectorAll<HTMLElement>('.row')){
-     row.hidden=filter==='vegan' ? !row.querySelector('[aria-label="vegano"]')
-      : filter==='share' && group.dataset.menuGroup!=='share';
+    for(const row of rows){
+     row.hidden=filter==='vegan' ? !row.querySelector('[data-vegan]')
+      : filter==='share' && element.dataset.menuGroup!=='share';
      if(!row.hidden)visible++;
     }
-    group.hidden=visible===0;
+    element.hidden=visible===0;
+    element.open=filter==='all'?expanded.has(element):visible>0;
+    if(label)label.textContent=visible===1?'1 item':`${visible} itens`;
     count+=visible;
    }
    for(const control of filters){
     control.classList.toggle('on',control===button);
     control.setAttribute('aria-pressed',String(control===button));
    }
-   if(status)status.textContent=`${count} itens exibidos.`;
+   activeFilter=filter;
+   if(status)status.textContent=count===1?'1 item encontrado.':`${count} itens encontrados.`;
   });
  }
 }

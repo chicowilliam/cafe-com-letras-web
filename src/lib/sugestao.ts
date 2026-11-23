@@ -9,7 +9,7 @@ export const ORDEM: [Etapa, string][] = [['compartilhar', 'Para compartilhar'], 
 const esc = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const brl = (value: number) => `R$ ${Number.isInteger(value) ? value : value.toFixed(2).replace('.', ',')}`;
 const dm = (date: string) => `${date.slice(8, 10)}/${date.slice(5, 7)}`;
-const vegan = '<span class="v" role="img" aria-label="vegano" title="Vegano">V</span>';
+const vegan = '<span class="vegan-badge" data-vegan>Vegano</span>';
 
 /** A sugestão vigente no dia (AAAAMMDD), ou undefined fora do período. */
 export function sugestaoVigente(data: Sugestao, day: string): Sugestao | undefined {
@@ -40,6 +40,6 @@ export function renderSugestaoHome(s: Sugestao | undefined, mobile = false) {
   if (!s) return '';
   const label = `Sugestão do chef${s.contexto ? ` · ${esc(s.contexto)}` : ''}`;
   const price = s.preco ? `<span class="mono" style="font-weight:500;white-space:nowrap">${brl(s.preco)}</span>` : '';
-  if (mobile) return `<div class="mt-[16px]" style="border-top:1.5px solid rgba(255,255,255,.6);padding-top:12px;font-size:15px"><span class="tag" style="font-size:11px;opacity:.85">${label}</span><div class="flex justify-between gap-[12px] mt-[4px]"><strong>${esc(s.nome)}${s.vegano ? vegan : ''}</strong>${price}</div><div style="font-size:13px;opacity:.85;margin-top:2px">${esc(etapasTexto(s))}</div></div>`;
+  if (mobile) return `<div class="dining-chef-note"><span class="tag" style="font-size:11px;opacity:.85">${label}</span><div class="dining-price-row flex justify-between gap-[12px] mt-[4px]"><strong>${esc(s.nome)}${s.vegano ? vegan : ''}</strong>${price}</div><div style="font-size:13px;opacity:.85;margin-top:2px">${esc(etapasTexto(s))}</div></div>`;
   return `<div style="border-top:1.5px solid rgba(255,255,255,.7);padding:16px 0"><div class="tag" style="opacity:.85">${label}</div><div class="flex justify-between gap-[16px] mt-[8px]" style="font-size:20px;font-weight:600;line-height:1.3"><span>${esc(s.nome)}${s.vegano ? vegan : ''}<span style="display:block;font-size:15px;font-weight:500;opacity:.85;margin-top:2px">${esc(etapasTexto(s))}</span></span>${price}</div></div>`;
 }
