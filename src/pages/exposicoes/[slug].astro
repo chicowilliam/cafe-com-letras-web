@@ -1,0 +1,62 @@
+---
+// Página de uma exposição nas paredes do Café: artistas, textos, obras, período e curadoria.
+// Dados em src/data/exhibitions.json. O card da exposição em /programacao/#em-cartaz aponta para cá.
+import ClaudeLayout from '../../layouts/ClaudeLayout.astro';
+import template from '../../design/claude/evento.html?raw';
+import exhibitions from '../../data/exhibitions.json';
+import {escapeHTML} from '../../lib/presentation';
+
+interface Image {src:string;small:string;width:number;height:number;alt:string;position:string}
+interface Work {title:string;details:string;image:Image}
+interface Artist {name:string;origin:string;photo:Image;bio:string[];works:Work[]}
+interface Exhibition {slug:string;title:string;artistsLine:string;gallery:string;curator:string;start:string;end:string;period:string;intro:string;cover:Image;artists:Artist[]}
+
+for(const ex of exhibitions as Exhibition[]){
+ if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(ex.slug))throw new Error(`Slug de exposição inválido: ${ex.slug}`);
+ if(!/^\d{8}$/.test(ex.start)||!/^\d{8}$/.test(ex.end)||ex.start>ex.end)throw new Error(`Período de exposição inválido: ${ex.slug}`);
+}
+export function getStaticPaths(){return (exhibitions as Exhibition[]).map(exhibition=>({params:{slug:exhibition.slug},props:{exhibition}}));}
+interface Props {exhibition:Exhibition}
+const {exhibition:ex}=Astro.props;
+
+const start=template.indexOf('<main>');const end=template.indexOf('</main>');
+if(start<0||end<0)throw new Error('Modelo evento.html sem <main>.');
+
+const img=(i:Image,style:string,sizes='(max-width:900px) 100vw, 600px')=>`<img src="${i.src}" srcset="${i.small} 440w, ${i.src} ${i.width}w" sizes="${sizes}" width="${i.width}" height="${i.height}" alt="${escapeHTML(i.alt)}" loading="lazy" decoding="async" style="display:block;width:100%;${style};object-position:${i.position};background:var(--color-photo)">`;
+
+const artists=ex.artists.map(a=>`<section style="margin-top:72px;border-top:1.5px solid var(--color-ink);padding-top:40px">
+ <div class="gap-[40px]" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)" data-responsive-grid>
+  ${img(a.photo,'height:auto;aspect-ratio:4/3;object-fit:cover')}
+  <div>
+   <div class="tag">${escapeHTML(a.origin)}</div>
+   <h2 class="h2" style="margin-top:10px;font-size:44px">${escapeHTML(a.name)}</h2>
+   ${a.bio.map(p=>`<p class="p" style="margin-top:16px;color:var(--color-text-muted)">${escapeHTML(p)}</p>`).join('')}
+  </div>
+ </div>
+ <div class="gap-[32px]" style="margin-top:40px;display:grid;grid-template-columns:repeat(${a.works.length},minmax(0,1fr))" data-responsive-grid>
+  ${a.works.map(w=>`<figure style="margin:0">${img(w.image,'height:auto;aspect-ratio:auto;object-fit:contain','(max-width:900px) 100vw, 560px')}<figcaption style="margin-top:14px"><div class="h3" style="font-size:24px;font-style:italic">${escapeHTML(w.title)}</div><div class="p" style="margin-top:6px;font-size:15px;color:var(--color-text-muted)">${escapeHTML(w.details)}</div></figcaption></figure>`).join('')}
+ </div>
+</section>`).join('');
+
+const main=`<main>
+<div class="wrap" style="padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--color-text-muted)"><a href="/programacao/">Programação</a> / Exposição / ${escapeHTML(ex.title)}</div>
+<section class="wrap" style="padding-bottom:96px">
+ <div class="gap-[40px]" style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:end" data-responsive-grid>
+  <div>
+   <div class="tag">Exposição · ${escapeHTML(ex.period)}</div>
+   <h1 class="disp" style="font-size:72px;margin-top:14px">${escapeHTML(ex.title)}</h1>
+   <div class="h3" style="margin-top:14px;font-size:30px">${escapeHTML(ex.artistsLine)}</div>
+   <p class="p" style="margin-top:18px">Por ${escapeHTML(ex.gallery)}, galeria que representa os artistas · Curadoria: ${escapeHTML(ex.curator)}</p>
+   <p class="p" style="margin-top:18px;max-width:640px;color:var(--color-text-muted)">${escapeHTML(ex.intro)}</p>
+   <p class="p" style="margin-top:18px;color:var(--color-text-muted)">Nas paredes do Café, aberta todos os dias no horário da casa. Entrada livre.</p>
+  </div>
+  ${img(ex.cover,'height:auto;aspect-ratio:1/1;object-fit:cover')}
+ </div>
+ ${artists}
+ <div class="acts" style="margin-top:56px"><a class="btn" href="/programacao/">Ver toda a programação</a></div>
+</section>
+</main>`;
+const html=template.slice(0,start)+main+template.slice(end+'</main>'.length);
+const description=`Exposição “${ex.title}”, de ${ex.artistsLine}, no Café com Letras Savassi, de ${ex.period}. Por ${ex.gallery}, curadoria de ${ex.curator}. Entrada livre.`;
+---
+<ClaudeLayout custom={{key:'exposicao',title:`Exposição “${ex.title}”`,description,path:`/exposicoes/${ex.slug}/`,html}} />

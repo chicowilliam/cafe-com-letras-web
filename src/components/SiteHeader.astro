@@ -3,7 +3,7 @@ import {reservationUrl} from '../config/visit';
 
 interface Props { page: string }
 const {page}=Astro.props;
-const activePage=['evento','festival'].includes(page)||page.startsWith('artista')?'programacao':page;
+const activePage=['evento','festival','exposicao'].includes(page)||page.startsWith('artista')?'programacao':page;
 const links=[
  ['/','Início','index','m3 10 9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 21v-7h6v7'],
  ['/gastronomia/','Gastronomia','gastronomia','M3 3v5a3 3 0 0 0 6 0V3 M6 3v18 M20 3c-3 2-5 5-5 9h5m0-9v18'],

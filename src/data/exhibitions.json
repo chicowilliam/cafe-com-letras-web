@@ -1,0 +1,108 @@
+[
+ {
+  "slug": "para-eu-nao-me-doer",
+  "title": "Para eu Não Me Doer",
+  "artistsLine": "Petchó Silveira e Luiza Azam",
+  "gallery": "Quarta Parede Estúdio",
+  "curator": "Luisa Borges",
+  "start": "20270121",
+  "end": "20270321",
+  "period": "21 de janeiro a 21 de março de 2027",
+  "intro": "A exposição reúne retratos de dois artistas que trabalham a figura humana: Petchó Silveira, de Belém do Pará, que pinta sobre papelão personagens e realidades do seu cotidiano, e Luiza Azam, de Belo Horizonte, que constrói seus retratos com giz pastel oleoso e cores intensas.",
+  "cover": {
+   "src": "/img/exposicoes/luiza-azam-abraco-800.webp",
+   "small": "/img/exposicoes/luiza-azam-abraco-440.webp",
+   "width": 800,
+   "height": 800,
+   "alt": "Abraço, de Luiza Azam: em giz pastel oleoso, um homem negro em tons de azul e rosa abraça outra pessoa, sobre fundo vermelho",
+   "position": "50% 30%"
+  },
+  "artists": [
+   {
+    "name": "Petchó Silveira",
+    "origin": "Belém, PA",
+    "photo": {
+     "src": "/img/exposicoes/petcho-silveira-retrato-800.webp",
+     "small": "/img/exposicoes/petcho-silveira-retrato-440.webp",
+     "width": 800,
+     "height": 534,
+     "alt": "Petchó Silveira de braços cruzados em seu ateliê, diante de retratos pintados sobre papelão",
+     "position": "50% 40%"
+    },
+    "bio": [
+     "Artista residente da Quarta Parede, Petchó é artista visual, nascido e criado em Belém do Pará. Desenvolveu sua linguagem artística através de pinturas que retratam personagens, histórias e realidades da região onde mora, a partir de observações de seu cotidiano, com um olhar direcionado à marginalização de pessoas negras na sociedade.",
+     "Ao longo de sua carreira, criou diversas obras que contam histórias da sua vida em Belém, fragmentos de sua memória e observação das pessoas ao seu redor: retratos em papelão, telas e esculturas de madeira. Em 2026, tem a exposição “O Fogo Tem a Cor da Minha Pele” na Quarta Parede Estúdio e exposições no Arte Pará, na Art Basel em Miami e no Museu Afro Brasil, em São Paulo."
+    ],
+    "works": [
+     {
+      "title": "Sem Título",
+      "details": "Acrílica sobre papelão · 37 x 24 cm · 2025",
+      "image": {
+       "src": "/img/exposicoes/petcho-silveira-sem-titulo-37x24-800.webp",
+       "small": "/img/exposicoes/petcho-silveira-sem-titulo-37x24-440.webp",
+       "width": 800,
+       "height": 1100,
+       "alt": "Sem Título, de Petchó Silveira: retrato de um jovem negro de camiseta laranja pintado sobre papelão, com um círculo azul escorrendo sobre o olho",
+       "position": "50% 50%"
+      }
+     },
+     {
+      "title": "Sem Título",
+      "details": "Acrílica sobre papelão · 61 x 45 cm · 2025",
+      "image": {
+       "src": "/img/exposicoes/petcho-silveira-sem-titulo-61x45-800.webp",
+       "small": "/img/exposicoes/petcho-silveira-sem-titulo-61x45-440.webp",
+       "width": 800,
+       "height": 1052,
+       "alt": "Sem Título, de Petchó Silveira: retrato de uma criança negra sobre fundo laranja, pintado em papelão, com pinceladas azuis sobre a cabeça",
+       "position": "50% 50%"
+      }
+     }
+    ]
+   },
+   {
+    "name": "Luiza Azam | Arts Maza",
+    "origin": "Belo Horizonte, MG",
+    "photo": {
+     "src": "/img/exposicoes/luiza-azam-retrato-800.webp",
+     "small": "/img/exposicoes/luiza-azam-retrato-440.webp",
+     "width": 800,
+     "height": 600,
+     "alt": "Luiza Azam sorrindo diante de um mural colorido assinado Arts Maza",
+     "position": "50% 35%"
+    },
+    "bio": [
+     "Natural de Belo Horizonte, Luiza Azam criou o projeto Arts Maza em 2020. Desde então, desenvolve trabalhos voltados à representação da figura humana, com uma identidade visual marcada pelo uso expressivo de cores e texturas.",
+     "A artista utiliza principalmente giz pastel oleoso, tinta acrílica e PVA em suas produções. Ao longo da trajetória, participou de mostras e eventos como a feira de artes gráficas NUH, na Funarte, o Museu Mineiro, o Modernos Eternos, o Minas Trend e iniciativas da FIEMG.",
+     "Atualmente, Luiza também se dedica à produção de ateliê e atua como co-idealizadora do Produzindo por Beagá, projeto cultural e comunidade voltado à cena criativa da capital mineira."
+    ],
+    "works": [
+     {
+      "title": "Abraço",
+      "details": "Giz pastel oleoso e tinta PVA sobre papel paraná · 75 x 75 cm (com moldura) · 2026",
+      "image": {
+       "src": "/img/exposicoes/luiza-azam-abraco-800.webp",
+       "small": "/img/exposicoes/luiza-azam-abraco-440.webp",
+       "width": 800,
+       "height": 800,
+       "alt": "Abraço, de Luiza Azam: em giz pastel oleoso, um homem negro em tons de azul e rosa abraça outra pessoa, sobre fundo vermelho",
+       "position": "50% 50%"
+      }
+     },
+     {
+      "title": "Pretender",
+      "details": "Giz pastel oleoso e tinta PVA sobre papel paraná · 45 x 95 cm (com moldura) · 2025",
+      "image": {
+       "src": "/img/exposicoes/luiza-azam-pretender-800.webp",
+       "small": "/img/exposicoes/luiza-azam-pretender-440.webp",
+       "width": 724,
+       "height": 964,
+       "alt": "Pretender, de Luiza Azam: retrato de um homem com a mão sobre a boca, em traços coloridos de giz pastel sobre fundo vermelho",
+       "position": "50% 50%"
+      }
+     }
+    ]
+   }
+  ]
+ }
+]
