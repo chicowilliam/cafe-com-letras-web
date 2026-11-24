@@ -31,7 +31,7 @@
         "principal": "Medalhão suíno ao molho de jabuticaba com purê de batata, farofa de cebola crocante e salada",
         "sobremesa": "Arroz doce moreno cremoso"
       },
-      "executivo": { "prato": "Parmegiana de frango com purê de batata e salada", "preco": 44 },
+      "executivo": { "prato": "Strogonoff de frango com chips de batata e arroz", "preco": 44 },
       "vegano": { "prato": "Arroz vermelho temperado com grão-de-bico, linguiça de cogumelos e vinagrete de manga com pimenta dedo-de-moça e coentro", "preco": 49 }
     },
     {
