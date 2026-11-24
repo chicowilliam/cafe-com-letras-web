@@ -25,7 +25,7 @@ if(start<0||end<0)throw new Error('Modelo evento.html sem <main>.');
 const img=(i:Image,style:string,sizes='(max-width:900px) 100vw, 600px')=>`<img src="${i.src}" srcset="${i.small} 440w, ${i.src} ${i.width}w" sizes="${sizes}" width="${i.width}" height="${i.height}" alt="${escapeHTML(i.alt)}" loading="lazy" decoding="async" style="display:block;width:100%;${style};object-position:${i.position};background:var(--color-photo)">`;
 
 const artists=ex.artists.map(a=>`<section style="margin-top:72px;border-top:1.5px solid var(--color-ink);padding-top:40px">
- <div class="gap-[40px]" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)" data-responsive-grid>
+ <div style="display:grid;gap:clamp(28px,4.5vw,56px);align-items:start;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)" data-responsive-grid>
   ${img(a.photo,'height:auto;aspect-ratio:4/3;object-fit:cover')}
   <div>
    <div class="tag">${escapeHTML(a.origin)}</div>
@@ -41,7 +41,7 @@ const artists=ex.artists.map(a=>`<section style="margin-top:72px;border-top:1.5p
 const main=`<main>
 <div class="wrap" style="padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--color-text-muted)"><a href="/programacao/">Programação</a> / Exposição / ${escapeHTML(ex.title)}</div>
 <section class="wrap" style="padding-bottom:96px">
- <div class="gap-[40px]" style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:end" data-responsive-grid>
+ <div style="display:grid;gap:clamp(28px,4.5vw,56px);grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:end" data-responsive-grid>
   <div>
    <div class="tag">Exposição · ${escapeHTML(ex.period)}</div>
    <h1 class="disp" style="font-size:72px;margin-top:14px">${escapeHTML(ex.title)}</h1>
