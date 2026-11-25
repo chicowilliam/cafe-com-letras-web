@@ -1,5 +1,6 @@
 html:has(.site-header) {
   scroll-padding-top: calc(var(--site-header-height, 124px) + 12px);
+  scroll-padding-bottom: calc(76px + env(safe-area-inset-bottom));
 }
 .site-header {
   position: sticky;
@@ -196,7 +197,6 @@ body[data-design='claude'] .site-footer > .wrap {
 @media (max-width: 900px) {
   html:has(.site-header) {
     scroll-padding-top: calc(var(--site-header-height, 68px + env(safe-area-inset-top)) + 12px);
-    scroll-padding-bottom: calc(76px + env(safe-area-inset-bottom));
   }
   .visit-grid { grid-template-columns: minmax(0, 1fr); }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

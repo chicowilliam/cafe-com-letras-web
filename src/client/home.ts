@@ -1,6 +1,6 @@
 // Atualiza "No palco" e "Esta semana" da home pela data de Belo Horizonte,
 // para a virada da meia-noite não depender de um novo deploy.
-import {addDays,bhNow,homeSignature,pickHome,renderMobileStage,renderMobileWeek,renderStage,renderWeek,type HomeState,type StageArtist,type StageEvent} from '../lib/home-stage';
+import {addDays,bhNow,homeSignature,pickHome,renderMobileStage,renderMobileWeek,renderV2Date,renderV2Stage,renderV2Week,renderStage,renderWeek,type HomeState,type StageArtist,type StageEvent} from '../lib/home-stage';
 import monthIndex from '../data/calendar-months.json';
 
 interface Chunk {events:StageEvent[];artists:StageArtist[]}
@@ -14,7 +14,7 @@ function month(key:string){
  }
  return request;
 }
-const renderers:Record<string,(state:HomeState,artists:Map<number,StageArtist>)=>string>={stage:renderStage,week:renderWeek,mstage:renderMobileStage,mweek:renderMobileWeek};
+const renderers:Record<string,(state:HomeState,artists:Map<number,StageArtist>)=>string>={stage:renderStage,week:renderWeek,mstage:renderMobileStage,mweek:renderMobileWeek,v2date:renderV2Date,v2stage:renderV2Stage,v2week:renderV2Week};
 
 async function refresh(){
  const now=bhNow();

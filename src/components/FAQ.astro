@@ -1,5 +1,9 @@
-<section class="wrap faq" data-faq id="perguntas-frequentes" aria-labelledby="faq-title"><h2 class="h2" id="faq-title">Perguntas frequentes</h2>
-<div class="faq-items">
+---
+interface Props { v2?: boolean }
+const {v2=false}=Astro.props;
+---
+<section class={v2?'v2-faq':'wrap faq'} data-faq id="perguntas-frequentes" aria-labelledby="faq-title"><h2 class="h2" id="faq-title">Perguntas frequentes</h2>
+<div class={v2?'acordeao faq':'faq-items'}>
 <details><summary>Como reservar uma mesa?</summary><div class="faq-answer"><p>Use <a href="https://reservation.getin.app/36qBovkN?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVuqRlleHRuA2FlbQIxMQBwZG9mAmZkaWQWUSprkyoRb8PZn_lrfI4UitinV6V4UHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp3OtnfkFWrddmH6vz1lHWFMNHRadofO9_j-0MJiUF2jYwv61asJeZZDc2fT6_aem_9Z7Y5oVvOBGYougNCU8vKg">Reservar no Get In</a>. A disponibilidade e a confirmação são apresentadas pelo sistema de reservas.</p></div></details>
 <details><summary>Como consultar a programação?</summary><div class="faq-answer"><p>Veja a <a href="/programacao/">Programação</a> e filtre por categoria. Confirme os detalhes com a casa antes da visita; horários e atrações podem mudar.</p></div></details>
 <details><summary>Onde fica o Café com Letras?</summary><div class="faq-answer"><p>Rua Antônio de Albuquerque, 781, Savassi, Belo Horizonte, MG. <a href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Ant%C3%B4nio%20de%20Albuquerque%20781%20Savassi%20Belo%20Horizonte">Abrir localização no Google Maps</a>.</p></div></details>

@@ -111,6 +111,17 @@ export function renderAlmocoMobile(state: AlmocoState) {
   return `${head}<div class="mt-[12px]">${compactRows(state.dia, 15, true)}</div>`;
 }
 
+export function renderV2Almoco(state: AlmocoState) {
+  if (!state.dia) return `<li><span class="prato">${esc(emBreve(state))}</span></li>`;
+  const {menuDoDia, executivo, vegano} = state.dia;
+  const row = (label: string, dish: string, price: number) => `<li><span class="tipo">${label}</span><span class="prato">${esc(dish)}</span><span class="preco">${brl(price)}</span></li>`;
+  return [
+    menuDoDia && row('Menu do Dia', menuDoDia.principal, menuDoDia.preco),
+    executivo && row('Executivo', executivo.prato, executivo.preco),
+    vegano && row('Executivo vegano', vegano.prato, vegano.preco),
+  ].filter(Boolean).join('');
+}
+
 function panel(dia: DiaAlmoco) {
   if (dia.feriado || !hasMenu(dia)) {
     const reason = dia.feriado ? `Feriado (${esc(dia.feriado)}): não há almoço executivo neste dia.` : 'Cardápio deste dia ainda não publicado.';

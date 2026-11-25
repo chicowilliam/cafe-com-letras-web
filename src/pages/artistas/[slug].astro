@@ -1,6 +1,6 @@
 ---
 import ClaudeLayout from '../../layouts/ClaudeLayout.astro';
-import template from '../../design/claude/evento.html?raw';
+import template from '../../design/v2/artista.html?raw';
 import {publicData,contentDay} from '../../lib/data';
 import {artistProfiles,upcomingEvents,shortTime,type ArtistProfile} from '../../lib/artists';
 import {escapeHTML,weekday} from '../../lib/presentation';
@@ -19,10 +19,6 @@ const ex=profile.exhibition&&contentDay<=profile.exhibition.end?profile.exhibiti
 const MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 const longDay=(d:string)=>`${Number(d.slice(6,8))} de ${MESES[Number(d.slice(4,6))-1]} de ${d.slice(0,4)}`;
 
-// Mesmo cabeçalho, rodapé e linguagem visual da página de evento (src/design/claude/evento.html).
-const start=template.indexOf('<main>');const end=template.indexOf('</main>');
-if(start<0||end<0)throw new Error('Modelo evento.html sem <main>.');
-
 const when=next?`<div class="gap-[20px]" style="background:var(--color-palco);color:#fff;padding:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))" data-responsive-grid>
    <div><div class="tag" style="opacity:.75">Quando</div><div class="mt-[6px]" style="font-weight:700;font-size:20px">${day(next.calendar_date)}</div></div>
    <div><div class="tag" style="opacity:.75">Horário</div><div class="mt-[6px]" style="font-weight:700;font-size:20px">${shortTime(next.calendar_time)}</div></div>
@@ -39,22 +35,22 @@ const when=next?`<div class="gap-[20px]" style="background:var(--color-palco);co
  :`<div style="border:1.5px solid var(--color-palco);padding:18px 20px"><strong>Sem datas marcadas no momento.</strong><br><span style="font-size:14px;color:var(--color-text-muted)">Acompanhe a programação do Café com Letras.</span></div>
   <div class="acts"><a class="btn palco" href="/programacao/">Ver a programação</a></div>`;
 
-const more=events.length>1?`<div><div class="tag" style="margin-bottom:6px">Datas a partir de ${day(contentDay)}</div>${events.map(e=>`<div class="row"><div><div class="n">${day(e.calendar_date)}</div><div class="d">${shortTime(e.calendar_time)}</div></div><div class="pr">${price(e.calendar_price)}</div></div>`).join('')}</div>`:'';
-
-const main=`<main>
-<div class="wrap" style="padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--color-text-muted)"><a href="/programacao/">Programação</a> / ${escapeHTML(profile.kind)} / ${name}</div>
-<section class="wrap" style="display:grid;grid-template-columns:${photo?'minmax(0,1.15fr) minmax(0,1fr)':'minmax(0,1fr)'};gap:56px;padding-bottom:96px" data-responsive-grid>
- ${photo?`<img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width:900px) 100vw, 640px" width="${photo.width}" height="${photo.height}" alt="${escapeHTML(photo.alt)}" decoding="async" fetchpriority="high" style="display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:${photo.position};background:var(--color-palco-photo)">`:''}
- <div class="flex flex-col gap-[28px]">
-  <div><div class="tag" style="color:var(--color-palco)">${escapeHTML(profile.kind)} · ${escapeHTML(profile.genres)}</div><h1 class="disp" style="font-size:84px;margin-top:14px">${name}</h1></div>
-  <p class="p" style="font-size:14px">Agenda consultada em ${day(contentDay)}.</p>
-  ${when}
-  <div><div class="tag" style="margin-bottom:10px">Sobre</div><div class="p">${artist.artist_release}</div></div>
-  ${more}
- </div>
-</section>
-</main>`;
-const html=template.slice(0,start)+main+template.slice(end+'</main>'.length);
+const more=events.length>1?`<section class="secao pedra"><div class="wrap">
+ <div class="cab"><h2 class="h2">Próximas datas</h2><a class="link" href="/programacao/">Programação completa</a></div>
+ <ul class="itens">${events.map(e=>`<li class="item"><span class="n">${day(e.calendar_date)}, ${shortTime(e.calendar_time)}</span><span class="preco">${price(e.calendar_price)}</span></li>`).join('')}</ul>
+</div></section>`:'';
+const photoHTML=photo?`<figure class="foto r45"><img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width:1023px) 100vw, 640px" width="${photo.width}" height="${photo.height}" alt="${escapeHTML(photo.alt)}" decoding="async" fetchpriority="high" style="object-position:${photo.position}"></figure>`:'';
+const content=`<p class="rotulo cor-palco">${escapeHTML(profile.kind)} · ${escapeHTML(profile.genres)}</p>
+<h1 class="d-l">${name}</h1>
+<p class="meta">Agenda consultada em ${day(contentDay)}.</p>
+${when}
+<hr class="divisor">
+<div class="artist-release"><h2 class="h3">Sobre</h2><div class="p">${artist.artist_release}</div></div>`;
+const html=template
+ .replace('__ARTIST_BREADCRUMB__',()=>`<a href="/programacao/">Programação</a> / ${escapeHTML(profile.kind)}`)
+ .replace('__ARTIST_PHOTO__',()=>photoHTML)
+ .replace('__ARTIST_CONTENT__',()=>content)
+ .replace('__ARTIST_DATES__',()=>more);
 const description=`${artist.artist_name} no Café com Letras Savassi: ${profile.genres}.${next?` Agenda consultada em ${day(contentDay)}. Apresentação: ${day(next.calendar_date)}, ${shortTime(next.calendar_time)}.`:ex?` Exposição ${ex.title}: de ${longDay(ex.start)} a ${longDay(ex.end)}.`:''}`;
 ---
 <ClaudeLayout custom={{key:'artista',title:artist.artist_name,description,path:`/artistas/${profile.slug}/`,html}} />

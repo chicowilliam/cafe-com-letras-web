@@ -3,25 +3,34 @@ import {mapsUrl, reservationUrl} from '../config/visit';
 import {whatsapp, whatsappMessage, type WhatsAppContext} from '../config/whatsapp';
 import InstitutionalSupport from './InstitutionalSupport.astro';
 
-interface Props { hasVisit: boolean }
-const { hasVisit } = Astro.props;
+interface Props { hasVisit: boolean; v2?: boolean }
+const { hasVisit, v2=false } = Astro.props;
 
 const contact = (context?: WhatsAppContext) =>
  `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsappMessage(context))}`;
 ---
-<footer class="foot site-footer">
+<footer class={v2?"rodape":"foot site-footer"}>
  <div class="wrap">
-  <div class="footer-grid">
+  <div class={v2?"cols":"footer-grid"}>
    <div>
-    <a class="footer-brand" href="/" aria-label="Café com Letras, página inicial"><img src="/claude/assets/logo-white.png" width="373" height="121" alt="Café com Letras" loading="lazy" /></a>
+    <a class="footer-brand" href="/" aria-label="Café com Letras, página inicial"><img src={v2?"/design-v2/logo-white.png":"/claude/assets/logo-white.png"} width="373" height="121" alt="Café com Letras" loading="lazy" /></a>
     <p>Gastronomia, música e literatura na Savassi desde 1996.</p>
    </div>
+   {v2&&<>
+    <div><h2>Visite</h2><ul><li>Rua Antônio de Albuquerque, 781</li><li>Savassi, Belo Horizonte, MG</li><li><a href={mapsUrl} target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a></li></ul></div>
+    <div><h2>Horários</h2><ul><li>Domingo a terça, 12h às 22h</li><li>Quarta a sábado, 12h às 23h</li><li>Delivery, 11h às 21h30</li></ul></div>
+   </>}
    <div>
     <h2 class="tag">Fale com a casa</h2>
     <ul>
-     <li><a href={contact()}>WhatsApp (31) 98424-4285</a></li>
+     {v2?<li><a href="tel:+5531984244285">(31) 98424-4285</a></li>:<li><a href={contact()}>WhatsApp (31) 98424-4285</a></li>}
      <li><a href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservas</a></li>
      <li><a href="https://www.ifood.com.br/delivery/belo-horizonte-mg/cafe-com-letras-savassi/b53324c0-32a8-4278-b229-4b362b7847cc" target="_blank" rel="noopener noreferrer">Delivery</a></li>
+     {v2&&<>
+      <li><a href="/casa/#eventos-privados">Eventos privados</a></li>
+      <li><a href={contact('Imprensa')}>Imprensa</a></li>
+      <li><a href={contact('Trabalhe conosco')}>Trabalhe conosco</a></li>
+     </>}
     </ul>
     <div class="footer-socials">
      <a class="social-link" href="https://www.instagram.com/cafe_com_letras/" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
@@ -37,7 +46,7 @@ const contact = (context?: WhatsAppContext) =>
      <li><a href="http://cidadescriativas.org.br/site/" target="_blank" rel="noopener noreferrer">Instituto Cidades Criativas</a></li>
     </ul>
    </div>
-   <nav aria-label="Links úteis">
+   {!v2&&<nav aria-label="Links úteis">
     <h2 class="tag">Links úteis</h2>
     <ul>
      <li><a href={hasVisit ? "#visite" : "/casa/#visite"}>Endereço e horários</a></li>
@@ -46,8 +55,8 @@ const contact = (context?: WhatsAppContext) =>
      <li><a href={contact('Trabalhe conosco')}>Trabalhe conosco</a></li>
      <li><a href={contact('Imprensa')}>Imprensa</a></li>
     </ul>
-   </nav>
+   </nav>}
   </div>
-  <InstitutionalSupport embedded />
+  {v2?<div class="base"><a href="/casa/#perguntas-frequentes">Perguntas frequentes</a><InstitutionalSupport embedded /></div>:<InstitutionalSupport embedded />}
  </div>
 </footer>

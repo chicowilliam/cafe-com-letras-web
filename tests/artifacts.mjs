@@ -54,7 +54,7 @@ const [home, dining, agenda, casa] = await Promise.all(
  ['index.html', 'gastronomia/index.html', 'programacao/index.html', 'casa/index.html']
   .map(file => readFile(path.join(root, file), 'utf8')),
 );
-assert.match(home, /\bdata-mobile-menu(?:\s|=|>)/);
+assert.match(home, /<details class="menu-m">\s*<summary>/);
 assert.ok(home.includes('href="/gastronomia/#cardapio"'));
 assert.ok(home.includes('href="/programacao/"'));
 assert.ok(home.includes('href="https://reservation.getin.app/36qBovkN?'));
@@ -69,6 +69,10 @@ for (const category of ['all', 'dj', 'books']) {
 assert.ok(agenda.includes('id="agenda"'));
 assert.ok(casa.includes('id="visite"'));
 assert.match(casa, /<template>\s*<iframe src="https:\/\/www\.google\.com\/maps\?/);
+assert.ok(casa.includes('href="https://clubedejazzdocafe.com"'));
+assert.ok(casa.includes('href="https://www.instagram.com/ototoibardediscos/"'));
+assert.ok(casa.includes('href="https://www.savassifestival.com.br/"'));
+assert.ok(!casa.includes('data-demo="Este recurso faz parte da proposta visual'));
 const {savassi: months} = JSON.parse(await readFile('src/data/calendar-months.json', 'utf8'));
 assert.deepEqual((await readdir(path.join(root, 'data/calendar/savassi'))).sort(),
  months.map(month => `${month}.json`));

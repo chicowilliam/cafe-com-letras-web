@@ -3,9 +3,9 @@
 import data from '../data/almoco-executivo.json';
 import sugestaoData from '../data/sugestao-do-chef.json';
 import {renderSugestaoHome,renderSugestaoSecao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
-import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,type AlmocoData,type AlmocoState} from '../lib/almoco';
+import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,renderV2Almoco,type AlmocoData,type AlmocoState} from '../lib/almoco';
 
-const renderers:Record<string,(state:AlmocoState)=>string>={home:renderAlmocoHome,mobile:renderAlmocoMobile,semana:renderAlmocoSemana};
+const renderers:Record<string,(state:AlmocoState)=>string>={home:renderAlmocoHome,mobile:renderAlmocoMobile,semana:renderAlmocoSemana,v2home:renderV2Almoco};
 
 const sugestaoRenderers:Record<string,(s?:Sugestao)=>string>={secao:renderSugestaoSecao,home:s=>renderSugestaoHome(s),mobile:s=>renderSugestaoHome(s,true)};
 

@@ -153,3 +153,41 @@ export function renderMobileWeek(state: HomeState, artists: Map<number, StageArt
 export function homeSignature(state: HomeState) {
   return [state.today, state.featured?.calendar_id ?? 0, ...state.next.map(e => e.calendar_id), ...state.week.map(e => e.calendar_id)].join('-');
 }
+
+export function renderV2Date(state: HomeState) {
+  const closing = [0, 1, 2].includes(weekday(state.today)) ? '22h' : '23h';
+  return `<span>${longDate(state.today)}</span><span class="aberto">Casa aberta das 12h às ${closing}</span>`;
+}
+
+export function renderV2Stage(state: HomeState, artists: Map<number, StageArtist>) {
+  const event = [state.featured, ...state.week].find(
+    item => item && profiles.has(item.calendar_artist) && hasPrice(item.calendar_price),
+  );
+  if (!event) return '<h2 class="titulo-bloco">No palco</h2><h1 class="ev-nome">Programação do Café</h1><a class="link" href="/programacao/">Confira as próximas datas</a>';
+  const artist = artists.get(event.calendar_artist);
+  const name = displayName(artist?.artist_name ?? 'Programação do Café');
+  const photo = profiles.get(event.calendar_artist)?.photo;
+  const href = link(event);
+  const image = photo ? `<figure class="foto r45"><img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width: 767px) 100vw, 280px" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" decoding="async" style="object-position:${photo.position}"></figure>` : '';
+  const price = hasPrice(event.calendar_price) ? `<p class="meta">${esc(couvert(event.calendar_price))}</p>` : '';
+  return `<h2 class="titulo-bloco">No palco <span class="meta">${relative(event.calendar_date, state.today)}, ${hour(event.calendar_time)}</span></h2>
+   <div class="palco-corpo">${image}<div class="pilha">
+    <p class="meta">${esc(category(event, name))}</p>
+    <h1 class="ev-nome"><a href="${href}">${esc(name)}</a></h1>
+    <p>${esc(summary(event, artist))}</p>${price}
+    <a class="link" href="${href}">Sobre o show</a>
+   </div></div>`;
+}
+
+export function renderV2Week(state: HomeState, artists: Map<number, StageArtist>) {
+  return state.week.filter(event => hasPrice(event.calendar_price)).map(event => {
+    const raw = artists.get(event.calendar_artist)?.artist_name ?? 'Programação do Café';
+    const time = hour(event.calendar_time);
+    return `<li class="ev-item"><a class="ev${isBook(raw) ? ' livros' : ''}${event.calendar_date === state.today ? ' hoje-ev' : ''}" href="${link(event)}">
+      <span class="dia"><b>${Number(event.calendar_date.slice(6))}</b><span>${shortWeekdays[weekday(event.calendar_date)]}</span></span>
+      <span class="hora">${time}</span><span class="ev-t">${esc(displayName(raw))}</span>
+      <span class="info k">${esc(category(event, raw))}</span>
+      <span class="info"><span class="hora-m">${time} </span>${esc(couvert(event.calendar_price))}</span>
+    </a></li>`;
+  }).join('') || '<li>Sem programação confirmada nos próximos dias.</li>';
+}

@@ -1,8 +1,9 @@
 ---
 import {reservationUrl} from '../config/visit';
 
-interface Props { page: string }
-const {page}=Astro.props;
+interface Props { page: string; v2?: boolean }
+const {page,v2=false}=Astro.props;
+const deliveryUrl='https://www.ifood.com.br/delivery/belo-horizonte-mg/cafe-com-letras-savassi/b53324c0-32a8-4278-b229-4b362b7847cc';
 const activePage=['evento','festival','exposicao'].includes(page)||page.startsWith('artista')?'programacao':page;
 const links=[
  ['/','Início','index','m3 10 9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 21v-7h6v7'],
@@ -13,6 +14,27 @@ const links=[
  ['/casa/','A Casa','casa','M3 21h18 M5 21V9l7-6 7 6v12 M10 21v-5h4v5 M9 10h6'],
 ] as const;
 ---
+{v2 ? <header class="topo"><div class="wrap">
+ <a class="marca" href="/" aria-label="Café com Letras, página inicial"><img src="/design-v2/logo-ink.png" alt="Café com Letras" width="148" height="48"/></a>
+ <nav class="nav-d" aria-label="Principal">
+  {links.slice(1).map(([href,label,key])=><a href={href} aria-current={activePage===key?'page':undefined}>{label}</a>)}
+ </nav>
+ <a class="link delivery-d" href={deliveryUrl} target="_blank" rel="noopener noreferrer">Delivery</a>
+ <a class="btn btn-p" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar</a>
+ <details class="menu-m">
+  <summary><span class="abrir">Menu</span><span class="fechar">Fechar</span></summary>
+  <div class="painel">
+   <nav aria-label="Principal no celular">
+    {links.map(([href,label,key])=><a href={href} aria-current={activePage===key?'page':undefined}>{label}</a>)}
+   </nav>
+   <div class="acoes">
+    <a class="btn" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
+    <a class="link" href={deliveryUrl} target="_blank" rel="noopener noreferrer">Delivery</a>
+   </div>
+   <div class="meta">Rua Antônio de Albuquerque, 781, Savassi</div>
+  </div>
+ </details>
+</div></header> : <>
 <div class="site-header" data-site-header>
  <div class="desktop-navigation">
   <div class="util"><div class="wrap"><span><strong>Horários da casa</strong> · a partir das 12h</span><span>Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte</span></div></div>
@@ -59,3 +81,4 @@ const links=[
    </nav>
   </div>
  </dialog>
+</>}

@@ -3,13 +3,29 @@ import {mapsUrl, reservationUrl} from '../config/visit';
 import {whatsapp} from '../config/whatsapp';
 
 const whatsappLink = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`;
+interface Props { v2?: boolean }
+const {v2=false}=Astro.props;
 ---
-<section id="visite" class="wrap visit" aria-labelledby="visit-title">
+<section id="visite" class={v2?'pilha v2-visit':'wrap visit'} aria-labelledby="visit-title">
+ {v2 ? <>
+  <p class="rotulo">Visite</p>
+  <h2 class="h3" id="visit-title">Rua Antônio de Albuquerque, 781, Savassi</h2>
+  <ul class="itens">
+   <li class="item"><span class="n">Domingo a terça</span><span class="preco">12h às 22h</span></li>
+   <li class="item"><span class="n">Quarta a sábado</span><span class="preco">12h às 23h</span></li>
+   <li class="item"><span class="n">Delivery (iFood), todos os dias</span><span class="preco">11h às 21h30</span></li>
+  </ul>
+  <div class="v2-visit-actions">
+   <a class="btn btn-claro" href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
+   <a class="link" href={mapsUrl} target="_blank" rel="noopener noreferrer">Como chegar</a>
+  </div>
+ </> : <>
  <div class="tag">Visite</div>
  <h2 class="h2" id="visit-title">Onde nos encontrar</h2>
  <p class="lead">Entre livros, boa comida e música, um endereço para fazer parte da sua história na Savassi.</p>
- <div class="visit-grid">
-  <div class="visit-info">
+ </>}
+ <div class={v2?undefined:"visit-grid"}>
+  {!v2&&<div class="visit-info">
    <div>
     <div class="tag">Endereço</div>
     <p class="h3">Rua Antônio de Albuquerque, 781<br />Savassi · Belo Horizonte · MG</p>
@@ -25,7 +41,7 @@ const whatsappLink = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent
     <a href={reservationUrl} target="_blank" rel="noopener noreferrer">Reservar mesa</a>
     <a href={whatsappLink}>WhatsApp (31) 98424-4285</a>
    </div>
-  </div>
+  </div>}
   <div id="mapa" class="visit-map" data-visit-map>
    <button type="button" class="btn" data-load-map hidden>Carregar mapa</button>
    <noscript><a class="btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">Ver mapa</a></noscript>

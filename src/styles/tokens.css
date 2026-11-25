@@ -24,9 +24,9 @@
   --color-vegan: #2F6B3A;
   --color-example: #FFE58A;
   --color-live: #C8102E;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
   --font-display: 'Bricolage Grotesque', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-mono: 'Bricolage Grotesque', sans-serif;
   --spacing: 4px;
   --spacing-page: 40px;
   --spacing-page-mobile: 20px;
