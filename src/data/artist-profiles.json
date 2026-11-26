@@ -337,5 +337,39 @@
     "slug": "tayna",
     "kind": "Livro",
     "genres": "lançamento de “Pra te lembrar da vida”"
+  },
+  {
+    "artistId": 1267,
+    "slug": "arnon-oliveira",
+    "kind": "Piano Bar",
+    "genres": "piano, jazz e canções brasileiras",
+    "photo": {
+      "src": "/img/destaques/arnon-oliveira-408.webp",
+      "small": "/img/destaques/arnon-oliveira-440.webp",
+      "width": 408,
+      "height": 510,
+      "alt": "Arnon Oliveira ao teclado",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 744,
+    "slug": "livia-itaborahy",
+    "kind": "Bossa Nova",
+    "genres": "canção latino-americana",
+    "photo": {
+      "src": "/img/destaques/livia-itaborahy-800.webp",
+      "small": "/img/destaques/livia-itaborahy-440.webp",
+      "width": 800,
+      "height": 1000,
+      "alt": "Lívia Itaborahy cantando ao microfone",
+      "position": "50% 30%"
+    }
+  },
+  {
+    "artistId": 1539,
+    "slug": "diego-queijo",
+    "kind": "Livro",
+    "genres": "lançamento de “Pasajero en trance – Uma história de Charly García no Brasil”"
   }
 ]
