@@ -171,6 +171,39 @@ body[data-v2] .ritmo .oque{font-family:var(--f-display);font-weight:600;font-siz
 @media (min-width:768px){body[data-v2] .ritmo{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6)}}
 @media (min-width:1280px){body[data-v2] .ritmo{grid-template-columns:repeat(4,minmax(0,1fr))}body[data-v2] .ritmo li{border-bottom:0;padding-right:var(--s5)}}
 
+body[data-v2] .ritmo-semana{padding-block:clamp(36px,5.5vw,72px)}
+body[data-v2] .ritmo-semana .ritmo{margin-top:var(--s5);border-top:0}
+body[data-v2] .ritmo-semana .ritmo li{
+  align-content:start;
+  gap:var(--s2);
+  padding:var(--s4) 0;
+  border-top:1px solid rgb(255 255 255 / .32);
+  border-bottom:0;
+}
+body[data-v2] .ritmo-semana .quando{margin:0;font-size:clamp(26px,2.55vw,36px);line-height:1.1}
+body[data-v2] .ritmo-semana .oque{margin:0;line-height:1.3}
+body[data-v2] .ritmo-semana .apoio{margin:0;color:var(--pedra);line-height:1.45}
+body[data-v2] .ritmo-youtube{
+  display:inline-flex;
+  justify-self:start;
+  align-items:center;
+  gap:var(--s2);
+  margin-top:var(--s1);
+  min-height:44px;
+  padding:var(--s2) var(--s3);
+  border:1px solid rgb(255 255 255 / .46);
+  border-radius:12px;
+  color:var(--papel);
+  font:600 15px/1.25 var(--f-display);
+  text-decoration:none;
+}
+body[data-v2] .ritmo-youtube svg{flex:none}
+body[data-v2] .ritmo-youtube:focus-visible{border-radius:12px}
+@media (hover:hover){
+  body[data-v2] .ritmo-youtube:hover{background:var(--papel);color:var(--tinta);text-decoration:none}
+}
+
+
 /* ---------- cabeçalho de seção ---------- */
 body[data-v2] .cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s4) var(--s6);margin-bottom:var(--s6)}
 body[data-v2] .cab p{margin-top:var(--s3)}
