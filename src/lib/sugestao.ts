@@ -61,5 +61,5 @@ export function renderSugestaoHome(s: Sugestao | undefined, mobile = false) {
 export function renderV2Sugestao(s?: Sugestao) {
   const title = s ? `Sugestão do chef${s.contexto ? ` · ${esc(s.contexto)}` : ''}` : 'Sugestão do chef';
   const dish = s ? `${esc(s.nome)}${s.vegano ? vegan : ''}<br><small>${esc(etapasTexto(s))}</small>` : 'Nova sugestão em breve.';
-  return `<li><span class="tipo">${title}</span><span class="prato">${dish}</span>${s?.preco ? `<span class="preco">${brl(s.preco)}</span>` : ''}</li>`;
+  return `<li><span class="tipo">${s ? `<a href="/gastronomia/#chef">${title}</a>` : title}</span><span class="prato">${dish}</span>${s?.preco ? `<span class="preco">${brl(s.preco)}</span>` : ''}</li>`;
 }
