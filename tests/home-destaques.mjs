@@ -2,6 +2,7 @@
 // nunca à Programação geral. Show único → página do artista (mesmo link da agenda); festival → /festivais/<slug>/.
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {presentationCopy} from '../src/lib/event-presentation.ts';
 
 const strip=s=>s.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
 const home=await readFile(new URL('../src/design/claude/index.html',import.meta.url),'utf8');
@@ -28,3 +29,16 @@ for(const m of section.matchAll(/<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)){
  checked++;
 }
 console.log(`home-destaques: ${checked} destaque(s) ligados à página do evento`);
+
+// Tipo do evento prevalece sobre categoria do artista e indícios no texto.
+for(const [type,cta] of [['DJ Set','Sobre o DJ Set'],['Show','Sobre o show'],['Piano Bar','Sobre o Piano Bar']]){
+ assert.deepEqual(presentationCopy(type,'Jazz','DJ convidado'),{category:type,cta});
+}
+assert.equal(presentationCopy(undefined,'DJ','Rafa Jazz').category,'DJ Set');
+assert.equal(presentationCopy(undefined,'Jazz','DJ convidado').category,'Show');
+assert.equal(presentationCopy(undefined,'Piano Bar','Jazz ao vivo').category,'Piano Bar');
+assert.equal(presentationCopy(undefined,'Livro','DJ convidado').cta,'Sobre o evento');
+assert.equal(presentationCopy(undefined,undefined,'Happy Fitz Big Band').category,'Show');
+assert.equal(presentationCopy(undefined,undefined,'Quarteto','bossa nova').category,'Show');
+assert.equal(presentationCopy(undefined,undefined,'Artista convidado','','Especial de discotecagem').category,'DJ Set');
+assert.equal(presentationCopy(undefined,undefined,'Piano Bar com Gabruga').category,'Piano Bar');

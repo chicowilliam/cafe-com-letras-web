@@ -1,8 +1,10 @@
+import type { PresentationType } from './event-presentation';
+
 export type UnitName = 'Savassi' | 'Liberdade';
 export interface Unit { unity_id: number; unity_unity: UnitName }
 export interface Config { config_unity: number; config_address_1: string; config_address_2: string; config_address_3: string; config_time_1: string; config_time_2: string; config_time_3: string; config_phone_1: string; config_phone_2: string }
 export interface Artist { artist_id: number; artist_name: string; artist_release: string }
-export interface CalendarEvent { calendar_id: number; calendar_unity: number; calendar_date: string; calendar_time: string; calendar_artist: number; calendar_price: string }
+export interface CalendarEvent { calendar_id: number; calendar_unity: number; calendar_date: string; calendar_time: string; calendar_artist: number; calendar_price: string; calendar_type?: PresentationType }
 export interface Suggestion { suggestion_id: number; suggestion_unity: number; suggestion_date_start: string; suggestion_date_end: string; suggestion_suggestion: string; suggestion_obs: string }
 export interface PublicData {
   exportedAt: string; canonicalOrigin: string; source: string;

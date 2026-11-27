@@ -3,6 +3,7 @@ import {readFile,writeFile,rename,unlink} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {sanitizeRichText} from '../src/lib/sanitize.ts';
+import {isPresentationType} from '../src/lib/event-presentation.ts';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const dataFile=path.join(root,'src/data/public-source.json');
@@ -45,22 +46,24 @@ export function prepareProgramacao(source,unavailable,changes){
   data.events=data.events.filter(e=>e.calendar_id!==id);summary.eventsDeleted.push(id);
  }
  for(const item of changes.events||[]){
-  keys(item,['calendar_id','calendar_unity','calendar_date','calendar_time','calendar_artist','calendar_price'],'Evento');
+  keys(item,['calendar_id','calendar_unity','calendar_date','calendar_time','calendar_artist','calendar_price','calendar_type'],'Evento');
   requireValue(item.calendar_id===undefined||positive(item.calendar_id),'Evento: ID inválido.');
   requireValue(data.units.some(u=>u.unity_id===item.calendar_unity),'Evento: unidade desconhecida.');
   requireValue(validDate(item.calendar_date),'Evento: data real no formato AAAAMMDD obrigatória.');
   requireValue(typeof item.calendar_time==='string'&&/^(?:[01]\d|2[0-3])[0-5]\d$/.test(item.calendar_time),'Evento: horário HHMM inválido.');
   requireValue(data.artists.some(a=>a.artist_id===item.calendar_artist),'Evento: artista não cadastrado.');
+  requireValue(item.calendar_type===undefined||isPresentationType(item.calendar_type),'Evento: tipo deve ser DJ Set, Show ou Piano Bar.');
   const price=text(item.calendar_price,255,'Couvert/valor (ou confirmação de gratuito)');
   const id=item.calendar_id??Math.max(0,...data.events.map(e=>e.calendar_id),...eventIds)+1;
   requireValue(positive(id),'Não foi possível gerar um ID seguro para o evento.');
   requireValue(!eventIds.has(id),'Evento repetido no lote ou também marcado para cancelamento.');eventIds.add(id);
-  const event={calendar_id:id,calendar_unity:item.calendar_unity,calendar_date:item.calendar_date,calendar_time:item.calendar_time,calendar_artist:item.calendar_artist,calendar_price:price};
   const index=data.events.findIndex(e=>e.calendar_id===id);
+  const type=item.calendar_type??data.events[index]?.calendar_type;
+  const event={calendar_id:id,calendar_unity:item.calendar_unity,calendar_date:item.calendar_date,calendar_time:item.calendar_time,calendar_artist:item.calendar_artist,calendar_price:price,...(type===undefined?{}:{calendar_type:type})};
   requireValue(item.calendar_id===undefined||index>=0,`Evento ${id} não encontrado para edição; omita calendar_id para cadastrar um novo evento.`);
   const duplicate=data.events.find(e=>e.calendar_id!==id&&eventKey(e)===eventKey(event));
   if(duplicate){
-   if(item.calendar_id===undefined&&duplicate.calendar_price===price){summary.unchanged++;continue;}
+   if(item.calendar_id===undefined&&duplicate.calendar_price===price&&(item.calendar_type===undefined||duplicate.calendar_type===type)){summary.unchanged++;continue;}
    throw new Error(`Evento coincide com o ID ${duplicate.calendar_id}; para corrigir, informe esse calendar_id.`);
   }
   if(index<0){data.events.push(event);summary.eventsAdded.push(id);}

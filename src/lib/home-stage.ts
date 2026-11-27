@@ -2,8 +2,10 @@
 // Usado no build (HTML inicial) e no navegador (virada da meia-noite sem novo deploy).
 import profilesRaw from '../data/artist-profiles.json';
 import highlightsRaw from '../data/home-highlights.json';
+import { presentationCopy } from './event-presentation';
+import type { CalendarEvent } from './types';
 
-export interface StageEvent { calendar_id: number; calendar_unity: number; calendar_date: string; calendar_time: string; calendar_artist: number; calendar_price: string }
+export type StageEvent = CalendarEvent;
 export interface StageArtist { artist_id: number; artist_name: string; artist_release: string }
 interface Photo { src: string; small: string; width: number; height: number; alt: string; position: string }
 interface Profile { artistId: number; slug: string; kind: string; genres: string; photo?: Photo }
@@ -45,8 +47,6 @@ function category(event: StageEvent, name: string) {
   if (/Piano Bar/i.test(name)) return 'Piano';
   if (/^Festival/i.test(name)) return 'Festival';
   if (/(^|\s)DJs?(\s|$)/.test(name)) return 'DJ';
-  if (weekday(event.calendar_date) === 6 && event.calendar_time === '1330') return 'Bossa Nova na Savassi';
-  if (weekday(event.calendar_date) === 3) return 'Jazz · ao vivo no YouTube';
   return 'Música';
 }
 const isBook = (name: string) => /^Lançamento/i.test(name);
@@ -166,16 +166,20 @@ export function renderV2Stage(state: HomeState, artists: Map<number, StageArtist
   if (!event) return '<h2 class="titulo-bloco">No palco</h2><h1 class="ev-nome">Programação do Café</h1><a class="link" href="/programacao/">Confira as próximas datas</a>';
   const artist = artists.get(event.calendar_artist);
   const name = displayName(artist?.artist_name ?? 'Programação do Café');
-  const photo = profiles.get(event.calendar_artist)?.photo;
+  const profile = profiles.get(event.calendar_artist);
+  const { category: label, cta } = presentationCopy(
+    event.calendar_type, profile?.kind, artist?.artist_name ?? '', profile?.genres ?? '', plain(artist?.artist_release ?? ''),
+  );
+  const photo = profile?.photo;
   const href = link(event);
   const image = photo ? `<figure class="foto r45"><img src="${photo.src}" srcset="${photo.small} 440w, ${photo.src} ${photo.width}w" sizes="(max-width: 767px) 100vw, 280px" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" decoding="async" style="object-position:${photo.position}"></figure>` : '';
   const price = hasPrice(event.calendar_price) ? `<p class="meta">${esc(couvert(event.calendar_price))}</p>` : '';
   return `<h2 class="titulo-bloco">No palco <span class="meta">${relative(event.calendar_date, state.today)}, ${hour(event.calendar_time)}</span></h2>
    <div class="palco-corpo">${image}<div class="pilha">
-    <p class="meta">${esc(category(event, name))}</p>
+    <p class="meta">${esc(label)}</p>
     <h1 class="ev-nome"><a href="${href}">${esc(name)}</a></h1>
     <p>${esc(summary(event, artist))}</p>${price}
-    <a class="link" href="${href}">Sobre o show</a>
+    <a class="link" href="${href}">${cta}</a>
    </div></div>`;
 }
 
