@@ -5,8 +5,8 @@ routeLegacySection();
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('nav [data-section-link]'));
 if (sectionLinks.length) {
  const syncSection = () => {
-  const target = sectionLinks.find(link => link.hash === location.hash);
-  const current = target ?? sectionLinks[0];
+  const target = sectionLinks.find(link => !link.hidden && link.hash === location.hash);
+  const current = target ?? sectionLinks.find(link => !link.hidden);
   for (const link of sectionLinks) {
    link.classList.toggle('on', link === target);
    if (link === current) link.setAttribute('aria-current', 'location');
@@ -15,6 +15,7 @@ if (sectionLinks.length) {
  };
  syncSection();
  addEventListener('hashchange', syncSection);
+ document.addEventListener('almocochange',syncSection);
 }
 addEventListener('hashchange',routeLegacySection);
 document.addEventListener('keydown',event=>{if(!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.input='keyboard';});
@@ -245,5 +246,4 @@ if(menuItems&&menuFilters){
  }
 }
 if(document.querySelector('[data-home]'))void import('./home').then(module=>module.initHome());
-if(document.querySelector('[data-almoco],[data-sugestao]'))void import('./almoco').then(module=>module.initAlmoco());
 if(document.querySelector('[data-agenda]'))import('./agenda').then(module=>module.initAgenda());

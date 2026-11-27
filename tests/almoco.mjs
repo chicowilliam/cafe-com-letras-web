@@ -1,8 +1,8 @@
 // Almoço executivo: dados válidos e escolha do dia pela hora de Belo Horizonte.
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {sugestaoVigente,renderSugestaoSecao,renderSugestaoHome,ORDEM} from '../src/lib/sugestao.ts';
-import {pickAlmoco,almocoStatus,renderAlmocoSemana,renderAlmocoHome,renderAlmocoMobile} from '../src/lib/almoco.ts';
+import {sugestaoVigente,renderSugestaoSecao,renderSugestaoHome,renderV2Sugestao,ORDEM} from '../src/lib/sugestao.ts';
+import {agoraBH,pickAlmoco,almocoStatus,renderAlmocoSemana,renderAlmocoHome,renderAlmocoMobile} from '../src/lib/almoco.ts';
 
 const data=JSON.parse(await readFile(new URL('../src/data/almoco-executivo.json',import.meta.url),'utf8'));
 const seen=new Set();
@@ -27,27 +27,33 @@ const fixture={dias:[
 ]};
 const at=(day,h,m=0)=>pickAlmoco(fixture,{day,minutes:h*60+m});
 
-// Segunda de manhã: hoje, antes de abrir.
-let s=at('20261123',10);
-assert.equal(s.date,'2026-11-23'); assert.equal(almocoStatus(s),'Hoje, a partir das 12h'); assert.equal(s.week.length,5);
-// Durante o serviço.
-assert.equal(almocoStatus(at('20261123',13)),'Servido agora, até as 15h');
-// Depois das 15h: passa para amanhã.
-s=at('20261123',15);
-assert.equal(s.date,'2026-11-24'); assert.equal(almocoStatus(s),'Amanhã (terça), 24/11, das 12h às 15h');
-// Sexta depois das 15h e fim de semana, sem a semana seguinte cadastrada: "em breve", nunca cardápio vencido.
-for(const [day,h] of [['20261127',16],['20261128',12],['20261129',20]]){
- s=at(day,h);
- assert.equal(s.date,'2026-11-30'); assert.equal(s.dia,undefined); assert.equal(s.week.length,0);
- assert.match(renderAlmocoSemana(s),/ainda não foi publicado/);
- assert.match(renderAlmocoHome(s),/ainda não foi publicado/);
+assert.equal(at('20261123',12).dia?.data,'2026-11-23');
+assert.equal(almocoStatus(at('20261123',0)),'Hoje, a partir das 12h');
+assert.equal(almocoStatus(at('20261123',12)),'Servido agora, até as 15h');
+assert.equal(at('20261127',14,29).dia?.data,'2026-11-27');
+for(const [day,h,m] of [['20261127',14,30],['20261128',12,0],['20261129',12,0],['20261130',12,0]]){
+ const state=at(day,h,m);
+ assert.equal(state.dia,undefined);
+ assert.equal(renderAlmocoHome(state),'');
+ assert.equal(renderAlmocoSemana(state),'');
 }
-// Domingo com a semana seguinte cadastrada: mostra segunda.
-s=at('20261206',11);
-assert.equal(s.date,'2026-12-07'); assert.equal(almocoStatus(s),'Amanhã (segunda), 07/12, das 12h às 15h');
-// Feriado: pula para o próximo dia útil e aparece como feriado nas abas.
-s=at('20261207',15,30);
-assert.equal(s.date,'2026-12-09'); assert.match(renderAlmocoSemana(s),/Feriado \(Imaculada Conceição\)/);
+
+const option={executivo:{prato:'Opção do dia',preco:44}};
+const calendar={dias:['2026-04-03','2026-04-21','2026-06-04','2026-02-17','2026-11-28','2026-11-29','2026-12-08','2026-12-31','2027-01-01','2027-01-04','2027-03-26'].map(data=>({data,...option}))};
+for(const day of ['20260403','20260421','20261128','20261129','20270101','20270326']){
+ assert.equal(pickAlmoco(calendar,{day,minutes:720}).dia,undefined,day);
+}
+for(const day of ['20260217','20260604','20261208','20261231','20270104']){
+ assert.ok(pickAlmoco(calendar,{day,minutes:720}).dia,day);
+}
+assert.equal(pickAlmoco({dias:[{data:'2026-11-23',executivo:{prato:' ',preco:0}}]},{day:'20261123',minutes:720}).dia,undefined);
+
+const local=(instant)=>pickAlmoco(fixture,agoraBH(new Date(instant)));
+assert.equal(local('2026-11-23T11:59:59+09:00').dia,undefined);
+assert.equal(local('2026-11-23T12:00:00+09:00').dia?.data,'2026-11-23');
+assert.equal(local('2026-11-28T02:29:00+09:00').dia?.data,'2026-11-27');
+assert.equal(local('2026-11-28T02:30:00+09:00').dia,undefined);
+
 // Abas: só o dia de serviço visível.
 const html=renderAlmocoSemana(at('20261125',9));
 assert.equal((html.match(/role="tabpanel"/g)??[]).length,5);
@@ -70,6 +76,8 @@ assert.equal(sugestaoVigente(sug,day(sug.fim))?.nome,sug.nome);
 const after=new Date(`${sug.fim}T12:00:00Z`); after.setUTCDate(after.getUTCDate()+1);
 const expired=sugestaoVigente(sug,day(after.toISOString().slice(0,10)));
 assert.equal(expired,undefined,'sugestão vencida continua no ar');
+assert.match(renderV2Sugestao(expired),/em breve/);
+assert.match(renderV2Sugestao(sug),/Sugestão do chef/);
 assert.match(renderSugestaoSecao(expired),/em breve/); assert.equal(renderSugestaoHome(expired),'');
 const secao=renderSugestaoSecao(sugestaoVigente({nome:'T',inicio:'2026-01-01',fim:'2026-12-31',etapas:{sobremesa:'S',compartilhar:'C',principal:'P',entrada:'E'}},'20260601'));
 assert.ok(secao.indexOf('Para compartilhar')<secao.indexOf('>Entrada<')&&secao.indexOf('>Entrada<')<secao.indexOf('Prato principal')&&secao.indexOf('Prato principal')<secao.indexOf('>Sobremesa<'),'etapas fora de ordem');

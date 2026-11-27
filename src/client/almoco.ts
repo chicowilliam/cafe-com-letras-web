@@ -1,32 +1,50 @@
-// Almoço executivo: recalcula o dia mostrado pela hora de Belo Horizonte (fim do serviço às 15h,
-// virada do dia, fim de semana) sem novo deploy, e controla as abas dos dias na Gastronomia.
 import data from '../data/almoco-executivo.json';
 import sugestaoData from '../data/sugestao-do-chef.json';
-import {renderSugestaoHome,renderSugestaoSecao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
-import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,renderV2Almoco,type AlmocoData,type AlmocoState} from '../lib/almoco';
+import {renderSugestaoHome,renderSugestaoSecao,renderV2Sugestao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
+import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoMobile,renderAlmocoSemana,renderV2Almoco,type AlmocoData} from '../lib/almoco';
 
-const renderers:Record<string,(state:AlmocoState)=>string>={home:renderAlmocoHome,mobile:renderAlmocoMobile,semana:renderAlmocoSemana,v2home:renderV2Almoco};
-
-const sugestaoRenderers:Record<string,(s?:Sugestao)=>string>={secao:renderSugestaoSecao,home:s=>renderSugestaoHome(s),mobile:s=>renderSugestaoHome(s,true)};
-
+let timer: number;
+let available: boolean | undefined;
+const highlight=document.querySelector<HTMLElement>('[data-mesa-destaque]');
 function refresh(){
- const now=agoraBH();
- const sugestao=sugestaoVigente(sugestaoData as Sugestao,now.day);
- const ssig=sugestaoSignature(sugestao);
- for(const element of document.querySelectorAll<HTMLElement>('[data-sugestao]')){
-  const render=sugestaoRenderers[element.dataset.sugestao??''];
-  if(!render||element.dataset.sugestaoSig===ssig)continue;
-  element.innerHTML=render(sugestao);
-  element.dataset.sugestaoSig=ssig;
- }
+ const date=new Date();
+ const now=agoraBH(date);
  const state=pickAlmoco(data as AlmocoData,now);
+ const show=!!state.dia;
+ const sugestao=sugestaoVigente(sugestaoData as Sugestao,now.day);
+ const focus=document.activeElement;
+ const moveFocus=available!==show&&focus?.closest(show?'[data-chef-link]':'[data-executivo]');
+ // Mantém a posição dos links e do conteúdo abaixo na troca ao vivo das 14h30.
+ if(highlight&&available===true&&!show)highlight.style.minHeight=`${highlight.getBoundingClientRect().height}px`;
+ const ssig=sugestaoSignature(sugestao);
  const sig=almocoSignature(state);
- for(const element of document.querySelectorAll<HTMLElement>('[data-almoco]')){
-  const render=renderers[element.dataset.almoco??''];
-  if(!render||element.dataset.almocoSig===sig)continue;
-  element.innerHTML=render(state);
-  element.dataset.almocoSig=sig;
+ for(const element of document.querySelectorAll<HTMLElement>('[data-almoco],[data-sugestao]')){
+  const slot=element.dataset.almoco;
+  if(slot){
+   const key=slot==='v2home'&&!show?`chef:${ssig}`:sig;
+   if(element.dataset.almocoSig===key)continue;
+   element.innerHTML=slot==='v2home'?(show?renderV2Almoco(state):renderV2Sugestao(sugestao))
+    :slot==='mobile'?renderAlmocoMobile(state):renderAlmocoSemana(state);
+   element.dataset.almocoSig=key;
+  }else{
+   if(element.dataset.sugestaoSig!==ssig){
+    element.innerHTML=element.dataset.sugestao==='secao'?renderSugestaoSecao(sugestao):renderSugestaoHome(sugestao,true);
+    element.dataset.sugestaoSig=ssig;
+   }
+   if(element.dataset.sugestao==='mobile')element.hidden=show;
+  }
  }
+ if(available!==show){
+  for(const element of document.querySelectorAll<HTMLElement>('[data-executivo],[data-chef-link]')){
+   element.hidden=element.hasAttribute('data-executivo')?!show:show;
+  }
+  if(moveFocus)document.querySelector<HTMLElement>(show?'[data-executivo][href]':'[data-chef-link],.dining-section-nav a[href="#chef"],.dining-primary')?.focus({preventScroll:true});
+  available=show;
+  document.dispatchEvent(new Event('almocochange'));
+ }
+ clearTimeout(timer);
+ // Alinha ao próximo minuto de relógio, inclusive 00h00 e 14h30.
+ timer=window.setTimeout(refresh,60_000-date.getTime()%60_000);
 }
 
 function select(tab:HTMLButtonElement,focus=false){
@@ -43,9 +61,10 @@ function select(tab:HTMLButtonElement,focus=false){
  if(focus)tab.focus();
 }
 
-export function initAlmoco(){
+function initAlmoco(){
  refresh();
- setInterval(refresh,60_000);
+ window.addEventListener('pageshow',refresh);
+ if(highlight)window.addEventListener('resize',()=>highlight.style.removeProperty('min-height'));
  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refresh();});
  document.addEventListener('click',event=>{
   const tab=event.target instanceof Element?event.target.closest<HTMLButtonElement>('[data-almoco-tab]'):null;
@@ -60,3 +79,5 @@ export function initAlmoco(){
   if(next){event.preventDefault();select(next,true);}
  });
 }
+
+initAlmoco();

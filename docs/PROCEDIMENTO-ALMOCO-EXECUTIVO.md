@@ -15,10 +15,14 @@ Cada dia tem três opções, sempre nesta ordem:
 | Home no computador ("À mesa") | As três opções do dia, com preço |
 | Home no celular | As três opções do dia, com preço, e botão para a semana |
 
-O dia mostrado é calculado pela hora de Belo Horizonte, no build e de novo no navegador
-(a cada minuto): até as 15h mostra **hoje**; depois das 15h, no fim de semana ou em feriado,
-mostra o **próximo dia de serviço**. Se esse dia não estiver cadastrado, o site diz que o
-cardápio ainda não foi publicado — nunca mostra cardápio vencido.
+O site exibe o executivo cadastrado para **hoje**, de segunda a sexta, das **00h às 14h29** no
+fuso `America/Sao_Paulo`. A partir das 14h30, em fins de semana, feriados nacionais ou quando
+falta um cardápio válido, a home mostra a Sugestão do Chef e a aba do executivo fica oculta.
+A troca é automática no navegador, inclusive na virada do dia e no retorno à aba.
+
+O calendário federal reconhece as datas nacionais fixas e a Sexta-feira da Paixão. Pontos
+facultativos e feriados locais seguem a regra normal de disponibilidade. Se a casa decidir
+suspender o executivo em uma dessas datas, o cadastro sem pratos reflete essa decisão.
 
 ## Como atualizar (toda semana, ao receber o PDF)
 

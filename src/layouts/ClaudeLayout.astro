@@ -3,9 +3,9 @@ import {reservationUrl} from '../config/visit';
 import {legalReview} from '../config/institutional';
 import {pages,production,publicData} from '../lib/data';
 import {bhNow,pickHome,renderStage,renderWeek,renderMobileStage,renderMobileWeek,homeSignature,renderV2Date,renderV2Stage,renderV2Week} from '../lib/home-stage';
-import {agoraBH,almocoSignature,pickAlmoco,renderAlmocoHome,renderAlmocoMobile,renderAlmocoSemana,renderV2Almoco,type AlmocoData} from '../lib/almoco';
-import almocoData from '../data/almoco-executivo.json';
-import {renderSugestaoHome,renderSugestaoSecao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
+import {agoraBH} from '../lib/almoco';
+import almocoClient from '../client/almoco?worker&url';
+import {renderSugestaoHome,renderSugestaoSecao,renderV2Sugestao,sugestaoSignature,sugestaoVigente,type Sugestao} from '../lib/sugestao';
 import sugestaoData from '../data/sugestao-do-chef.json';
 import {seoFor} from '../lib/seo';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -36,17 +36,12 @@ const homeArtists=new Map(publicData.artists.map(a=>[a.artist_id,a]));
 const homeSlots:Record<string,()=>string>={stage:()=>renderStage(homeState,homeArtists),week:()=>renderWeek(homeState,homeArtists),mstage:()=>renderMobileStage(homeState,homeArtists),mweek:()=>renderMobileWeek(homeState,homeArtists),v2date:()=>renderV2Date(homeState),v2stage:()=>renderV2Stage(homeState,homeArtists),v2week:()=>renderV2Week(homeState,homeArtists)};
 const homeSig=homeSignature(homeState);
 const dynamicHome=(html:string)=>html.replace(/<!--home:(\w+)-->[\s\S]*?<!--\/home:\1-->/g,(match,key:string)=>homeSlots[key]?.()??match).replace(/data-home="(\w+)"/g,`data-home="$1" data-home-sig="${homeSig}"`);
-// Almoço executivo: dia de serviço calculado no build; o navegador recalcula às 15h e na virada do dia (src/client/almoco.ts).
-const almocoState=pickAlmoco(almocoData as AlmocoData,process.env.CONTENT_DATE?{day:process.env.CONTENT_DATE,minutes:0}:agoraBH());
-const almocoSlots:Record<string,()=>string>={home:()=>renderAlmocoHome(almocoState),mobile:()=>renderAlmocoMobile(almocoState),semana:()=>renderAlmocoSemana(almocoState),v2home:()=>renderV2Almoco(almocoState)};
-const almocoSig=almocoSignature(almocoState);
-const dynamicAlmoco=(html:string)=>html.replace(/<!--almoco:(\w+)-->[\s\S]*?<!--\/almoco:\1-->/g,(match,key:string)=>almocoSlots[key]?.()??match).replace(/data-almoco="(\w+)"/g,`data-almoco="$1" data-almoco-sig="${almocoSig}"`);
 // Sugestão do chef: só aparece no período de validade; o navegador a retira quando vence (src/client/almoco.ts).
 const sugestao=sugestaoVigente(sugestaoData as Sugestao,process.env.CONTENT_DATE??agoraBH().day);
 const sugestaoSlots:Record<string,()=>string>={secao:()=>renderSugestaoSecao(sugestao),home:()=>renderSugestaoHome(sugestao),mobile:()=>renderSugestaoHome(sugestao,true)};
 const sugestaoSig=sugestaoSignature(sugestao);
 const dynamicSugestao=(html:string)=>html.replace(/<!--sugestao:(\w+)-->[\s\S]*?<!--\/sugestao:\1-->/g,(match,key:string)=>sugestaoSlots[key]?.()??match).replace(/data-sugestao="(\w+)"/g,`data-sugestao="$1" data-sugestao-sig="${sugestaoSig}"`);
-const mesa=(html:string)=>dynamicSugestao(dynamicAlmoco(html));
+const mesa=(html:string)=>dynamicSugestao(html).replace('<!--almoco:v2home--><!--/almoco:v2home-->',renderV2Sugestao(sugestao));
 const home=mesa(dynamicHome(homeRaw));
 const v2Home=name==='index'&&!custom&&!documentTitle;
 const v2Casa=name==='casa'&&!custom&&!documentTitle;
@@ -75,6 +70,7 @@ const [casaBeforeFAQ,casaAfterFAQ]=casaAfterVisit.split('<!--official-faq-->');
 <!doctype html>
 <html lang="pt-BR">
  <head>
+  {!custom&&!documentTitle&&['index','gastronomia','celular'].includes(name)&&<script is:inline src={almocoClient} defer {...{blocking:"render"}}></script>}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>

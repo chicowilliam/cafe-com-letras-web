@@ -1,8 +1,3 @@
-// Almoço executivo: segunda a sexta, 12h às 15h, exceto feriados.
-// Cada dia tem três opções: Menu do Dia (entrada + principal + sobremesa), Executivo e Executivo vegano.
-// Dados: src/data/almoco-executivo.json. Usado no build (HTML inicial) e no navegador (src/client/almoco.ts),
-// para a troca de dia e o fim do serviço às 15h não dependerem de novo deploy.
-
 export interface Prato { prato: string; preco: number }
 export interface MenuDoDia { preco: number; entrada: string; principal: string; sobremesa: string }
 export interface DiaAlmoco { data: string; feriado?: string; menuDoDia?: MenuDoDia; executivo?: Prato; vegano?: Prato }
@@ -10,7 +5,7 @@ export interface AlmocoData { dias: DiaAlmoco[] }
 export interface Agora { day: string; minutes: number } // day = AAAAMMDD (Belo Horizonte)
 
 export const INICIO = 12 * 60;
-export const FIM = 15 * 60;
+export const FIM = 14 * 60 + 30;
 const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
 const shortWeekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
@@ -22,68 +17,76 @@ const weekday = (date: string) => utc(date).getUTCDay();
 const dm = (date: string) => `${date.slice(8, 10)}/${date.slice(5, 7)}`;
 const brl = (value: number) => `R$ ${Number.isInteger(value) ? value : value.toFixed(2).replace('.', ',')}`;
 const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
-const isServiceWeekday = (date: string) => weekday(date) >= 1 && weekday(date) <= 5;
-const hasMenu = (d: DiaAlmoco) => !d.feriado && !!(d.menuDoDia || d.executivo || d.vegano);
+// Feriados nacionais do calendário federal (Portaria MGI nº 11.460/2025).
+const fixedHolidays = new Set(['01-01', '04-21', '05-01', '09-07', '10-12', '11-02', '11-15', '11-20', '12-25']);
+function nationalHoliday(date: string) {
+  if (fixedHolidays.has(date.slice(5))) return true;
+  // Computus gregoriano (Meeus/Jones/Butcher): Sexta-feira da Paixão = Páscoa − 2 dias.
+  const year = Number(date.slice(0, 4));
+  const a = year % 19;
+  const century = Math.floor(year / 100);
+  const y = year % 100;
+  const h = (19 * a + century - Math.floor(century / 4) - Math.floor((century - Math.floor((century + 8) / 25) + 1) / 3) + 15) % 30;
+  const l = (32 + 2 * (century % 4) + 2 * Math.floor(y / 4) - h - y % 4) % 7;
+  const correction = Math.floor((a + 11 * h + 22 * l) / 451);
+  const easter = h + l - 7 * correction + 114;
+  return date === new Date(Date.UTC(year, Math.floor(easter / 31) - 1, easter % 31 - 1)).toISOString().slice(0, 10);
+}
 
-/** Data (AAAAMMDD) e minutos do dia em Belo Horizonte. */
+const clock = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+
 export function agoraBH(value = new Date()): Agora {
-  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(value).map(p => [p.type, p.value]));
+  const parts = Object.fromEntries(clock.formatToParts(value).map(p => [p.type, p.value]));
   return { day: `${parts.year}${parts.month}${parts.day}`, minutes: Number(parts.hour) * 60 + Number(parts.minute) };
 }
 
 export interface AlmocoState {
-  today: string;          // AAAA-MM-DD
+  today: string;
   minutes: number;
-  date?: string;          // próximo dia de serviço (hoje, se ainda não passou das 15h)
-  dia?: DiaAlmoco;        // cardápio desse dia; ausente = cardápio ainda não publicado
-  week: DiaAlmoco[];      // segunda a sexta da semana desse dia (inclui feriados), só se houver cardápio
+  dia?: DiaAlmoco;
+  week: DiaAlmoco[];
 }
 
-/** Escolhe o dia a mostrar: hoje até as 15h; depois, o próximo dia útil com almoço (pulando fins de semana e feriados). */
-export function pickAlmoco(data: AlmocoData, now: Agora): AlmocoState {
+const validPrice = (price: number) => Number.isFinite(price) && price > 0;
+function validMenu(d: DiaAlmoco): DiaAlmoco {
+  const { menuDoDia, executivo, vegano } = d;
+  const validDish = (dish?: Prato) => dish && validPrice(dish.preco) && dish.prato?.trim() ? dish : undefined;
+  return {
+    ...d,
+    menuDoDia: menuDoDia && validPrice(menuDoDia.preco) && menuDoDia.entrada?.trim() && menuDoDia.principal?.trim() && menuDoDia.sobremesa?.trim() ? menuDoDia : undefined,
+    executivo: validDish(executivo),
+    vegano: validDish(vegano),
+  };
+}
+const hasMenu = (d: DiaAlmoco) => !d.feriado && !!(d.menuDoDia || d.executivo || d.vegano);
+
+export function pickAlmoco(data: AlmocoData, now = agoraBH()): AlmocoState {
   const today = iso(now.day);
-  const byDate = new Map(data.dias.map(d => [d.data, d]));
-  let date: string | undefined;
-  for (let i = 0; i < 21; i++) {
-    const candidate = plus(today, i);
-    if (!isServiceWeekday(candidate)) continue;
-    if (i === 0 && now.minutes >= FIM) continue;
-    const entry = byDate.get(candidate);
-    if (entry?.feriado) continue;
-    date = candidate;
-    break;
-  }
-  const dia = date ? byDate.get(date) : undefined;
-  if (!date || !dia || !hasMenu(dia)) return { today, minutes: now.minutes, date, week: [] };
-  const monday = plus(date, 1 - weekday(date));
+  const minutes = now.minutes;
+  const day = weekday(today);
+  const empty = { today, minutes, week: [] };
+  if (day === 0 || day === 6 || minutes >= FIM || nationalHoliday(today)) return empty;
+
+  const entry = data.dias.find(d => d.data === today);
+  if (!entry) return empty;
+  const dia = validMenu(entry);
+  if (!hasMenu(dia)) return empty;
+
+  const monday = plus(today, 1 - day);
   const friday = plus(monday, 4);
-  const week = data.dias.filter(d => d.data >= monday && d.data <= friday).sort((a, b) => a.data.localeCompare(b.data));
-  return { today, minutes: now.minutes, date, dia, week };
+  const week = data.dias.filter(d => d.data >= monday && d.data <= friday)
+    .sort((a, b) => a.data.localeCompare(b.data))
+    .map(d => nationalHoliday(d.data) ? { data: d.data, feriado: d.feriado ?? 'Nacional' } : validMenu(d));
+  return { today, minutes, dia, week };
 }
 
 export function almocoSignature(state: AlmocoState) {
-  const phase = state.date !== state.today ? 'futuro' : state.minutes < INICIO ? 'antes' : 'servindo';
-  return `${state.date ?? '-'}:${state.dia ? 'ok' : 'vazio'}:${phase}:${state.week.length}`;
+  return state.dia ? `${state.today}:${state.minutes < INICIO ? 'antes' : 'servindo'}` : '-';
 }
 
-function relative(date: string, today: string) {
-  if (date === today) return 'hoje';
-  if (date === plus(today, 1)) return 'amanhã';
-  return weekdays[weekday(date)] ?? '';
-}
-
-/** Frase de situação: "Servido agora, até as 15h", "Hoje, a partir das 12h", "Segunda, 30/11, das 12h às 15h". */
 export function almocoStatus(state: AlmocoState) {
-  if (!state.date) return 'De segunda a sexta, das 12h às 15h';
-  if (state.date === state.today) return state.minutes >= INICIO ? 'Servido agora, até as 15h' : 'Hoje, a partir das 12h';
-  const rel = relative(state.date, state.today);
-  const name = weekdays[weekday(state.date)] ?? '';
-  return `${cap(rel)}${rel === name ? '' : ` (${name})`}, ${dm(state.date)}, das 12h às 15h`;
+  return state.minutes >= INICIO ? 'Servido agora, até as 15h' : 'Hoje, a partir das 12h';
 }
-
-const emBreve = (state: AlmocoState) => state.date
-  ? `O cardápio de ${weekdays[weekday(state.date)]}, ${dm(state.date)}, ainda não foi publicado. Volte em breve.`
-  : 'O cardápio da próxima semana ainda não foi publicado. Volte em breve.';
 
 const vegan = '<span class="vegan-badge" data-vegan>Vegano</span>';
 
@@ -99,20 +102,20 @@ function compactRows(dia: DiaAlmoco, size: number, mobile: boolean) {
 
 /** Bloco "Almoço executivo" do destaque "À mesa" da home no computador. */
 export function renderAlmocoHome(state: AlmocoState) {
+  if (!state.dia) return '';
   const head = `<div class="tag" style="opacity:.85">Almoço executivo · ${esc(almocoStatus(state))}</div>`;
-  if (!state.dia) return `${head}<p class="mt-[8px]" style="font-size:18px;font-weight:600;line-height:1.35">${esc(emBreve(state))}</p>`;
   return `${head}<div class="mt-[10px]">${compactRows(state.dia, 17, false)}</div>`;
 }
 
 /** Destaque "Almoço executivo" da home no celular (sem o botão). */
 export function renderAlmocoMobile(state: AlmocoState) {
+  if (!state.dia) return '';
   const head = `<div class="tag" style="opacity:.85;font-size:11px">À mesa · ${esc(almocoStatus(state))}</div><h2 class="disp dining-mobile-title">Almoço executivo</h2>`;
-  if (!state.dia) return `${head}<p class="mt-[12px]" style="font-size:15px;line-height:1.4">${esc(emBreve(state))}</p>`;
   return `${head}<div class="mt-[12px]">${compactRows(state.dia, 15, true)}</div>`;
 }
 
 export function renderV2Almoco(state: AlmocoState) {
-  if (!state.dia) return `<li><span class="prato">${esc(emBreve(state))}</span></li>`;
+  if (!state.dia) return '';
   const {menuDoDia, executivo, vegano} = state.dia;
   const row = (label: string, dish: string, price: number) => `<li><span class="tipo">${label}</span><span class="prato">${esc(dish)}</span><span class="preco">${brl(price)}</span></li>`;
   return [
@@ -140,13 +143,13 @@ function panel(dia: DiaAlmoco) {
 
 /** Semana completa da página de Gastronomia: abas por dia, abertas no dia de serviço. */
 export function renderAlmocoSemana(state: AlmocoState) {
+  if (!state.dia) return '';
   const status = `<p class="mono" style="font-size:16px;opacity:.92;margin-bottom:20px" data-almoco-status>${esc(almocoStatus(state))}</p>`;
-  if (!state.dia) return `${status}<p style="font-size:20px;font-weight:600;padding:24px 0;border-top:1.5px solid rgba(255,255,255,.55)">${esc(emBreve(state))}</p>`;
   const tabs = state.week.map(d => {
-    const on = d.data === state.date;
+    const on = d.data === state.today;
     const rel = d.data === state.today ? ' · hoje' : d.data === plus(state.today, 1) ? ' · amanhã' : '';
     return `<button type="button" class="chip" role="tab" id="almoco-tab-${d.data}" aria-controls="almoco-dia-${d.data}" aria-selected="${on}" tabindex="${on ? 0 : -1}" data-almoco-tab="${d.data}"${d.feriado ? ' data-feriado' : ''}><span aria-hidden="true">${shortWeekdays[weekday(d.data)]} ${dm(d.data)}${rel}${d.feriado ? ' · feriado' : ''}</span><span class="sr-only">${cap(weekdays[weekday(d.data)] ?? '')}, ${dm(d.data)}${rel}${d.feriado ? ', feriado' : ''}</span></button>`;
   }).join('');
-  const panels = state.week.map(d => `<div role="tabpanel" id="almoco-dia-${d.data}" aria-labelledby="almoco-tab-${d.data}" tabindex="0"${d.data === state.date ? '' : ' hidden'}>${panel(d)}</div>`).join('');
+  const panels = state.week.map(d => `<div role="tabpanel" id="almoco-dia-${d.data}" aria-labelledby="almoco-tab-${d.data}" tabindex="0"${d.data === state.today ? '' : ' hidden'}>${panel(d)}</div>`).join('');
   return `${status}<div role="tablist" aria-label="Dias da semana" class="flex gap-[10px] flex-wrap" style="margin-bottom:28px">${tabs}</div>${panels}`;
 }
