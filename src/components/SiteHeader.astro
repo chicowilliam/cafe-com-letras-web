@@ -15,7 +15,7 @@ const links=[
 ] as const;
 ---
 {v2 ? <header class="topo"><div class="wrap">
- <a class="marca" href="/" aria-label="Café com Letras, página inicial"><img src="/design-v2/logo-ink.png" alt="Café com Letras" width="148" height="48"/></a>
+ <a class="marca" href="/" aria-label="Café com Letras, página inicial"><img src="/design-v2/logo-ink.png?v=32a5dfcf" alt="Café com Letras" width="148" height="48"/></a>
  <nav class="nav-d" aria-label="Principal">
   {links.slice(1).map(([href,label,key])=><a href={href} aria-current={activePage===key?'page':undefined}>{label}</a>)}
  </nav>
