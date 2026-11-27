@@ -1,0 +1,64 @@
+---
+import exhibitions from '../data/exhibitions.json';
+import {businessDay} from '../lib/presentation';
+
+const today = process.env.CONTENT_DATE ?? businessDay();
+const current = exhibitions.find(ex => ex.start <= today && today <= ex.end);
+const upcoming = exhibitions.filter(ex => ex.start > today)
+  .sort((a, b) => a.start.localeCompare(b.start))[0];
+
+// Re(parar) já consta na homepage e tem como destino a página do artista.
+const showReparar = !current && today >= '20261006' && today <= '20270118';
+const entries = [
+  {label: 'Em exposição', exhibition: current, id: 'exposicao-atual'},
+  {label: 'Próxima exposição', exhibition: upcoming, id: 'proxima-exposicao'},
+];
+---
+{(showReparar || current || upcoming) &&
+<section aria-labelledby="t-cartaz" class="secao pedra exposicoes-home" id="em-cartaz">
+ <div class="wrap">
+  <header class="exposicoes-titulo">
+   <p class="meta">Exposições</p>
+   <h2 class="h2" id="t-cartaz">Para ver devagar</h2>
+  </header>
+  {showReparar &&
+   <article class="exposicao-home" aria-labelledby="exposicao-atual">
+    <h3 class="rotulo" id="exposicao-atual">Em exposição</h3>
+    <div class="exposicao-conteudo">
+     <figure>
+      <div class="foto r32"><img alt="Fotografia de Vini Souza: à noite, um homem de casaco azul segura um cacho de balões coloridos diante de um ônibus, em Belo Horizonte" decoding="async" height="800" loading="lazy" sizes="(max-width: 900px) calc(100vw - 40px), 720px" src="/img/destaques/vini-souza-reparar-1067.webp" srcset="/img/destaques/vini-souza-reparar-640.webp 640w, /img/destaques/vini-souza-reparar-1067.webp 1067w" width="1067" /></div>
+      <figcaption class="credito">Foto: Vini Souza, série Peso</figcaption>
+     </figure>
+     <div class="exposicao-texto">
+      <h4 class="h3"><a href="/artistas/vini-souza/">Re(parar), de Vini Souza</a></h4>
+      <p class="meta">Exposição de fotografia · 6 de outubro de 2026 a 18 de janeiro de 2027</p>
+      <p>Cinco fotografias de rua de Belo Horizonte, três delas da série Peso. Nas paredes do Café, aberta todos os dias no horário da casa. Entrada livre.</p>
+     </div>
+    </div>
+   </article>
+  }
+  {entries.map(({label, exhibition: ex, id}) => {
+   if (!ex) return null;
+   const coverArtist = ex.artists.find(artist => artist.works.some(work => work.image.src === ex.cover.src));
+   const coverWork = coverArtist?.works.find(work => work.image.src === ex.cover.src);
+   return (
+    <article class:list={['exposicao-home', {'exposicao-proxima': id === 'proxima-exposicao'}]} aria-labelledby={id}>
+     <h3 class="rotulo" id={id}>{label}</h3>
+     <div class="exposicao-conteudo">
+      <figure>
+       <img class="exposicao-obra" alt={ex.cover.alt} decoding="async" height={ex.cover.height} loading="lazy" sizes="(max-width: 900px) calc(100vw - 40px), 400px" src={ex.cover.src} srcset={`${ex.cover.small} 440w, ${ex.cover.src} ${ex.cover.width}w`} width={ex.cover.width} />
+       {coverWork && <figcaption class="credito"><cite>{coverWork.title}</cite>, de {coverArtist?.name}</figcaption>}
+      </figure>
+      <div class="exposicao-texto">
+       <h4 class="h3"><a href={`/exposicoes/${ex.slug}/`}>{ex.title}</a></h4>
+       <p class="meta">{ex.period}</p>
+       <p>{ex.artistsLine}</p>
+       <p>{ex.intro}</p>
+       <p class="meta">Por {ex.gallery} · Curadoria de {ex.curator}.</p>
+      </div>
+     </div>
+    </article>
+   );
+  })}
+ </div>
+</section>}

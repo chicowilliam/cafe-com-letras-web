@@ -10,6 +10,7 @@ import sugestaoData from '../data/sugestao-do-chef.json';
 import {seoFor} from '../lib/seo';
 import SiteFooter from '../components/SiteFooter.astro';
 import Visit from '../components/Visit.astro';
+import HomeExhibitions from '../components/HomeExhibitions.astro';
 import FAQ from '../components/FAQ.astro';
 import '../styles/institutional.css';
 import {whatsapp,type WhatsAppContext} from '../config/whatsapp';
@@ -62,7 +63,9 @@ const instituteUrl='http://cidadescriativas.org.br/site/';
 const instituteDescription='Instituto que realiza o Savassi Festival.';
 const adaptBase=(html:string)=>(production&&!legalReview.approved?html.replace(/<a href="\/(?:politica-de-privacidade|politica-de-cookies|termos-de-uso)\/">[^<]*<\/a>/g,'<span>Documentação de privacidade em revisão</span>'):html).replaceAll('__INSTITUTE_URL__',instituteUrl).replaceAll('__INSTITUTE_NAME__',instituteName).replaceAll('__INSTITUTE_DESCRIPTION__',instituteDescription).replaceAll('__WHATSAPP__',`https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`).replace(/href="[^"]*"(?=>Compartilhar<)/g, 'href="https://api.whatsapp.com/send?text='+encodeURIComponent('Matheus Avelar Quarteto · 25/11/2026, 20h — https://cafecomletras.com.br/evento/')+'"').replace(/>WhatsApp<\/a>/g,'><img src="/svg/whatsapp-institutional.svg" width="18" height="18" alt="" aria-hidden="true">WhatsApp</a>');
 const adapt=(html:string)=>adaptBase(html).replace('<main>','<main id="main-content" tabindex="-1">');
-const [homeBeforeVisit,homeAfterVisit]=adapt(home).split('<!--official-visit-->');
+const [homeBeforeExhibitions,homeAfterExhibitions]=adapt(home).split('<!--official-exhibitions-->');
+if (homeAfterExhibitions===undefined) throw new Error('Home V2: ponto de montagem de Exposições ausente.');
+const [homeBeforeVisit,homeAfterVisit]=homeAfterExhibitions.split('<!--official-visit-->');
 const [casaBeforeVisit,casaAfterVisit]=adapt(casa).split('<!--official-visit-->');
 if (casaAfterVisit===undefined) throw new Error('Casa V2: ponto de montagem de Visite ausente.');
 const [casaBeforeFAQ,casaAfterFAQ]=casaAfterVisit.split('<!--official-faq-->');
@@ -102,7 +105,7 @@ const [casaBeforeFAQ,casaAfterFAQ]=casaAfterVisit.split('<!--official-faq-->');
   }
   {documentTitle?<main id="conteudo"><slot/></main>
    :custom?<Fragment set:html={adapt(custom.html)} />
-   :v2Home?<><Fragment set:html={homeBeforeVisit}/><Visit v2/><Fragment set:html={homeAfterVisit}/></>
+   :v2Home?<><Fragment set:html={homeBeforeExhibitions}/><HomeExhibitions/><Fragment set:html={homeBeforeVisit}/><Visit v2/><Fragment set:html={homeAfterVisit}/></>
    :v2Casa?<><Fragment set:html={casaBeforeVisit}/><Visit v2/><Fragment set:html={casaBeforeFAQ}/><FAQ v2/><Fragment set:html={casaAfterFAQ}/></>
    :<Fragment set:html={adapt(content[name] ?? home)} />}
   {!documentTitle&&!v2Casa&&<>{!v2Home&&<Visit/>}<FAQ/></>}
